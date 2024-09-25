@@ -3,8 +3,8 @@
 }
 
 body {
-    @apply bg-gray-100;
-    @apply fontRegular text-sm text-gray-900;
+    @apply bg-main-dark text-main-white;
+    @apply fontRegular;
 }
 
 h1,
@@ -19,7 +19,7 @@ b {
 }
 
 h1 {
-    @apply text-4xl;
+    @apply text-4xl fontTitles;
 }
 
 h2 {
@@ -40,4 +40,13 @@ h5 {
 
 h6 {
     @apply text-base;
+}
+
+.btn-gradient-dark {
+    @apply btn btn-sm border-none bg-gradient-to-b from-main-purple-2 to-main-purple;
+    @apply text-main-white p-2 px-5 rounded-full;
+}
+
+.tag-available {
+    @apply text-main-white bg-[#78828C]/30 p-2 px-5 rounded-full;
 }

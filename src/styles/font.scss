@@ -1,26 +1,26 @@
 @font-face {
     font-family: 'fontRegular';
-    src: url('./fonts/Poppins/Poppins-Regular.ttf');
+    src: url('./fonts/Epilogue/Epilogue-Regular.ttf');
 }
 
 @font-face {
     font-family: 'fontMedium';
-    src: url('./fonts/Poppins/Poppins-Medium.ttf');
+    src: url('./fonts/Epilogue/Epilogue-Medium.ttf');
 }
 
 @font-face {
     font-family: 'fontLight';
-    src: url('./fonts/Poppins/Poppins-Light.ttf');
+    src: url('./fonts/Epilogue/Epilogue-Light.ttf');
 }
 
 @font-face {
     font-family: 'fontBold';
-    src: url('./fonts/Poppins/Poppins-Bold.ttf');
+    src: url('./fonts/Epilogue/Epilogue-Bold.ttf');
 }
 
 @font-face {
-    font-family: 'fontExtraB';
-    src: url('./fonts/Poppins/Poppins-Black.ttf');
+    font-family: 'fontTitles';
+    src: url('./fonts/AnekLatin/AnekLatin-Bold.ttf');
 }
 
 .fontRegular,
@@ -43,7 +43,6 @@
     font-family: "fontBold";
 }
 
-.fontExtraB,
-.font-extra-bold {
-    font-family: "fontExtraB";
+.fontTitles {
+    font-family: "fontTitles";
 }
