@@ -10,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-    <main className='min-h-screen pt-28 pb-20'>
+    <main className='min-h-screen pt-[15%] pb-20'>
       <h1 className='hidden'>Home Page</h1>
       <div className='site-container'>
         <div className='max-w-[300px]'>
