@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Clients } from '@/components/Blocks';
+import { Clients, Projects } from '@/components/Blocks';
 
 export default function Home() {
   return (
@@ -29,11 +29,7 @@ export default function Home() {
         <span className='text-main-white'>unforgettable.</span>
       </p>
       <Clients />
-      <div id='projects' className=''>
-        <h2>
-          <span className='text-main-gray'>Latest</span> Projects
-        </h2>
-      </div>
+      <Projects />
       <div id='efforts' className='text-main-gray'>
         <h2>
           How can I align my efforts to{' '}

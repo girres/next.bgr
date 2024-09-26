@@ -1,1 +1,31 @@
-// CSS Code goes here
+#projects {
+
+    .project {
+        img {
+            @apply transition-all duration-500;
+        }
+
+        .caption {
+            @apply opacity-0;
+            @apply transition-all duration-500;
+        }
+
+        .cabinConcept {
+            @apply transition-all duration-700;
+        }
+
+        &:hover {
+            img {
+                @apply scale-110;
+            }
+
+            .caption {
+                @apply opacity-100 bg-main-gray;
+            }
+
+            .cabinConcept {
+                @apply h-[110px] w-[110px];
+            }
+        }
+    }
+}
