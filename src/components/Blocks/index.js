@@ -127,6 +127,8 @@ export const Clients = () => {
                 alt={client.title}
                 width={150}
                 height={150}
+                quality={100}
+                priority
               />
             </div>
           ))}
@@ -161,6 +163,8 @@ export const Projects = () => {
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
                 sizes='(min-width: 640px) 50vw, 100vw'
+                quality={100}
+                priority
               />
               <div className='caption p-3 px-10 project-info rounded-full w-[90%] absolute bottom-3 left-0 right-0 mx-auto'>
                 <h3>{project.title}</h3>
