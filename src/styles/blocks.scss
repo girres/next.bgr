@@ -6,8 +6,8 @@
         }
 
         .caption {
-            @apply opacity-0;
-            @apply transition-all duration-500;
+            @apply opacity-0 transition-all duration-500;
+            @apply text-main-white;
         }
 
         .cabinConcept {
@@ -20,7 +20,8 @@
             }
 
             .caption {
-                @apply opacity-100 bg-main-gray;
+                @apply opacity-100;
+                @apply bg-gray-800 bg-opacity-80 backdrop-blur-sm;
             }
 
             .cabinConcept {
