@@ -73,3 +73,7 @@
         @apply flex items-center justify-between space-x-10;
     }
 }
+
+.job-card {
+    @apply bg-[#2B3138] p-3 rounded-lg;
+}

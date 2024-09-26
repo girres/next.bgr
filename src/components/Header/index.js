@@ -4,7 +4,7 @@ import { ImLocation } from 'react-icons/im';
 
 const Component = () => {
   return (
-    <header className='bg-cyan-800 fixed w-full z-50 py-3'>
+    <header className='bg-main-purple fixed w-full z-50 py-3'>
       <div className='site-container flex items-center justify-between'>
         <div className='lg:flex items-center space-x-4'>
           <Image src='/logo.svg' alt='Logo' width={50} height={50} />

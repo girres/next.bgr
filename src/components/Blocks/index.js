@@ -241,11 +241,62 @@ export const Tools = () => {
 };
 
 export const Experience = () => {
+  const items = [
+    {
+      title: 'MadreMía',
+      position: 'Lead Designer',
+      image: '/images/jobs/MadreMia.png',
+      date: 'Current',
+    },
+    {
+      title: 'Future Provenance',
+      position: 'UX/UI & Digital Product Designer',
+      image: '/images/jobs/FP.png',
+      date: '2022 - 2024',
+    },
+    {
+      title: 'GR Dev',
+      position: 'Graphic & Product Designer',
+      image: '/images/jobs/GR.png',
+      date: '2020 - 2023',
+    },
+    {
+      title: 'Freelancer',
+      position: 'Graphic & UI Designer ',
+      image: '/images/jobs/Bryan_Freelancer.png',
+      date: '2020',
+    },
+  ];
+  const Card = ({ job }) => (
+    <div className='job-card flex items-center justify-between text-main-gray'>
+      <div className='flex items-center'>
+        <Image src={job.image} alt={job.title} width={50} height={50} />
+        <div className='px-5'>
+          <h3 className='text-main-white'>{job.title}</h3>
+          <p>{job.position}</p>
+        </div>
+      </div>
+      <p>{job.date}</p>
+    </div>
+  );
   return (
-    <div id='experience' className=''>
-      <h2>
-        <span className='text-main-gray'>My</span> Experience
-      </h2>
+    <div id='experience' className='grid lg:grid-cols-2'>
+      <div className='heading mb-10 lg:mb-0 lg:pr-10'>
+        <h2 className='text-5xl mb-10'>
+          <span className='text-main-gray'>My</span> Experience
+        </h2>
+        <div className='text space-y-5 text-sm'>
+          <p>{`I have over three years of experience as a designer, working in various roles across branding, motion graphics, and UX/UI design. As a UX/UI designer, I've contributed to projects in diverse industries, including e-commerce, B2B, B2C, and in-flight entertainment (IFE).`}</p>
+          <p>{`I’m always eager to grow and challenge myself. Recently, I’ve started learning to code — excited to see where this new adventure leads!`}</p>
+        </div>
+      </div>
+      <div className='content'>
+        <div className='jobs space-y-3'>
+          {items.map((job, index) => (
+            <Card key={index} job={job} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
