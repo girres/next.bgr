@@ -19,6 +19,8 @@ export default function Home() {
             alt='BGR'
             width={500}
             height={500}
+            priority
+            quality={100}
           />
           <div className='tag-available flex items-center justify-center max-w-[250px] mx-auto'>
             <Image
