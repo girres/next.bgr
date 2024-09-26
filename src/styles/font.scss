@@ -20,7 +20,7 @@
 
 @font-face {
     font-family: 'fontTitles';
-    src: url('./fonts/AnekLatin/AnekLatin-Bold.ttf');
+    src: url('./fonts/AnekLatin/AnekLatin-Regular.ttf');
 }
 
 .fontRegular,
@@ -45,4 +45,5 @@
 
 .fontTitles {
     font-family: "fontTitles";
+    @apply tracking-wide;
 }
