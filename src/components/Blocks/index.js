@@ -239,3 +239,13 @@ export const Tools = () => {
     </div>
   );
 };
+
+export const Experience = () => {
+  return (
+    <div id='experience' className=''>
+      <h2>
+        <span className='text-main-gray'>My</span> Experience
+      </h2>
+    </div>
+  );
+};

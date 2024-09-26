@@ -1,13 +1,19 @@
 import Image from 'next/image';
 
-import { Clients, Projects, Efforts, Tools } from '@/components/Blocks';
+import {
+  Clients,
+  Projects,
+  Efforts,
+  Tools,
+  Experience,
+} from '@/components/Blocks';
 
 export default function Home() {
   return (
-    <main className='min-h-screen'>
+    <main className='min-h-screen pt-28 pb-20'>
       <h1 className='hidden'>Home Page</h1>
       <div className='site-container'>
-        <div className='max-w-[300px] pt-20'>
+        <div className='max-w-[300px]'>
           <Image
             src='/images/home/bgr.png'
             alt='BGR'
@@ -49,10 +55,8 @@ export default function Home() {
           <Tools />
         </div>
       </div>
-      <div id='experience' className=''>
-        <h2>
-          <span className='text-main-gray'>My</span> Experience
-        </h2>
+      <div className='py-28 site-container'>
+        <Experience />
       </div>
     </main>
   );
