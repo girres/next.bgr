@@ -64,3 +64,12 @@
         }
     }
 }
+
+#tools {
+    @apply grid lg:grid-cols-2;
+
+    .content {
+        @apply pt-10 lg:pt-0 lg:pl-10;
+        @apply flex items-center justify-between space-x-10;
+    }
+}

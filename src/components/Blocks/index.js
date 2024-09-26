@@ -79,6 +79,33 @@ const efforts = [
   },
 ];
 
+const tools = [
+  {
+    title: 'Sketch',
+    image: '/images/tools/sketch.png',
+  },
+  {
+    title: 'Figma',
+    image: '/images/tools/figma.png',
+  },
+  {
+    title: 'Adobe XD',
+    image: '/images/tools/xd.png',
+  },
+  {
+    title: 'Photoshop',
+    image: '/images/tools/ps.png',
+  },
+  {
+    title: 'Illustrator',
+    image: '/images/tools/ai.png',
+  },
+  {
+    title: 'After Effects',
+    image: '/images/tools/ae.png',
+  },
+];
+
 export const Clients = () => {
   return (
     <div id='clients' className='lg:flex lg:items-center'>
@@ -181,6 +208,33 @@ export const Efforts = () => {
             <p>{effort.text}</p>
           </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+export const Tools = () => {
+  return (
+    <div id='tools' className='text-main-gray'>
+      <h2>
+        I use <span className='text-main-white'>advanced design tools</span> to
+        develop <span className='text-main-white'>seamless</span> and{' '}
+        <span className='text-main-white'>engaging visual experiences</span>
+      </h2>
+      <div className='content'>
+        {tools.map((tool, index) => {
+          return (
+            <div key={index} className='tool'>
+              <Image
+                src={tool.image}
+                alt={tool.title}
+                width={50}
+                height={50}
+                className='max-h-[50px] w-auto'
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
