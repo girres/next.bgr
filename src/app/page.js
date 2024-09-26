@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Clients, Projects } from '@/components/Blocks';
+import { Clients, Projects, Efforts } from '@/components/Blocks';
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
           Available for work
         </div>
       </div>
-      <p className='text-5xl my-20 text-main-gray fontTitles'>
+      <p className='text-5xl mt-20 text-main-gray fontTitles'>
         I'm Bryan — a{' '}
         <span className='text-main-white'>
           User Experience & User Interface Designer
@@ -28,14 +28,12 @@ export default function Home() {
         <span className='text-main-white'>smoother, smarter</span>, and{' '}
         <span className='text-main-white'>unforgettable.</span>
       </p>
-      <Clients />
+      <div className='py-28'>
+        <Clients />
+      </div>
       <Projects />
-      <div id='efforts' className='text-main-gray'>
-        <h2>
-          How can I align my efforts to{' '}
-          <span className='text-main-white'>better meet</span> your{' '}
-          <span className='text-main-white'>business needs?</span>
-        </h2>
+      <div className='py-28'>
+        <Efforts />
       </div>
       <div id='tools' className='text-main-gray'>
         <h2>

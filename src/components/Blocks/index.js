@@ -61,6 +61,24 @@ const projects = [
   },
 ];
 
+const efforts = [
+  {
+    title: 'UX Design',
+    text: 'I create wireframes, facilitate internal workshops, analyse data, conduct research, develop user personas, and design testing strategies, including A/B testing, to optimise sales performance.',
+    image: '/images/home-icons/UX.png',
+  },
+  {
+    title: 'UI Design',
+    text: 'Skilled in Figma, Adobe XD, and Sketch, I design and maintain systems, collaborate with developers for precise implementation, analyse user data, and apply my graphic design experience to create modern, engaging interfaces.',
+    image: '/images/home-icons/UI.png',
+  },
+  {
+    title: 'Branding & more',
+    text: "I love creating unique brand identities that capture a business's essence and resonate with its audience. I craft cohesive visual systems, memorable logos, and compelling brand assets that leave a lasting impression.",
+    image: '/images/home-icons/Branding_more.png',
+  },
+];
+
 export const Clients = () => {
   return (
     <div id='clients' className='lg:flex lg:items-center'>
@@ -135,6 +153,34 @@ export const Projects = () => {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+};
+
+export const Efforts = () => {
+  return (
+    <div id='efforts' className='text-main-gray'>
+      <h2>
+        How can I align my efforts to{' '}
+        <span className='text-main-white'>better meet</span> your{' '}
+        <span className='text-main-white'>business needs?</span>
+      </h2>
+      <div className='content'>
+        {efforts.map((effort) => (
+          <div key={effort.title} className='effort'>
+            <div className='heading'>
+              <Image
+                src={effort.image}
+                alt={effort.title}
+                width={50}
+                height={50}
+              />
+              <h3>{effort.title}</h3>
+            </div>
+            <p>{effort.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
