@@ -1,0 +1,16 @@
+.gallery-bullet {
+    @apply h-2 w-16 bg-[#78828C] rounded-full !important;
+
+    &.swiper-pagination-bullet-active {
+        @apply bg-[#D0DBE0] !important;
+    }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    @apply bg-black/80 text-main-white p-2 rounded-full h-[50px] w-[50px] !important;
+
+    &:after {
+        @apply text-xl !important;
+    }
+}
