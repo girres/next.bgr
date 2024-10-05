@@ -113,7 +113,7 @@ export default function Page({ params = {} }) {
             {` `}the Project
           </h2>
           {project.about.map((paragraph, index) => (
-            <p key={index} className='my-5'>
+            <p key={index} className='my-5 text-sm lg:text-lg'>
               {paragraph}
             </p>
           ))}
