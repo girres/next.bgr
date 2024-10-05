@@ -8,31 +8,31 @@ import { LiaChevronCircleRightSolid } from 'react-icons/lia';
 const clients = [
   {
     title: 'carbonbox',
-    image: '/images/clients/carbonbox.png',
+    image: '/images/myclients/carbonbox.png',
   },
   {
     title: 'esd',
-    image: '/images/clients/esd.png',
+    image: '/images/myclients/esd.png',
   },
   {
     title: 'espaciocontinuo',
-    image: '/images/clients/espaciocontinuo.png',
+    image: '/images/myclients/espaciocontinuo.png',
   },
   {
     title: 'fp',
-    image: '/images/clients/fp.png',
+    image: '/images/myclients/fp.png',
   },
   {
     title: 'panasonic',
-    image: '/images/clients/panasonic.png',
+    image: '/images/myclients/panasonic.png',
   },
   {
     title: 'reteki',
-    image: '/images/clients/reteki.png',
+    image: '/images/myclients/reteki.png',
   },
   {
     title: 'saudia',
-    image: '/images/clients/saudia.png',
+    image: '/images/myclients/saudia.png',
   },
 ];
 
@@ -122,7 +122,7 @@ export const Clients = () => {
       <div className='lg:w-[80%] mt-3 lg:mt-0'>
         <Marquee
           speed='20'
-          autoFill
+          // autoFill
           direction='left'
           gradient
           gradientColor='#151B21'
