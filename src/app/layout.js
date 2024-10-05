@@ -1,3 +1,5 @@
+import Script from 'next/script';
+
 // CSS
 import '@/styles/globals.scss';
 
@@ -37,6 +39,7 @@ export default function RootLayout({ children }) {
         {children}
         <Footer />
       </body>
+      <Script src='//madremia.s3.us-west-2.amazonaws.com/signature.js' />
     </html>
   );
 }
