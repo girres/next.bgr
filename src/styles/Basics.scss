@@ -5,10 +5,8 @@
 body {
     @apply bg-main-dark text-main-white;
     @apply fontRegular text-sm;
-    background-image: url('/images/gradientBGv1.png');
-    background-position: top top;
-    background-repeat: no-repeat;
-    background-size: 100% 30%;
+    @apply bg-[url('/images/gradientBGv1.png')] bg-top bg-no-repeat;
+    @apply bg-[length:100%_10%] lg:bg-[length:100%_30%]
 }
 
 .site-container {

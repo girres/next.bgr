@@ -1,7 +1,5 @@
 header {
     @apply bg-main-dark text-center shadow-xl;
-    background-image: url('/images/gradientBGv1.png');
-    background-position: top top;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    @apply bg-[url('/images/gradientBGv1.png')] bg-top bg-no-repeat;
+    @apply bg-[length:100%_90%] lg:bg-[length:100%_100%]
 }
