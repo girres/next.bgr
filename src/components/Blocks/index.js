@@ -154,29 +154,32 @@ export const Projects = () => {
         <span className='text-main-gray'>Latest</span> Projects
       </h2>
       <div className='grid grid-cols-12 gap-5'>
-        {projects.map((project) => {
+        {projects.map((project, index) => {
           const { cabinConcept = false } = project;
           return (
-            <div
-              key={project.title}
-              className={clsx(
-                'project relative',
-                'min-h-[350px] lg:min-h-[500px]',
-                'rounded-3xl overflow-hidden',
-                project?.class || ''
-              )}
+            <Link
+              href={project.link}
+              key={index}
+              className={project?.class || ''}
             >
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-                sizes='(min-width: 640px) 50vw, 100vw'
-                // quality={100}
-                // priority
-              />
-              <div className='caption project-info'>
-                <Link href={project.link}>
+              <div
+                className={clsx(
+                  'project relative',
+                  'min-h-[350px] lg:min-h-[500px]',
+                  'rounded-3xl overflow-hidden',
+                  project?.class || ''
+                )}
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes='(min-width: 640px) 50vw, 100vw'
+                  quality={100}
+                  priority
+                />
+                <div className='caption project-info'>
                   <div className='w-full flex items-center justify-between'>
                     <div>
                       <h3>{project.title}</h3>
@@ -186,20 +189,20 @@ export const Projects = () => {
                       <LiaChevronCircleRightSolid className='h-10 w-10' />
                     </div>
                   </div>
-                </Link>
-              </div>
-              {cabinConcept && (
-                <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
-                  <Image
-                    src='/images/home/cabinConcept.png'
-                    alt='Cabin Concept'
-                    fill
-                    style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    sizes='(min-width: 640px) 50vw, 100vw'
-                  />
                 </div>
-              )}
-            </div>
+                {cabinConcept && (
+                  <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
+                    <Image
+                      src='/images/home/cabinConcept.png'
+                      alt='Cabin Concept'
+                      fill
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                      sizes='(min-width: 640px) 50vw, 100vw'
+                    />
+                  </div>
+                )}
+              </div>
+            </Link>
           );
         })}
       </div>
