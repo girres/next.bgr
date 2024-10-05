@@ -30,3 +30,32 @@ export const Gallery = ({ images = [], name = '-' }) => (
     ))}
   </Swiper>
 );
+
+export const VideosMp4 = ({ videos = [], name = '-' }) => {
+  function PauseVideo(event) {
+    const { previousIndex = 0 } = event;
+    const video = document.querySelector(`#video-${previousIndex}`);
+    if (video) {
+      video.pause();
+    }
+  }
+
+  return (
+    <Swiper
+      modules={[Navigation, Pagination]}
+      navigation={true}
+      pagination={PagComponent}
+      spaceBetween={0}
+      slidesPerView={1}
+      onSlideChange={PauseVideo}
+    >
+      {videos.map((video, key) => (
+        <SwiperSlide key={video}>
+          <video controls id={`video-${key}`}>
+            <source src={video} type='video/mp4' />
+          </video>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};

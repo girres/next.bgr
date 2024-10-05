@@ -81,6 +81,38 @@ const data = [
     ],
     website: 'https://entertainment.saudia.com',
   },
+  {
+    title: 'Saudia Airlines',
+    caption: 'IFE, UX/UI & Branding Design - 2024',
+    tags: [
+      'User Research',
+      'Brand Identity Design',
+      'Interaction Design',
+      'User Experience Design',
+      'Creative and Experience Design',
+      'Inflight Entertainment (IFE-C)',
+    ],
+    about: [
+      'How to design a best-in-class In-Flight Entertainment (IFE) experience: Start with a strong brand identity and enhance it through innovation and user experience design',
+      'We had already created the new Saudia entertainment and passenger experience brand, SaudiaBEYOND, and the first continuation project was to utilise this visual design system for the next generation IFE-C systems from OEM providers, Panasonic, and Thales',
+      'Designing the content discovery experience for Audio Visual On-Demand is crucial, along with other modules like seat-back shopping, food ordering, and cutting-edge features. These all require careful design and innovation',
+      'Collaborating with Panasonic and Thales was essential to ensure the design, user flow, and business rules were properly implemented. Weekly consultations, walk-throughs, and usability testing ensured quality and led to many successful innovations',
+      'We were mindful to apply brand identity at every touch point and throughout the UX and UI, the visual aesthetics, and the written word. With SaudiaBEYOND, we could bring the tradition of Saudi Arabian hospitality together with the Kingdom’s future vision.',
+    ],
+    slug: 'saudia-airlines',
+    next: '/reteki',
+    images: [
+      '/images/projects/saudiaAirlines/1.jpg',
+      '/images/projects/saudiaAirlines/2.jpg',
+      '/images/projects/saudiaAirlines/3.jpg',
+      '/images/projects/saudiaAirlines/4.jpg',
+    ],
+    cabinConcept: true,
+    aboutVideos: [
+      '/images/projects/saudiaAirlines/1.mp4',
+      '/images/projects/saudiaAirlines/2.mp4',
+    ],
+  },
 ];
 
 export default data;

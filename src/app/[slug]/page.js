@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import data from '@/projectsData';
 import { MdChevronRight } from 'react-icons/md';
 
 // Components
-import { Gallery } from '@/components/Projects';
+import { Gallery, VideosMp4 } from '@/components/Projects';
 
 // SEO
 export async function generateMetadata({ params }, parent) {
@@ -81,6 +82,24 @@ export default function Page({ params = {} }) {
                 </p>
               ))}
             </div>
+            {project.cabinConcept && (
+              <div className='flex'>
+                <Link
+                  href='https://awards.onboardhospitality.com/award_cat/best-onboard-entertainment/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='lg:text-lg flex items-center lg:items-end gap-2 mt-10 text-main-white hover:underline font-light'
+                >
+                  <Image
+                    src='/images/home/cabinConcept.png'
+                    alt='Cabin Concept'
+                    width={80}
+                    height={80}
+                  />
+                  <span>Best Onboard Entertainment</span>
+                </Link>
+              </div>
+            )}
           </div>
           <div className='project-images mt-10 lg:mt-0 col-span-12 lg:col-span-8'>
             <Gallery images={project.images} name={project.title} />
@@ -100,7 +119,12 @@ export default function Page({ params = {} }) {
           ))}
         </div>
         <div className='col-span-12 lg:col-span-5'>
-          <Gallery images={project.aboutImages} name={project.title} />
+          {project.aboutVideos && project.aboutVideos.length > 0 && (
+            <VideosMp4 videos={project.aboutVideos} name={project.title} />
+          )}
+          {project.aboutImages && project.aboutImages.length > 0 && (
+            <Gallery images={project.aboutImages} name={project.title} />
+          )}
         </div>
       </div>
       {project.next && (
