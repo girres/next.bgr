@@ -55,14 +55,14 @@ export default function Page({ params = {} }) {
       </div>
       <div></div>
       <div className='project-header'>
-        <div className='project-title flex items-center justify-between my-5 mb-2 lg:my-10'>
+        <div className='project-title flex flex-col lg:flex-row items-start lg:items-center lg:justify-between my-5 mb-2 lg:my-10'>
           <h1 className='text-main-white'>{project.title}</h1>
           {project.website && (
             <Link
               href={project.website}
               target='_blank'
               rel='noopener noreferrer'
-              className='btn btn-sm rounded-full bg-transparent text-main-white border-main-white text-xs hover:bg-main-dark hover:scale-110'
+              className='btn btn-sm rounded-full bg-transparent text-main-white border-main-white text-xs hover:bg-main-dark hover:scale-110 mt-2'
             >
               Visit Website
               <MdChevronRight className='h-4 w-4' />
