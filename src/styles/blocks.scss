@@ -71,7 +71,7 @@
 
     .content {
         @apply pt-10 lg:pt-0 lg:pl-10;
-        @apply flex items-center justify-between space-x-10;
+        @apply grid grid-cols-3 lg:grid-cols-6 gap-5;
     }
 }
 

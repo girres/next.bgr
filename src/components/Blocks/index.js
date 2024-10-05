@@ -252,7 +252,7 @@ export const Tools = () => {
                 alt={tool.title}
                 width={50}
                 height={50}
-                className='max-h-[50px] w-auto'
+                className='max-h-[50px] w-auto mx-auto'
               />
             </div>
           );
