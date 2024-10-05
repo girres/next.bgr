@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
 import { clsx } from 'clsx';
 import { LiaChevronCircleRightSolid } from 'react-icons/lia';
+// import projects from '@/projectsData';
 
 const clients = [
   {
@@ -39,28 +40,28 @@ const projects = [
   {
     title: 'Reteki',
     caption: 'Web & App - 2022',
-    image: '/images/projects/Reteki/First/2.jpg',
+    image: '/images/projects/reteki/2.jpg',
     class: 'col-span-12 lg:col-span-7',
     link: '/reteki',
   },
   {
     title: 'SaudiaBEYOND',
     caption: 'Branding, Web & App - 2024',
-    image: '/images/projects/SaudiaBEYOND/Second/2.jpg',
+    image: '/images/projects/saudiaBeyond/6.jpg',
     class: 'col-span-12 lg:col-span-5',
     link: '/saudia-beyond',
   },
   {
     title: 'Zona Herragro',
     caption: 'E-Commerce - 2023',
-    image: '/images/projects/Herragro/First/1.jpg',
+    image: '/images/projects/zonaHerragro/1.jpg',
     class: 'col-span-12 lg:col-span-5',
     link: '/zona-herragro',
   },
   {
     title: 'Saudia Airlines',
     caption: 'IFE, UX/UI & Branding Design - 2024',
-    image: '/images/projects/SaudiaAirlines/First/1.jpg',
+    image: '/images/projects/saudiaAirlines/1.jpg',
     class: 'col-span-12 lg:col-span-7',
     cabinConcept: true,
     link: '/saudia-airlines',
@@ -133,8 +134,7 @@ export const Clients = () => {
                 alt={client.title}
                 width={150}
                 height={150}
-                // quality={100}
-                // priority
+                priority
               />
             </div>
           ))}
