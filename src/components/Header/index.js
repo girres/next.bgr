@@ -14,7 +14,6 @@ const Component = () => {
           </div>
         </div>
         <nav className='flex items-center space-x-4'>
-          <Link href='/#about'>About me</Link>
           <Link href='/#projects'>Projects</Link>
           <Link
             className='btn-gradient-dark'

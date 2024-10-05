@@ -13,6 +13,9 @@ export async function generateMetadata({ params }, parent) {
     return project.slug === slug;
   });
 
+  // If the project doesn't exist, return a 404 page
+  if (!slug || !project || !project?.slug) return notFound();
+
   // Optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
@@ -56,6 +59,8 @@ export default function Page({ params = {} }) {
           {project.website && (
             <Link
               href={project.website}
+              target='_blank'
+              rel='noopener noreferrer'
               className='btn btn-sm rounded-full bg-transparent text-main-white border-main-white text-xs hover:bg-main-dark hover:scale-110'
             >
               Visit Website
@@ -66,18 +71,18 @@ export default function Page({ params = {} }) {
         <div className='grid grid-cols-12'>
           <div className='project-info col-span-12 lg:col-span-4'>
             <h2>{project.caption}</h2>
-            <div className='flex flex-col gap-2 items-start mt-10'>
+            <div className='flex flex-wrap lg:flex-col gap-2 items-start mt-10'>
               {project.tags.map((tag) => (
                 <p
                   key={tag}
-                  className='border-[1px] border-main-gray rounded-full text-sm p-2 px-5'
+                  className='border-[1px] border-main-gray rounded-full text-xs lg:text-sm p-2 px-5'
                 >
                   {tag}
                 </p>
               ))}
             </div>
           </div>
-          <div className='project-images col-span-12 lg:col-span-8'>
+          <div className='project-images mt-10 lg:mt-0 col-span-12 lg:col-span-8'>
             <Gallery images={project.images} name={project.title} />
           </div>
         </div>
