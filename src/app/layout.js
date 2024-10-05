@@ -10,7 +10,7 @@ export const metadata = {
   description:
     "I'm Bryan — a User Experience & User Interface Designer from Spain, dedicated to making digital experiences more intuitive and engaging.",
   image: '/SEO.jpg',
-  metadataBase: new URL('https://bryangr.com/'),
+  metadataBase: new URL('https://www.bryangr.com'),
   alternates: {
     canonical: '/',
   },

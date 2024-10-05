@@ -137,7 +137,7 @@ export const Clients = () => {
                 alt={client.title}
                 fill
                 sizes='(min-width: 640px) 50vw, 100vw'
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', objectPosition: 'center' }}
               />
             </div>
           ))}
