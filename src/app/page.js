@@ -10,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-    <main className='min-h-screen pt-[15%] pb-20'>
+    <main className='min-h-screen pt-[20%] lg:pt-[10%] pb-20'>
       <h1 className='hidden'>Bryan Girado / UX & UI Designer</h1>
       <div className='site-container'>
         <div className='max-w-[300px] mx-auto lg:mx-0'>

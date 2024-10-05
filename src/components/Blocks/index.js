@@ -121,8 +121,8 @@ export const Clients = () => {
       </h2>
       <div className='lg:w-[80%] mt-3 lg:mt-0'>
         <Marquee
-          speed='20'
-          // autoFill
+          speed='70'
+          autoFill
           direction='left'
           gradient
           gradientColor='#151B21'
@@ -249,13 +249,13 @@ export const Tools = () => {
       <div className='content'>
         {tools.map((tool, index) => {
           return (
-            <div key={index} className='tool'>
+            <div key={index} className='tool flex items-center justify-center'>
               <Image
                 src={tool.image}
                 alt={tool.title}
                 width={50}
                 height={50}
-                className='max-h-[50px] w-auto mx-auto'
+                className='max-h-[50px] h-auto w-auto mx-auto'
               />
             </div>
           );
@@ -310,7 +310,7 @@ export const Experience = () => {
         <h2 className='lg:text-5xl mb-10'>
           <span className='text-main-gray'>My</span> Experience
         </h2>
-        <div className='text space-y-5 text-sm'>
+        <div className='space-y-5'>
           <p>{`I have over three years of experience as a designer, working in various roles across branding, motion graphics, and UX/UI design. As a UX/UI designer, I've contributed to projects in diverse industries, including e-commerce, B2B, B2C, and in-flight entertainment (IFE).`}</p>
           <p>{`I’m always eager to grow and challenge myself. Recently, I’ve started learning to code — excited to see where this new adventure leads!`}</p>
         </div>
