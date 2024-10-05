@@ -126,6 +126,7 @@ export const Clients = () => {
           direction='left'
           gradient
           gradientColor='#151B21'
+          gradientWidth={50}
         >
           {clients.map((client) => (
             <div
