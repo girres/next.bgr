@@ -9,7 +9,14 @@ const Component = () => {
       <div className='site-container flex items-center justify-between'>
         <div className='lg:flex items-center space-x-4'>
           <Link href='/'>
-            <Image src='/logo.svg' alt='Logo' width={50} height={50} />
+            <Image
+              src='/logo.svg'
+              alt='Logo'
+              width={50}
+              height={50}
+              quality={100}
+              priority
+            />
           </Link>
           <div className='hidden lg:flex fontMedium items-center lg:pl-[200px]'>
             <ImLocation className='w-4 h-4 mr-1' />
