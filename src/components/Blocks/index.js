@@ -128,13 +128,16 @@ export const Clients = () => {
           gradientColor='#151B21'
         >
           {clients.map((client) => (
-            <div key={client.title} className='client mx-10'>
+            <div
+              key={client.title}
+              className='client relative w-[150px] h-[150px] mx-10'
+            >
               <Image
                 src={client.image}
                 alt={client.title}
-                width={150}
-                height={150}
-                priority
+                fill
+                sizes='(min-width: 640px) 50vw, 100vw'
+                style={{ objectFit: 'contain' }}
               />
             </div>
           ))}

@@ -55,8 +55,8 @@ export default function Page({ params = {} }) {
       </div>
       <div></div>
       <div className='project-header'>
-        <div className='project-title flex items-center justify-between'>
-          <h1 className='my-10 text-main-white'>{project.title}</h1>
+        <div className='project-title flex items-center justify-between my-5 mb-2 lg:my-10'>
+          <h1 className='text-main-white'>{project.title}</h1>
           {project.website && (
             <Link
               href={project.website}
@@ -71,7 +71,7 @@ export default function Page({ params = {} }) {
         </div>
         <div className='grid grid-cols-12'>
           <div className='project-info col-span-12 lg:col-span-4'>
-            <h2>{project.caption}</h2>
+            <h2 className='text-xl lg:text-3xl'>{project.caption}</h2>
             <div className='flex flex-wrap lg:flex-col gap-2 items-start mt-10'>
               {project.tags.map((tag) => (
                 <p
@@ -106,7 +106,7 @@ export default function Page({ params = {} }) {
           </div>
         </div>
       </div>
-      <div className='project-about mt-10 text-sm grid grid-cols-12 pt-20'>
+      <div className='project-about mt-0 lg:mt-10 text-sm grid grid-cols-12 pt-20'>
         <div className='col-span-12 lg:col-span-7 lg:pr-10'>
           <h2>
             <span className='text-main-white'>About</span>
