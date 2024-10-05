@@ -230,7 +230,7 @@ export const Efforts = () => {
               />
               <h3>{effort.title}</h3>
             </div>
-            <p>{effort.text}</p>
+            <p className='text-sm lg:text-lg'>{effort.text}</p>
           </div>
         ))}
       </div>
@@ -310,7 +310,7 @@ export const Experience = () => {
         <h2 className='lg:text-5xl mb-10'>
           <span className='text-main-gray'>My</span> Experience
         </h2>
-        <div className='space-y-5'>
+        <div className='space-y-5 text-sm lg:text-lg'>
           <p>{`I have over three years of experience as a designer, working in various roles across branding, motion graphics, and UX/UI design. As a UX/UI designer, I've contributed to projects in diverse industries, including e-commerce, B2B, B2C, and in-flight entertainment (IFE).`}</p>
           <p>{`I’m always eager to grow and challenge myself. Recently, I’ve started learning to code — excited to see where this new adventure leads!`}</p>
         </div>
