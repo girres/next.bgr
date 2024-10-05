@@ -133,8 +133,8 @@ export const Clients = () => {
                 alt={client.title}
                 width={150}
                 height={150}
-                quality={100}
-                priority
+                // quality={100}
+                // priority
               />
             </div>
           ))}
@@ -169,8 +169,8 @@ export const Projects = () => {
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
                 sizes='(min-width: 640px) 50vw, 100vw'
-                quality={100}
-                priority
+                // quality={100}
+                // priority
               />
               <div className='caption project-info'>
                 <Link href={project.link}>
