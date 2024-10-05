@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
 import { clsx } from 'clsx';
+import { LiaChevronCircleRightSolid } from 'react-icons/lia';
 
 const clients = [
   {
@@ -39,18 +41,21 @@ const projects = [
     caption: 'Web & App - 2022',
     image: '/images/projects/Reteki/First/2.jpg',
     class: 'col-span-12 lg:col-span-7',
+    link: '/reteki',
   },
   {
     title: 'SaudiaBEYOND',
     caption: 'Branding, Web & App - 2024',
     image: '/images/projects/SaudiaBEYOND/Second/2.jpg',
     class: 'col-span-12 lg:col-span-5',
+    link: '/saudia-beyond',
   },
   {
     title: 'Zona Herragro',
     caption: 'E-Commerce - 2023',
     image: '/images/projects/Herragro/First/1.jpg',
     class: 'col-span-12 lg:col-span-5',
+    link: '/zona-herragro',
   },
   {
     title: 'Saudia Airlines',
@@ -58,6 +63,7 @@ const projects = [
     image: '/images/projects/SaudiaAirlines/First/1.jpg',
     class: 'col-span-12 lg:col-span-7',
     cabinConcept: true,
+    link: '/saudia-airlines',
   },
 ];
 
@@ -166,9 +172,18 @@ export const Projects = () => {
                 quality={100}
                 priority
               />
-              <div className='caption p-3 px-10 project-info rounded-full w-[90%] absolute bottom-3 left-0 right-0 mx-auto'>
-                <h3>{project.title}</h3>
-                <p>{project.caption}</p>
+              <div className='caption project-info'>
+                <Link href={project.link}>
+                  <div className='w-full flex items-center justify-between'>
+                    <div>
+                      <h3>{project.title}</h3>
+                      <p>{project.caption}</p>
+                    </div>
+                    <div>
+                      <LiaChevronCircleRightSolid className='h-10 w-10' />
+                    </div>
+                  </div>
+                </Link>
               </div>
               {cabinConcept && (
                 <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>

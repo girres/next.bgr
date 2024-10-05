@@ -7,7 +7,9 @@
 
         .caption {
             @apply opacity-0 transition-all duration-500;
-            @apply text-main-white;
+            @apply p-3 px-10 rounded-full w-[90%] absolute bottom-3 left-0 right-0 mx-auto text-main-white;
+            @apply bg-black;
+            @apply lg:hover:scale-105;
         }
 
         .cabinConcept {
@@ -20,8 +22,7 @@
             }
 
             .caption {
-                @apply opacity-100;
-                @apply bg-gray-800 bg-opacity-80 backdrop-blur-sm;
+                @apply opacity-100 bg-gray-800 bg-opacity-80 backdrop-blur-sm;
             }
 
             .cabinConcept {
