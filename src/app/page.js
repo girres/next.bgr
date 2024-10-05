@@ -13,7 +13,7 @@ export default function Home() {
     <main className='min-h-screen pt-[15%] pb-20'>
       <h1 className='hidden'>Bryan Girado / UX & UI Designer</h1>
       <div className='site-container'>
-        <div className='max-w-[300px]'>
+        <div className='max-w-[300px] mx-auto lg:mx-0'>
           <Image
             src='/images/home/bgr.png'
             alt='BGR'
@@ -21,6 +21,7 @@ export default function Home() {
             height={500}
             quality={100}
             priority
+            className='max-w-[250px] lg:max-w-full mx-auto'
           />
           <div className='tag-available flex items-center justify-center max-w-[250px] mx-auto'>
             <Image
@@ -33,7 +34,7 @@ export default function Home() {
             Available for work
           </div>
         </div>
-        <p className='text-5xl mt-20 text-main-gray fontTitles'>
+        <p className='text-3xl lg:text-5xl mt-20 text-main-gray fontTitles'>
           I'm Bryan — a{' '}
           <span className='text-main-white'>
             User Experience & User Interface Designer

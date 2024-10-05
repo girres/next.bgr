@@ -150,7 +150,7 @@ export const Clients = () => {
 export const Projects = () => {
   return (
     <div id='projects' className=''>
-      <h2 className='text-5xl mb-10'>
+      <h2 className='lg:text-5xl mb-10'>
         <span className='text-main-gray'>Latest</span> Projects
       </h2>
       <div className='grid grid-cols-12 gap-5'>
@@ -304,7 +304,7 @@ export const Experience = () => {
   return (
     <div id='experience' className='grid lg:grid-cols-2'>
       <div className='heading mb-10 lg:mb-0 lg:pr-10'>
-        <h2 className='text-5xl mb-10'>
+        <h2 className='lg:text-5xl mb-10'>
           <span className='text-main-gray'>My</span> Experience
         </h2>
         <div className='text space-y-5 text-sm'>
