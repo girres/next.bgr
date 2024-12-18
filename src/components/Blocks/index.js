@@ -278,7 +278,7 @@ export const Experience = () => {
       title: 'Future Provenance',
       position: 'UX/UI & Digital Product Designer',
       image: '/images/jobs/FP.png',
-      date: '2022 - 2024',
+      date: 'Current',
     },
     {
       title: 'GR Dev',
