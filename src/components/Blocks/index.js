@@ -70,46 +70,42 @@ const projects = [
 
 const efforts = [
   {
-    title: 'UX Design',
-    text: 'I create wireframes, facilitate internal workshops, analyse data, conduct research, develop user personas, and design testing strategies, including A/B testing, to optimise sales performance.',
+    title: 'Product Discovery & AI Insight',
+    text: 'I leverage AI-driven workflows to transform raw user data into actionable product strategies. By automating feedback synthesis and deep research, I identify customer pain points with precision, ensuring every design decision is backed by data and aligned with business goals.',
     image: '/images/home-icons/UX.png',
   },
   {
-    title: 'UI Design',
-    text: 'Skilled in Figma, Adobe XD, and Sketch, I design and maintain systems, collaborate with developers for precise implementation, analyse user data, and apply my graphic design experience to create modern, engaging interfaces.',
+    title: 'Functional Prototyping',
+    text: 'I bridge the gap between static design and real interaction. Using advanced tools like Lovable and Figma, I build high-fidelity, logic-based prototypes that allow for rapid testing and validation of complex features before they ever reach the development phase.',
     image: '/images/home-icons/UI.png',
   },
   {
-    title: 'Branding & more',
-    text: "I love creating unique brand identities that capture a business's essence and resonate with its audience. I craft cohesive visual systems, memorable logos, and compelling brand assets that leave a lasting impression.",
+    title: 'Product Building & Deployment',
+    text: "I take full ownership of the implementation process. Utilizing Antigravity and modern coding frameworks, I translate visual systems into production-ready software. I don't just hand over assets; I ship functional components that ensure a pixel-perfect final product.",
     image: '/images/home-icons/Branding_more.png',
   },
 ];
 
 const tools = [
   {
-    title: 'Sketch',
-    image: '/images/tools/sketch.png',
-  },
-  {
     title: 'Figma',
-    image: '/images/tools/figma.png',
+    image: '/images/tools/figma-new.png',
   },
   {
-    title: 'Adobe XD',
-    image: '/images/tools/xd.png',
+    title: 'Lovable',
+    image: '/images/tools/lovable.png',
   },
   {
-    title: 'Photoshop',
-    image: '/images/tools/ps.png',
+    title: 'Adobe Creative Cloud',
+    image: '/images/tools/creative-cloud.png',
   },
   {
-    title: 'Illustrator',
-    image: '/images/tools/ai.png',
+    title: 'Claude',
+    image: '/images/tools/claude.png',
   },
   {
-    title: 'After Effects',
-    image: '/images/tools/ae.png',
+    title: 'Google Antigravity',
+    image: '/images/tools/arc.png',
   },
 ];
 
@@ -250,7 +246,11 @@ export const Tools = () => {
       <div className='content'>
         {tools.map((tool, index) => {
           return (
-            <div key={index} className='tool flex items-center justify-center'>
+            <div
+              key={index}
+              className='tooltip tooltip-top tool flex items-center justify-center'
+              data-tip={tool.title}
+            >
               <Image
                 src={tool.image}
                 alt={tool.title}
@@ -268,41 +268,58 @@ export const Tools = () => {
 
 export const Experience = () => {
   const items = [
+
+    {
+      title: 'Nuela',
+      position: 'Product designer & AI Builder',
+      image: '/images/jobs/nuela.png',
+      date: '2024 - Current',
+    },
     {
       title: 'MadreMía',
-      position: 'Lead Designer',
+      position: 'Lead Product Designer',
       image: '/images/jobs/MadreMia.png',
-      date: 'Current',
+      date: '2022 - 2024',
     },
     {
       title: 'Future Provenance',
       position: 'UX/UI & Digital Product Designer',
       image: '/images/jobs/FP.png',
-      date: 'Current',
+      date: '2023 - 2024',
     },
     {
-      title: 'GR Dev',
-      position: 'Graphic & Product Designer',
+      title: 'GR Development',
+      position: 'UI & Digital Product Designer',
       image: '/images/jobs/GR.png',
       date: '2020 - 2023',
     },
     {
       title: 'Freelancer',
-      position: 'Graphic & UI Designer ',
+      position: 'Product designer & AI Builder',
       image: '/images/jobs/Bryan_Freelancer.png',
-      date: '2020',
+      date: '2020 - Current',
     },
   ];
+
   const Card = ({ job }) => (
-    <div className='job-card flex items-center justify-between text-main-gray'>
-      <div className='flex items-center'>
-        <Image src={job.image} alt={job.title} width={50} height={50} />
-        <div className='px-5'>
-          <h3 className='text-main-white'>{job.title}</h3>
-          <p>{job.position}</p>
+    <div className='job-card flex items-center justify-between text-main-gray bg-[#20252B] p-5 rounded-[30px]'>
+      <div className='flex items-center gap-5'>
+        <div className='relative w-[50px] h-[50px] flex-shrink-0'>
+          <Image
+            src={job.image}
+            alt={job.title}
+            fill
+            className='object-contain rounded-xl'
+          />
+        </div>
+        <div>
+          <h3 className='text-main-white text-lg font-medium'>{job.title}</h3>
+          <p className='text-sm lg:text-base font-light'>{job.position}</p>
         </div>
       </div>
-      <p>{job.date}</p>
+      <p className='text-sm lg:text-base font-light text-right min-w-fit pl-4 opacity-70'>
+        {job.date}
+      </p>
     </div>
   );
   return (
@@ -312,8 +329,9 @@ export const Experience = () => {
           <span className='text-main-gray'>My</span> Experience
         </h2>
         <div className='space-y-5 text-sm lg:text-lg'>
-          <p>{`I have over three years of experience as a designer, working in various roles across branding, motion graphics, and UX/UI design. As a UX/UI designer, I've contributed to projects in diverse industries, including e-commerce, B2B, B2C, and in-flight entertainment (IFE).`}</p>
-          <p>{`I’m always eager to grow and challenge myself. Recently, I’ve started learning to code — excited to see where this new adventure leads!`}</p>
+          <p>{`Since 2019, I’ve been building digital experiences that bridge the gap between user needs and business scalability. With over 5 years in the industry, my path has evolved from branding and motion graphics to high-impact Product Design, working across e-commerce, B2B, B2C and complex systems like In-Flight Entertainment (IFE).`}</p>
+          <p>{`My approach has shifted from delivering static assets to shipping functional products. I have integrated an AI-augmented workflow that allows me to own the entire cycle: from automating customer pain-point analysis and validating logic with AI tools, to deploying production-ready code.`}</p>
+          <p>{`I don’t just design interfaces; I build the systems that power them.`}</p>
         </div>
       </div>
       <div className='content'>
