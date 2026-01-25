@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
 import { clsx } from 'clsx';
 import { LiaChevronCircleRightSolid } from 'react-icons/lia';
+import AnimatedTooltip from '@/components/AnimatedTooltip';
+import ScrollReveal from '@/components/ScrollReveal';
 // import projects from '@/projectsData';
 
 const clients = [
@@ -88,22 +90,27 @@ const efforts = [
 
 const tools = [
   {
+    id: 1,
     title: 'Figma',
     image: '/images/tools/figma-new.png',
   },
   {
+    id: 2,
     title: 'Lovable',
     image: '/images/tools/lovable.png',
   },
   {
+    id: 3,
     title: 'Adobe Creative Cloud',
     image: '/images/tools/creative-cloud.png',
   },
   {
+    id: 4,
     title: 'Claude',
     image: '/images/tools/claude.png',
   },
   {
+    id: 5,
     title: 'Google Antigravity',
     image: '/images/tools/arc.png',
   },
@@ -111,11 +118,11 @@ const tools = [
 
 export const Clients = () => {
   return (
-    <div id='clients' className='lg:flex lg:items-center'>
-      <h2 className='lg:w-[20%]'>
+    <div id='clients' className='lg:flex lg:items-center lg:gap-8 overflow-hidden'>
+      <h2 className='lg:w-[20%] flex-shrink-0'>
         Worked <span className='text-main-gray'>with:</span>
       </h2>
-      <div className='lg:w-[80%] mt-3 lg:mt-0'>
+      <div className='flex-1 mt-4 lg:mt-0 overflow-hidden'>
         <Marquee
           speed='70'
           autoFill
@@ -127,13 +134,14 @@ export const Clients = () => {
           {clients.map((client) => (
             <div
               key={client.title}
-              className='client relative w-[150px] h-[150px] mx-10'
+              className='client relative w-[120px] h-[120px] lg:w-[140px] lg:h-[140px] mx-8 lg:mx-10'
             >
               <Image
                 src={client.image}
                 alt={client.title}
                 fill
-                sizes='(min-width: 640px) 50vw, 100vw'
+                sizes='(min-width: 1024px) 140px, 120px'
+                quality={75}
                 style={{ objectFit: 'contain', objectPosition: 'center' }}
               />
             </div>
@@ -147,59 +155,61 @@ export const Clients = () => {
 export const Projects = () => {
   return (
     <div id='projects' className=''>
-      <h2 className='lg:text-5xl mb-10'>
+      <h2 className='lg:text-5xl mb-8 lg:mb-12'>
         <span className='text-main-gray'>Latest</span> Projects
       </h2>
-      <div className='grid grid-cols-12 gap-5'>
+      <div className='grid grid-cols-12 gap-4 lg:gap-6'>
         {projects.map((project, index) => {
           const { cabinConcept = false } = project;
           return (
-            <Link
-              href={project.link}
-              key={index}
-              className={project?.class || ''}
-            >
-              <div
-                className={clsx(
-                  'project relative',
-                  'min-h-[350px] lg:min-h-[500px]',
-                  'rounded-3xl overflow-hidden',
-                  project?.class || ''
-                )}
+            <ScrollReveal key={index} delay={index * 0.1} className={project?.class || ''}>
+              <Link
+                href={project.link}
+                className='block h-full'
               >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                  sizes='(min-width: 640px) 50vw, 100vw'
-                  quality={100}
-                  priority
-                />
-                <div className='caption project-info'>
-                  <div className='w-full flex items-center justify-between'>
-                    <div>
-                      <h3>{project.title}</h3>
-                      <p>{project.caption}</p>
-                    </div>
-                    <div>
-                      <LiaChevronCircleRightSolid className='h-10 w-10' />
+                <div
+                  className={clsx(
+                    'project relative',
+                    'min-h-[400px] lg:min-h-[550px]',
+                    'rounded-3xl overflow-hidden'
+                  )}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    sizes='(min-width: 1024px) 50vw, 100vw'
+                    quality={80}
+                    loading='lazy'
+                  />
+                  <div className='caption project-info'>
+                    <div className='w-full flex items-center justify-between'>
+                      <div>
+                        <h3>{project.title}</h3>
+                        <p>{project.caption}</p>
+                      </div>
+                      <div>
+                        <LiaChevronCircleRightSolid className='h-10 w-10' />
+                      </div>
                     </div>
                   </div>
+                  {cabinConcept && (
+                    <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
+                      <Image
+                        src='/images/home/cabinConcept.png'
+                        alt='Cabin Concept'
+                        fill
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        sizes='80px'
+                        quality={75}
+                        loading='lazy'
+                      />
+                    </div>
+                  )}
                 </div>
-                {cabinConcept && (
-                  <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
-                    <Image
-                      src='/images/home/cabinConcept.png'
-                      alt='Cabin Concept'
-                      fill
-                      style={{ objectFit: 'cover', objectPosition: 'center' }}
-                      sizes='(min-width: 640px) 50vw, 100vw'
-                    />
-                  </div>
-                )}
-              </div>
-            </Link>
+              </Link>
+            </ScrollReveal>
           );
         })}
       </div>
@@ -216,19 +226,24 @@ export const Efforts = () => {
         <span className='text-main-white'>business needs?</span>
       </h2>
       <div className='content'>
-        {efforts.map((effort) => (
-          <div key={effort.title} className='effort'>
-            <div className='heading'>
-              <Image
-                src={effort.image}
-                alt={effort.title}
-                width={50}
-                height={50}
-              />
-              <h3>{effort.title}</h3>
+        {efforts.map((effort, index) => (
+          <ScrollReveal key={effort.title} delay={index * 0.15}>
+            <div className='effort glass-card'>
+              <div className='heading'>
+                <Image
+                  src={effort.image}
+                  alt={effort.title}
+                  width={50}
+                  height={50}
+                  sizes='50px'
+                  quality={75}
+                  loading='lazy'
+                />
+                <h3>{effort.title}</h3>
+              </div>
+              <p className='text-sm lg:text-lg'>{effort.text}</p>
             </div>
-            <p className='text-sm lg:text-lg'>{effort.text}</p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </div>
@@ -243,24 +258,8 @@ export const Tools = () => {
         develop <span className='text-main-white'>seamless</span> and{' '}
         <span className='text-main-white'>engaging visual experiences</span>
       </h2>
-      <div className='content'>
-        {tools.map((tool, index) => {
-          return (
-            <div
-              key={index}
-              className='tooltip tooltip-top tool flex items-center justify-center'
-              data-tip={tool.title}
-            >
-              <Image
-                src={tool.image}
-                alt={tool.title}
-                width={50}
-                height={50}
-                className='max-h-[50px] h-auto w-auto mx-auto'
-              />
-            </div>
-          );
-        })}
+      <div className='flex flex-wrap items-center gap-6 lg:gap-8 mt-10 lg:mt-16'>
+        <AnimatedTooltip items={tools} />
       </div>
     </div>
   );
@@ -302,42 +301,47 @@ export const Experience = () => {
   ];
 
   const Card = ({ job }) => (
-    <div className='job-card flex items-center justify-between text-main-gray bg-[#20252B] p-5 rounded-[30px]'>
-      <div className='flex items-center gap-5'>
-        <div className='relative w-[50px] h-[50px] flex-shrink-0'>
+    <div className='job-card glass-card flex items-center justify-between text-main-gray p-4 lg:p-6 rounded-[24px] lg:rounded-[30px]'>
+      <div className='flex items-center gap-4 lg:gap-5'>
+        <div className='relative w-[45px] h-[45px] lg:w-[50px] lg:h-[50px] flex-shrink-0'>
           <Image
             src={job.image}
             alt={job.title}
             fill
+            sizes='(min-width: 1024px) 50px, 45px'
+            quality={75}
+            loading='lazy'
             className='object-contain rounded-xl'
           />
         </div>
         <div>
-          <h3 className='text-main-white text-lg font-medium'>{job.title}</h3>
-          <p className='text-sm lg:text-base font-light'>{job.position}</p>
+          <h3 className='text-main-white text-base lg:text-lg font-medium'>{job.title}</h3>
+          <p className='text-xs lg:text-base font-light'>{job.position}</p>
         </div>
       </div>
-      <p className='text-sm lg:text-base font-light text-right min-w-fit pl-4 opacity-70'>
+      <p className='text-xs lg:text-base font-light text-right min-w-fit pl-3 lg:pl-4 opacity-70'>
         {job.date}
       </p>
     </div>
   );
   return (
-    <div id='experience' className='grid lg:grid-cols-2'>
-      <div className='heading mb-10 lg:mb-0 lg:pr-10'>
-        <h2 className='lg:text-5xl mb-10'>
+    <div id='experience' className='grid lg:grid-cols-2 gap-10 lg:gap-12'>
+      <div className='heading'>
+        <h2 className='lg:text-5xl mb-8 lg:mb-10'>
           <span className='text-main-gray'>My</span> Experience
         </h2>
-        <div className='space-y-5 text-sm lg:text-lg'>
-          <p>{`Since 2019, I’ve been building digital experiences that bridge the gap between user needs and business scalability. With over 5 years in the industry, my path has evolved from branding and motion graphics to high-impact Product Design, working across e-commerce, B2B, B2C and complex systems like In-Flight Entertainment (IFE).`}</p>
+        <div className='space-y-4 lg:space-y-5 text-sm lg:text-lg'>
+          <p>{`Since 2019, I've been building digital experiences that bridge the gap between user needs and business scalability. With over 5 years in the industry, my path has evolved from branding and motion graphics to high-impact Product Design, working across e-commerce, B2B, B2C and complex systems like In-Flight Entertainment (IFE).`}</p>
           <p>{`My approach has shifted from delivering static assets to shipping functional products. I have integrated an AI-augmented workflow that allows me to own the entire cycle: from automating customer pain-point analysis and validating logic with AI tools, to deploying production-ready code.`}</p>
-          <p>{`I don’t just design interfaces; I build the systems that power them.`}</p>
+          <p>{`I don't just design interfaces; I build the systems that power them.`}</p>
         </div>
       </div>
       <div className='content'>
-        <div className='jobs space-y-3'>
+        <div className='jobs space-y-3 lg:space-y-4'>
           {items.map((job, index) => (
-            <Card key={index} job={job} />
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <Card job={job} />
+            </ScrollReveal>
           ))}
         </div>
       </div>

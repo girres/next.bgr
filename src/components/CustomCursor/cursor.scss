@@ -1,0 +1,83 @@
+// Hide default cursor on desktop
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-trail {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(
+    circle,
+    rgba(62, 83, 155, 0.8) 0%,
+    rgba(62, 83, 155, 0.4) 40%,
+    rgba(62, 83, 155, 0.1) 70%,
+    rgba(62, 83, 155, 0) 100%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform, opacity;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  mix-blend-mode: difference;
+  will-change: transform;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.hovering {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  mix-blend-mode: difference;
+  will-change: transform;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+// Show default cursor on mobile/touch devices
+@media (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-dot,
+  .custom-cursor-trail {
+    display: none;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
