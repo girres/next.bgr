@@ -1,3 +1,29 @@
+// Glassmorphism effect
+.glass-card {
+    position: relative;
+    background: rgba(43, 49, 56, 0.6);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3);
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+    will-change: transform;
+
+    &:hover {
+        background: rgba(43, 49, 56, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+        box-shadow:
+            0 8px 24px 0 rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 16px 0 rgba(62, 83, 155, 0.08);
+    }
+}
+
 #projects {
 
     .project {
@@ -43,10 +69,12 @@
     .content {
         @apply grid grid-cols-1 lg:grid-cols-3 gap-4;
         @apply pl-0 lg:pl-10;
+        @apply auto-rows-fr;
     }
 
     .effort {
-        @apply bg-[#2B3138] rounded-2xl p-5;
+        @apply rounded-2xl p-5;
+        @apply flex flex-col h-full;
 
         .heading {
             @apply flex items-center lg:block;
@@ -62,6 +90,7 @@
 
         p {
             @apply mt-5 lg:mt-0;
+            @apply flex-1;
         }
     }
 }
@@ -76,5 +105,5 @@
 }
 
 .job-card {
-    @apply bg-[#2B3138] p-3 rounded-lg;
+    @apply p-3 rounded-lg;
 }

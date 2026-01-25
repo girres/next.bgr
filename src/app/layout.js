@@ -4,8 +4,11 @@ import Script from 'next/script';
 import '@/styles/globals.scss';
 
 // Components
-import Header from '@/components/Header';
+import FloatingDock from '@/components/FloatingDock';
 import Footer from '@/components/Footer';
+import CustomCursor from '@/components/CustomCursor';
+import SnowEffect from '@/components/SnowEffect';
+import LocationBadge from '@/components/LocationBadge';
 
 export const metadata = {
   title: 'Bryan Girado / UX & UI Designer',
@@ -35,7 +38,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
-        <Header />
+        <CustomCursor />
+        <FloatingDock />
+        <LocationBadge />
+        <SnowEffect />
         {children}
         <Footer />
       </body>
