@@ -196,11 +196,11 @@ export const Projects = () => {
                 <div className='absolute inset-0 backdrop-blur-2xl bg-gray-900/40 flex items-center justify-center p-6 text-center z-10'>
                   <div className='space-y-4'>
                     <div className='px-4 py-1.5 rounded-full bg-white/10 border border-white/20 inline-block'>
-                      <span className='text-xs font-medium text-white uppercase tracking-wider'>Confidential</span>
+                      <span className='text-xs font-medium text-white uppercase tracking-wider'>Saas B2B</span>
                     </div>
-                    <h3 className='text-2xl lg:text-3xl font-bold text-white'>Nuela, no se puede visualizar</h3>
+                    <h3 className='text-2xl lg:text-3xl font-bold text-white'>Nuela AI</h3>
                     <p className='text-gray-300 text-sm lg:text-base max-w-[280px] mx-auto'>
-                      This project is under development and protected by NDA.
+                      Visítenos la web para más información
                     </p>
                     <div className='inline-flex items-center gap-2 text-white font-medium'>
                       <span>Visit Website</span>
@@ -209,6 +209,7 @@ export const Projects = () => {
                   </div>
                 </div>
               )}
+
 
               {!confidential && (
                 <div className='caption project-info'>
