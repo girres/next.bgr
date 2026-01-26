@@ -40,34 +40,44 @@ const clients = [
 
 const projects = [
   {
+    title: 'Nuela',
+    caption: 'B2B SaaS Platform - 2024',
+    image: '/test1.png',
+    class: 'col-span-12 lg:col-span-6',
+    link: 'https://www.nuela.ai/',
+    confidential: true,
+    external: true,
+  },
+  {
     title: 'Reteki',
     caption: 'Web & App - 2022',
     image: '/images/projects/reteki/2.jpg',
-    class: 'col-span-12 lg:col-span-7',
+    class: 'col-span-12 lg:col-span-6',
     link: '/reteki',
   },
   {
     title: 'SaudiaBEYOND',
     caption: 'Branding, Web & App - 2024',
     image: '/images/projects/saudiaBeyond/6.jpg',
-    class: 'col-span-12 lg:col-span-5',
+    class: 'col-span-12 lg:col-span-6',
     link: '/saudia-beyond',
   },
   {
     title: 'Zona Herragro',
     caption: 'E-Commerce - 2023',
     image: '/images/projects/zonaHerragro/1.jpg',
-    class: 'col-span-12 lg:col-span-5',
+    class: 'col-span-12 lg:col-span-6',
     link: '/zona-herragro',
   },
   {
     title: 'Saudia Airlines',
     caption: 'IFE, UX/UI & Branding Design - 2024',
     image: '/images/projects/saudiaAirlines/1.jpg',
-    class: 'col-span-12 lg:col-span-7',
+    class: 'col-span-12',
     cabinConcept: true,
     link: '/saudia-airlines',
   },
+
 ];
 
 const efforts = [
@@ -87,6 +97,7 @@ const efforts = [
     image: '/images/home-icons/Branding_more.png',
   },
 ];
+
 
 const tools = [
   {
@@ -160,54 +171,99 @@ export const Projects = () => {
       </h2>
       <div className='grid grid-cols-12 gap-4 lg:gap-6'>
         {projects.map((project, index) => {
-          const { cabinConcept = false } = project;
+          const { cabinConcept = false, confidential = false, external = false } = project;
+
+          const content = (
+            <div
+              className={clsx(
+                'project relative',
+                'min-h-[400px] lg:min-h-[550px]',
+                'rounded-3xl overflow-hidden'
+              )}
+            >
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                sizes='(min-width: 1024px) 50vw, 100vw'
+                quality={80}
+                loading='lazy'
+              />
+
+              {/* Blur overlay for confidential projects */}
+              {confidential && (
+                <div className='absolute inset-0 backdrop-blur-2xl bg-gray-900/40 flex items-center justify-center p-6 text-center z-10'>
+                  <div className='space-y-4'>
+                    <div className='px-4 py-1.5 rounded-full bg-white/10 border border-white/20 inline-block'>
+                      <span className='text-xs font-medium text-white uppercase tracking-wider'>Confidential</span>
+                    </div>
+                    <h3 className='text-2xl lg:text-3xl font-bold text-white'>Nuela, no se puede visualizar</h3>
+                    <p className='text-gray-300 text-sm lg:text-base max-w-[280px] mx-auto'>
+                      This project is under development and protected by NDA.
+                    </p>
+                    <div className='inline-flex items-center gap-2 text-white font-medium'>
+                      <span>Visit Website</span>
+                      <LiaChevronCircleRightSolid className='w-5 h-5' />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {!confidential && (
+                <div className='caption project-info'>
+                  <div className='w-full flex items-center justify-between'>
+                    <div>
+                      <h3>{project.title}</h3>
+                      <p>{project.caption}</p>
+                    </div>
+                    <div>
+                      <LiaChevronCircleRightSolid className='h-10 w-10' />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {cabinConcept && (
+                <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
+                  <Image
+                    src='/images/home/cabinConcept.png'
+                    alt='Cabin Concept'
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    sizes='80px'
+                    quality={75}
+                    loading='lazy'
+                  />
+                </div>
+              )}
+            </div>
+          );
+
+          const wrapperClass = project?.class || '';
+
+          if (external) {
+            return (
+              <ScrollReveal key={index} delay={index * 0.1} className={wrapperClass}>
+                <a
+                  href={project.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='block h-full'
+                >
+                  {content}
+                </a>
+              </ScrollReveal>
+            );
+          }
+
           return (
-            <ScrollReveal key={index} delay={index * 0.1} className={project?.class || ''}>
+            <ScrollReveal key={index} delay={index * 0.1} className={wrapperClass}>
               <Link
                 href={project.link}
                 className='block h-full'
               >
-                <div
-                  className={clsx(
-                    'project relative',
-                    'min-h-[400px] lg:min-h-[550px]',
-                    'rounded-3xl overflow-hidden'
-                  )}
-                >
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    sizes='(min-width: 1024px) 50vw, 100vw'
-                    quality={80}
-                    loading='lazy'
-                  />
-                  <div className='caption project-info'>
-                    <div className='w-full flex items-center justify-between'>
-                      <div>
-                        <h3>{project.title}</h3>
-                        <p>{project.caption}</p>
-                      </div>
-                      <div>
-                        <LiaChevronCircleRightSolid className='h-10 w-10' />
-                      </div>
-                    </div>
-                  </div>
-                  {cabinConcept && (
-                    <div className='cabinConcept absolute top-5 left-5 h-[80px] w-[80px]'>
-                      <Image
-                        src='/images/home/cabinConcept.png'
-                        alt='Cabin Concept'
-                        fill
-                        style={{ objectFit: 'cover', objectPosition: 'center' }}
-                        sizes='80px'
-                        quality={75}
-                        loading='lazy'
-                      />
-                    </div>
-                  )}
-                </div>
+                {content}
               </Link>
             </ScrollReveal>
           );
@@ -216,6 +272,7 @@ export const Projects = () => {
     </div>
   );
 };
+
 
 export const Efforts = () => {
   return (
