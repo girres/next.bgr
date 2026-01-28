@@ -12,7 +12,7 @@ import ImageReveal from '@/components/ImageReveal';
 export default function Home() {
   return (
     <main className='min-h-screen pt-28 lg:pt-36 pb-20'>
-      <h1 className='hidden'>Bryan Girado / UX & UI Designer</h1>
+      <h1 className='hidden'>Bryan Girado / Product Designer & AI Builder</h1>
       <div className='site-container'>
         <ImageReveal />
         <TextGenerateEffect

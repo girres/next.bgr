@@ -11,9 +11,9 @@ import SnowEffect from '@/components/SnowEffect';
 import LocationBadge from '@/components/LocationBadge';
 
 export const metadata = {
-  title: 'Bryan Girado / UX & UI Designer',
+  title: 'Bryan Girado / Product Designer & AI Builder',
   description:
-    "I'm Bryan — a User Experience & User Interface Designer from Spain, dedicated to making digital experiences more intuitive and engaging.",
+    "I'm Bryan — a Product Designer & AI Builder. I specialize in end-to-end product construction, using AI to transform deep customer insights into production-ready software.",
   image: '/SEO.jpg',
   metadataBase: new URL('https://www.bryangr.com'),
   alternates: {
@@ -23,12 +23,15 @@ export const metadata = {
     type: 'website',
     locale: 'en_EN',
     site_name: 'Bryan G',
+    title: 'Bryan Girado / Product Designer & AI Builder',
+    description:
+      "I'm Bryan — a Product Designer & AI Builder. I specialize in end-to-end product construction, using AI to transform deep customer insights into production-ready software.",
     images: [
       {
         url: '/SEO.jpg',
         width: 1200,
         height: 630,
-        alt: 'Bryan G',
+        alt: 'Bryan Girado - Product Designer & AI Builder',
       },
     ],
   },
