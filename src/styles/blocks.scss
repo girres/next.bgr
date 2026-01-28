@@ -27,32 +27,37 @@
 #projects {
 
     .project {
+        @apply shadow-lg hover:shadow-2xl;
+
         img {
-            @apply transition-all duration-500;
+            @apply transition-all duration-700 ease-out;
         }
 
         .caption {
-            @apply opacity-0 transition-all duration-500;
-            @apply p-3 px-10 rounded-full w-[90%] absolute bottom-3 left-0 right-0 mx-auto text-main-white;
-            @apply bg-black;
-            @apply lg:hover:scale-105;
+            @apply opacity-0 transition-all duration-500 ease-out;
+            @apply p-3 px-10 rounded-full w-[90%] absolute bottom-5 left-0 right-0 mx-auto text-main-white;
+            @apply bg-black/60 backdrop-blur-md border border-white/10;
+            @apply transform translate-y-2;
         }
 
         .cabinConcept {
-            @apply transition-all duration-700;
+            @apply transition-all duration-700 ease-out;
         }
 
         &:hover {
+            @apply lg:scale-[1.02];
+
             img {
-                @apply scale-110;
+                @apply scale-110 brightness-90;
             }
 
             .caption {
-                @apply opacity-100 bg-gray-800 bg-opacity-80 backdrop-blur-sm;
+                @apply opacity-100 bg-gray-800/90 backdrop-blur-lg border-white/20;
+                @apply translate-y-0;
             }
 
             .cabinConcept {
-                @apply h-[110px] w-[110px];
+                @apply h-[110px] w-[110px] rotate-12;
             }
         }
     }

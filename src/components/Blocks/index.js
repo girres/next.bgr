@@ -43,7 +43,16 @@ const projects = [
     title: 'Nuela',
     caption: 'B2B SaaS Platform - 2024',
     image: '/test1.png',
-    class: 'col-span-12 lg:col-span-6',
+    class: 'col-span-12 lg:col-span-7',
+    link: 'https://www.nuela.ai/',
+    confidential: true,
+    external: true,
+  },
+  {
+    title: 'Nuela',
+    caption: 'B2B SaaS Platform - 2024',
+    image: '/test2.png',
+    class: 'col-span-12 lg:col-span-5',
     link: 'https://www.nuela.ai/',
     confidential: true,
     external: true,
@@ -52,30 +61,30 @@ const projects = [
     title: 'Reteki',
     caption: 'Web & App - 2022',
     image: '/images/projects/reteki/2.jpg',
-    class: 'col-span-12 lg:col-span-6',
+    class: 'col-span-12 lg:col-span-5',
     link: '/reteki',
   },
   {
     title: 'SaudiaBEYOND',
     caption: 'Branding, Web & App - 2024',
     image: '/images/projects/saudiaBeyond/6.jpg',
-    class: 'col-span-12 lg:col-span-6',
+    class: 'col-span-12 lg:col-span-7',
     link: '/saudia-beyond',
-  },
-  {
-    title: 'Zona Herragro',
-    caption: 'E-Commerce - 2023',
-    image: '/images/projects/zonaHerragro/1.jpg',
-    class: 'col-span-12 lg:col-span-6',
-    link: '/zona-herragro',
   },
   {
     title: 'Saudia Airlines',
     caption: 'IFE, UX/UI & Branding Design - 2024',
     image: '/images/projects/saudiaAirlines/1.jpg',
-    class: 'col-span-12',
+    class: 'col-span-12 lg:col-span-8',
     cabinConcept: true,
     link: '/saudia-airlines',
+  },
+  {
+    title: 'Zona Herragro',
+    caption: 'E-Commerce - 2023',
+    image: '/images/projects/zonaHerragro/1.jpg',
+    class: 'col-span-12 lg:col-span-4',
+    link: '/zona-herragro',
   },
 
 ];
@@ -169,16 +178,17 @@ export const Projects = () => {
       <h2 className='lg:text-5xl mb-8 lg:mb-12'>
         <span className='text-main-gray'>Latest</span> Projects
       </h2>
-      <div className='grid grid-cols-12 gap-4 lg:gap-6'>
+      <div className='grid grid-cols-12 gap-5 lg:gap-7'>
         {projects.map((project, index) => {
           const { cabinConcept = false, confidential = false, external = false } = project;
 
           const content = (
             <div
               className={clsx(
-                'project relative',
-                'min-h-[400px] lg:min-h-[550px]',
-                'rounded-3xl overflow-hidden'
+                'project relative group',
+                'min-h-[380px] lg:min-h-[480px]',
+                'rounded-3xl overflow-hidden',
+                'transition-all duration-500 ease-out'
               )}
             >
               <Image

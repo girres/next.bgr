@@ -26,11 +26,11 @@ export default function SnowEffect() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.8 }}
         onClick={() => setIsActive(!isActive)}
-        className={`fixed top-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full transition-all duration-300 ${
+        className={`hidden lg:flex fixed top-6 right-6 z-50 items-center gap-2 transition-colors duration-300 cursor-pointer ${
           isActive
-            ? 'bg-blue-500/30 border-blue-400/50 text-blue-100'
-            : 'bg-white/10 border-white/20 text-gray-300 hover:bg-white/20'
-        } backdrop-blur-md border shadow-lg`}
+            ? 'text-blue-300 hover:text-blue-200'
+            : 'text-gray-400 hover:text-gray-200'
+        }`}
       >
         <TbSnowflake className={`w-4 h-4 ${isActive ? 'animate-spin' : ''}`} />
         <span className='text-xs font-medium'>Let it snow</span>
