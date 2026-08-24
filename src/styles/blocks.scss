@@ -270,6 +270,12 @@
         transform: translate3d(0, 0, 0);
         transition: opacity 0.25s ease;
 
+        &:not(.face-reveal__photo--visible):not(.face-reveal__photo--static) {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
         &--visible {
             opacity: 1;
         }
