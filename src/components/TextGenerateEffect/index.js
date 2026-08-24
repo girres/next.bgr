@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useRef } from 'react';
+import { gsap, useGSAP } from '@/lib/gsapClient';
 
 export default function TextGenerateEffect({
   words,
@@ -10,49 +10,51 @@ export default function TextGenerateEffect({
   filter = true,
   highlightWords = [],
 }) {
-  const [mounted, setMounted] = useState(false);
+  const rootRef = useRef(null);
   const wordsArray = words.split(' ');
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const isHighlighted = (word) => {
-    // Remove punctuation for comparison
     const cleanWord = word.replace(/[.,!?;:]$/, '').toLowerCase();
-    return highlightWords.some((hw) => hw.toLowerCase() === cleanWord);
+    return highlightWords.some((item) => item.toLowerCase() === cleanWord);
   };
 
-  const renderWords = () => {
-    return (
-      <motion.div className={className}>
-        {wordsArray.map((word, idx) => {
-          const highlighted = isHighlighted(word);
-          return (
-            <motion.span
-              key={word + idx}
-              initial={{ opacity: 0, filter: filter ? 'blur(10px)' : 'none' }}
-              animate={
-                mounted
-                  ? { opacity: 1, filter: filter ? 'blur(0px)' : 'none' }
-                  : {}
-              }
-              transition={{
-                duration: duration,
-                delay: idx * 0.08,
-                ease: 'easeOut',
-              }}
-              className={`inline-block ${
-                highlighted ? 'text-main-white' : ''
-              }`}
-            >
-              {word}&nbsp;
-            </motion.span>
-          );
-        })}
-      </motion.div>
-    );
-  };
+  useGSAP(
+    () => {
+      const wordNodes = rootRef.current?.querySelectorAll('.text-generate__word');
+      if (!wordNodes?.length) return undefined;
 
-  return <div>{renderWords()}</div>;
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(wordNodes, { autoAlpha: 1, y: 0, filter: 'none' });
+      });
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.from(wordNodes, {
+          autoAlpha: 0,
+          y: 10,
+          filter: filter ? 'blur(8px)' : 'none',
+          duration,
+          stagger: 0.045,
+          ease: 'power2.out',
+        });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: rootRef, dependencies: [words, duration, filter] }
+  );
+
+  return (
+    <div ref={rootRef} className={className}>
+      {wordsArray.map((word, index) => (
+        <span
+          key={`${word}-${index}`}
+          className={`text-generate__word inline-block${isHighlighted(word) ? ' text-main-white' : ''}`}
+        >
+          {word}&nbsp;
+        </span>
+      ))}
+    </div>
+  );
 }

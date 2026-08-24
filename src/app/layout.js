@@ -4,11 +4,11 @@ import Script from 'next/script';
 import '@/styles/globals.scss';
 
 // Components
-import FloatingDock from '@/components/FloatingDock';
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
-import SnowEffect from '@/components/SnowEffect';
-import LocationBadge from '@/components/LocationBadge';
+import SnowProvider from '@/components/SnowEffect';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const metadata = {
   title: 'Bryan Girado / Product Designer & AI Builder',
@@ -41,12 +41,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
-        <CustomCursor />
-        <FloatingDock />
-        <LocationBadge />
-        <SnowEffect />
-        {children}
-        <Footer />
+        <SnowProvider>
+          <SmoothScroll />
+          <CustomCursor />
+          <Header />
+          {children}
+          <Footer />
+        </SnowProvider>
       </body>
       <Script src='//madremia.s3.us-west-2.amazonaws.com/signature.js' />
     </html>

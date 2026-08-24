@@ -1,82 +1,120 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { TbSnowflake } from 'react-icons/tb';
+import { createContext, useContext, useMemo, useRef, useState } from 'react';
+import { gsap, useGSAP } from '@/lib/gsapClient';
 
-export default function SnowEffect() {
-  const [isActive, setIsActive] = useState(false);
-  const [snowflakes] = useState(() =>
-    Array.from({ length: 80 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      delay: Math.random() * 5,
-      duration: 8 + Math.random() * 7,
+const SnowContext = createContext(null);
+
+export function useSnow() {
+  const context = useContext(SnowContext);
+  if (!context) {
+    throw new Error('useSnow must be used within SnowProvider');
+  }
+  return context;
+}
+
+function Snowflakes() {
+  const { isActive } = useSnow();
+  const rootRef = useRef(null);
+  const [flakes] = useState(() =>
+    Array.from({ length: 64 }, (_, index) => ({
+      id: index,
       size: 3 + Math.random() * 5,
-      opacity: 0.4 + Math.random() * 0.6,
-      drift: -15 + Math.random() * 30,
     }))
   );
 
-  return (
-    <>
-      {/* Snow Button */}
-      <motion.button
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-        onClick={() => setIsActive(!isActive)}
-        className={`hidden lg:flex fixed top-6 right-6 z-50 items-center gap-2 transition-colors duration-300 cursor-pointer ${
-          isActive
-            ? 'text-blue-300 hover:text-blue-200'
-            : 'text-gray-400 hover:text-gray-200'
-        }`}
-      >
-        <TbSnowflake className={`w-4 h-4 ${isActive ? 'animate-spin' : ''}`} />
-        <span className='text-xs font-medium'>Let it snow</span>
-      </motion.button>
+  useGSAP(
+    () => {
+      const nodes = rootRef.current?.querySelectorAll('.snow-flake');
+      if (!nodes?.length) return undefined;
 
-      {/* Snow Effect */}
-      <AnimatePresence>
-        {isActive && (
-          <div className='fixed inset-0 pointer-events-none z-40 overflow-hidden'>
-            {snowflakes.map((flake) => (
-              <motion.div
-                key={flake.id}
-                initial={{
-                  x: `${flake.x}vw`,
-                  y: '-10px',
-                  opacity: 0,
-                }}
-                animate={{
-                  x: [`${flake.x}vw`, `${flake.x + flake.drift}vw`],
-                  y: '110vh',
-                  opacity: [0, flake.opacity, flake.opacity, 0],
-                  rotate: [0, 360],
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.5 },
-                }}
-                transition={{
-                  duration: flake.duration,
-                  delay: flake.delay,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                style={{
-                  position: 'absolute',
-                  width: `${flake.size}px`,
-                  height: `${flake.size}px`,
-                  background: 'white',
-                  borderRadius: '50%',
-                  boxShadow: '0 0 8px rgba(255, 255, 255, 0.4)',
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isActive) {
+        gsap.to(nodes, { autoAlpha: 0, duration: 0.4, overwrite: true });
+        return undefined;
+      }
+
+      if (reduceMotion) {
+        gsap.set(nodes, { autoAlpha: 0.35 });
+        return undefined;
+      }
+
+      nodes.forEach((node, index) => {
+        const startX = gsap.utils.random(0, 100);
+        const drift = gsap.utils.random(-16, 16);
+        const duration = gsap.utils.random(9, 16);
+
+        gsap.set(node, {
+          x: `${startX}vw`,
+          y: gsap.utils.random(-80, -12),
+          autoAlpha: 0,
+          rotation: 0,
+        });
+
+        gsap.to(node, {
+          y: '110vh',
+          x: `${startX + drift}vw`,
+          rotation: gsap.utils.random(-280, 280),
+          duration,
+          delay: index * 0.06,
+          repeat: -1,
+          ease: 'none',
+        });
+
+        gsap.to(node, {
+          keyframes: [
+            { autoAlpha: 0.75, duration: 0.8 },
+            { autoAlpha: 0.75, duration: duration - 1.6 },
+            { autoAlpha: 0, duration: 0.8 },
+          ],
+          delay: index * 0.06,
+          repeat: -1,
+          ease: 'none',
+        });
+      });
+
+      return undefined;
+    },
+    { scope: rootRef, dependencies: [isActive] }
+  );
+
+  return (
+    <div
+      ref={rootRef}
+      className='fixed inset-0 pointer-events-none z-40 overflow-hidden'
+      aria-hidden='true'
+    >
+      {flakes.map((flake) => (
+        <span
+          key={flake.id}
+          className='snow-flake absolute rounded-full bg-white'
+          style={{
+            width: flake.size,
+            height: flake.size,
+            boxShadow: '0 0 8px rgba(255, 255, 255, 0.4)',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default function SnowProvider({ children }) {
+  const [isActive, setIsActive] = useState(false);
+
+  const value = useMemo(
+    () => ({
+      isActive,
+      toggle: () => setIsActive((current) => !current),
+    }),
+    [isActive]
+  );
+
+  return (
+    <SnowContext.Provider value={value}>
+      {children}
+      <Snowflakes />
+    </SnowContext.Provider>
   );
 }

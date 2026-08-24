@@ -1,0 +1,56 @@
+const workProjects = [
+  {
+    number: '01',
+    title: 'Saudia Airlines',
+    headline: 'Award-winning IFE — discovery, ordering and entertainment at 35,000 ft',
+    caption: 'Saudia Airlines · In-Flight Entertainment · 2024',
+    image: '/images/projects/saudiaAirlines/1.jpg',
+    link: '/saudia-airlines',
+    tags: ['In-Flight Entertainment', 'Panasonic × Thales', 'UX/UI Systems'],
+    award: {
+      title: 'Best Onboard Entertainment',
+      source: 'Onboard Hospitality Awards',
+      href: 'https://awards.onboardhospitality.com/award_cat/best-onboard-entertainment/',
+    },
+  },
+  {
+    number: '02',
+    title: 'Zona Herragro',
+    headline: 'A private B2B marketplace built to streamline agricultural supply',
+    caption: 'Zona Herragro · E-Commerce · 2023',
+    image: '/images/projects/zonaHerragro/1.jpg',
+    link: '/zona-herragro',
+    tags: ['B2B E-Commerce', 'Logistics UX', 'Web & App'],
+  },
+  {
+    number: '03',
+    title: 'SaudiaBEYOND',
+    headline: 'Saudi heritage and future vision across IFE, web and mobile',
+    caption: 'SaudiaBEYOND · Brand & Passenger Experience · 2024',
+    image: '/images/projects/saudiaBeyond/6.jpg',
+    link: '/saudia-beyond',
+    tags: ['Brand Identity', 'Arabic Typography', 'Multi-Platform'],
+  },
+  {
+    number: '04',
+    title: 'Reteki',
+    headline: 'Consumer rentals and corporate sales — two products, one brand',
+    caption: 'Reteki · Web & App · 2022',
+    image: '/images/projects/reteki/2.jpg',
+    link: '/reteki',
+    tags: ['Dual-Audience UX', 'Web & App', 'Motion Design'],
+  },
+  {
+    number: '05',
+    title: 'Nuela AI',
+    headline: 'Unifying SIS, ERP and LMS in one AI-native school ecosystem',
+    caption: 'Nuela · EdTech SaaS · 2024',
+    image: '/images/projects/nuela/1.png',
+    deviceMockup: true,
+    link: 'https://www.nuela.ai/',
+    external: true,
+    tags: ['EdTech SaaS', 'SIS + ERP + LMS', 'Native AI'],
+  },
+];
+
+export default workProjects;

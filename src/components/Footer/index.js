@@ -1,37 +1,57 @@
-import Link from 'next/link';
+import { FaLinkedin } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
-const Component = () => {
+const socialLinks = [
+  {
+    label: 'Email',
+    href: 'mailto:hello@bryangr.com',
+    icon: MdEmail,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/bryan-giraldo-restrepo-9522521a4/',
+    icon: FaLinkedin,
+  },
+];
+
+export default function Footer() {
   return (
-    <footer>
-      <div className='site-container py-10 border-t-2 border-t-main-gray/70 text-main-gray'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 items-end'>
-          <p className='order-2 lg:order-1 textLight text-center lg:text-left mt-5 lg:mt-0'>
-            2026 &copy; designed and developed by me, Bryan Giraldo
-          </p>
-          <div className='order-1 lg:order-2'>
-            <nav className='flex items-center justify-center lg:justify-end space-x-8 text-2xl lg:text-4xl'>
-              <Link
-                href='mailto:hello@bryangr.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='hover:scale-105 transition-all transition-300'
-              >
-                My <span className='text-main-white'>Contact</span>
-              </Link>
-              <Link
-                href='http://linkedin.com/in/bryan-giraldo-restrepo-9522521a4'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='hover:scale-105 transition-all transition-300'
-              >
-                My <span className='text-main-white'>LinkedIn</span>
-              </Link>
-            </nav>
-          </div>
+    <footer className='site-footer'>
+      <section className='site-footer__cta site-container'>
+        <p className='site-footer__cta-label'>Let&apos;s work together</p>
+        <a href='mailto:hello@bryangr.com' className='site-footer__cta-email group'>
+          <span className='site-footer__cta-email-text'>
+            hello@
+            <br className='lg:hidden' />
+            bryangr.com
+          </span>
+          <span className='site-footer__cta-email-line' aria-hidden='true' />
+        </a>
+      </section>
+
+      <div className='site-footer__bar site-container'>
+        <div className='site-footer__meta'>
+          <span>Designed and built by Bryan Giraldo</span>
+          <span>Madrid, Spain</span>
+        </div>
+
+        <div className='site-footer__social'>
+          {socialLinks.map(({ label, href, icon: Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='site-footer__pill'
+            >
+              <span className='site-footer__pill-icon' aria-hidden='true'>
+                <Icon />
+              </span>
+              {label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>
   );
-};
-
-export default Component;
+}

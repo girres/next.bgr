@@ -1,83 +1,76 @@
-// Hide default cursor on desktop
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
+.custom-cursor-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
 }
 
-.custom-cursor-trail {
+.custom-cursor-ring,
+.custom-cursor-dot {
   position: fixed;
-  width: 24px;
-  height: 24px;
-  background: radial-gradient(
-    circle,
-    rgba(62, 83, 155, 0.8) 0%,
-    rgba(62, 83, 155, 0.4) 40%,
-    rgba(62, 83, 155, 0.1) 70%,
-    rgba(62, 83, 155, 0) 100%
-  );
-  border-radius: 50%;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  z-index: 9998;
-  will-change: transform, opacity;
-}
-
-.custom-cursor {
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  mix-blend-mode: difference;
   will-change: transform;
+  opacity: 0;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
 
-  &.visible {
+.custom-cursor-ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(208, 219, 224, 0.55);
+  border-radius: 9999px;
+  z-index: 10000;
+  mix-blend-mode: difference;
+
+  &.is-visible {
     opacity: 1;
   }
 
-  &.hovering {
-    width: 60px;
-    height: 60px;
-    border-color: rgba(255, 255, 255, 0.8);
+  &.is-hovering {
+    border-color: rgba(208, 219, 224, 0.85);
   }
 }
 
 .custom-cursor-dot {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  mix-blend-mode: difference;
-  will-change: transform;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: #d0dbe0;
+  z-index: 10001;
+  box-shadow: 0 0 10px rgba(208, 219, 224, 0.35);
 
-  &.visible {
+  &.is-visible {
     opacity: 1;
   }
 }
 
-// Show default cursor on mobile/touch devices
-@media (pointer: coarse) {
-  .custom-cursor,
-  .custom-cursor-dot,
-  .custom-cursor-trail {
-    display: none;
+@media (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
   }
 
-  * {
-    cursor: auto !important;
+  html.award-modal-open .custom-cursor-root,
+  html.award-modal-open .custom-cursor-ring {
+    z-index: 10100;
+  }
+
+  html.award-modal-open .custom-cursor-dot {
+    z-index: 10101;
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor-root {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor-ring,
+  .custom-cursor-dot {
+    transition: none;
   }
 }
