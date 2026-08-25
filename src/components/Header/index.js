@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { clsx } from 'clsx';
 import { TbSnowflake } from 'react-icons/tb';
@@ -24,7 +23,6 @@ const MOBILE_NAV_QUERY = '(max-width: 1023px)';
 
 export default function Header() {
   const headerRef = useRef(null);
-  const navRef = useRef(null);
   const pathname = usePathname();
   const { isActive: isSnowActive, toggle: toggleSnow } = useSnow();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,12 +44,10 @@ export default function Header() {
       if (!window.matchMedia(MOBILE_NAV_QUERY).matches) closeMenu();
     };
 
-    document.documentElement.classList.add('nav-open');
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', onResize);
 
     return () => {
-      document.documentElement.classList.remove('nav-open');
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('resize', onResize);
     };
@@ -64,39 +60,19 @@ export default function Header() {
 
       const mm = gsap.matchMedia();
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from(header, { y: -28, autoAlpha: 0, duration: 0.7, ease: 'power3.out' });
+        gsap.from(header, {
+          y: -28,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          onComplete: () => {
+            gsap.set(header, { clearProps: 'transform' });
+          },
+        });
       });
       return () => mm.revert();
     },
     { scope: headerRef }
-  );
-
-  useGSAP(
-    () => {
-      const nav = navRef.current;
-      if (!nav) return undefined;
-
-      const media = gsap.matchMedia();
-
-      media.add(MOBILE_NAV_QUERY, () => {
-        gsap.to(nav, {
-          autoAlpha: isMenuOpen ? 1 : 0,
-          y: isMenuOpen ? 0 : -14,
-          duration: 0.34,
-          ease: isMenuOpen ? 'power3.out' : 'power2.in',
-          overwrite: true,
-        });
-        return undefined;
-      });
-
-      media.add('(min-width: 1024px)', () => {
-        gsap.set(nav, { clearProps: 'all' });
-        return undefined;
-      });
-
-      return () => media.revert();
-    },
-    { scope: headerRef, dependencies: [isMenuOpen] }
   );
 
   useGSAP(
@@ -143,61 +119,64 @@ export default function Header() {
       ref={headerRef}
       className={clsx('site-header', isMenuOpen && 'site-header--menu-open')}
     >
-      {isMenuOpen ? (
-        <button
-          type='button'
-          className='site-header__scrim'
-          aria-label='Close menu'
-          onClick={closeMenu}
-        />
-      ) : null}
-
       <div className='site-header__inner'>
-        <Link href='/' className='site-header__logo' aria-label='Home' onClick={closeMenu}>
-          <Image src='/logo.svg' alt='Bryan G' width={44} height={44} quality={100} priority />
+        <Link href='/' className='site-header__logo' aria-label='Bryan Girado - Home' onClick={closeMenu}>
+          <span className='site-header__logo-text fontTitles'>Bryan Girado</span>
         </Link>
 
+        {isMenuOpen ? (
+          <button
+            type='button'
+            className='site-header__nav-backdrop'
+            aria-label='Close menu'
+            onClick={closeMenu}
+            tabIndex={-1}
+          />
+        ) : null}
+
         <nav
-          ref={navRef}
           id='site-header-nav'
           className={clsx('site-header__nav', isMenuOpen && 'is-open')}
           aria-label='Main navigation'
+          aria-hidden={!isMenuOpen}
         >
-          {navLinks.map((link) =>
-            link.external ? (
-              <a
-                key={link.label}
-                href={link.href}
-                className='site-header__link'
-                target='_blank'
-                rel='noopener noreferrer'
-                onClick={closeMenu}
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.label}
-                href={link.href}
-                data-nav={link.section}
-                className='site-header__link'
-                onClick={closeMenu}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
+          <div className='site-header__nav-panel'>
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className='site-header__link'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  data-nav={link.section}
+                  className='site-header__link'
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
 
-          <button
-            type='button'
-            className={clsx('site-header__pill', isSnowActive && 'site-header__pill--active')}
-            onClick={toggleSnow}
-            aria-pressed={isSnowActive}
-            aria-label='Toggle snow effect'
-          >
-            <TbSnowflake className={clsx('site-header__pill-icon', isSnowActive && 'is-spinning')} />
-            <span className='site-header__pill-label'>Let it snow</span>
-          </button>
+            <button
+              type='button'
+              className={clsx('site-header__pill', isSnowActive && 'site-header__pill--active')}
+              onClick={toggleSnow}
+              aria-pressed={isSnowActive}
+              aria-label='Toggle snow effect'
+            >
+              <TbSnowflake className={clsx('site-header__pill-icon', isSnowActive && 'is-spinning')} />
+              <span className='site-header__pill-label'>Let it snow</span>
+            </button>
+          </div>
         </nav>
 
         <button

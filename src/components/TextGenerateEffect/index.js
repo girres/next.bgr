@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsapClient';
 
 export default function TextGenerateEffect({
@@ -44,6 +44,22 @@ export default function TextGenerateEffect({
     },
     { scope: rootRef, dependencies: [words, duration, filter] }
   );
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    const fallback = window.setTimeout(() => {
+      root.querySelectorAll('.text-generate__word').forEach((node) => {
+        node.style.opacity = '1';
+        node.style.visibility = 'visible';
+        node.style.filter = 'none';
+        node.style.transform = 'none';
+      });
+    }, 2000);
+
+    return () => window.clearTimeout(fallback);
+  }, [words]);
 
   return (
     <div ref={rootRef} className={className}>

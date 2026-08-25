@@ -9,23 +9,31 @@ export default function WorkCard({ project }) {
     external = false,
     deviceMockup = false,
     award = null,
+    imageFit = 'cover',
+    showcase = false,
   } = project;
 
   const media = (
-    <div className={clsx('work-card__media', deviceMockup && 'work-card__media--device')}>
+    <div
+      className={clsx(
+        'work-card__media',
+        deviceMockup && 'work-card__media--device',
+        showcase && 'work-card__media--showcase'
+      )}
+    >
       {deviceMockup ? (
         <div className='work-card__laptop'>
           <div className='work-card__laptop-lid'>
             <span className='work-card__laptop-camera' aria-hidden='true' />
             <div className='work-card__laptop-screen'>
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={project.image}
                 alt={project.title}
-                fill
-                style={{ objectFit: 'contain' }}
-                sizes='(min-width: 1024px) 540px, 100vw'
-                quality={95}
+                className='work-card__laptop-image'
                 loading='lazy'
+                decoding='async'
+                draggable={false}
               />
             </div>
           </div>
@@ -39,7 +47,7 @@ export default function WorkCard({ project }) {
           alt={project.title}
           fill
           style={{
-            objectFit: 'cover',
+            objectFit: imageFit,
             objectPosition: project.imagePosition || 'center',
           }}
           sizes='(min-width: 1024px) 45vw, 100vw'
@@ -62,7 +70,7 @@ export default function WorkCard({ project }) {
       )}
 
       <span className='work-card__arrow' aria-hidden='true'>
-        <LiaChevronCircleRightSolid className='w-8 h-8 lg:w-10 lg:h-10' />
+        <LiaChevronCircleRightSolid className='work-card__arrow-icon' />
       </span>
     </div>
   );
@@ -72,7 +80,8 @@ export default function WorkCard({ project }) {
       className={clsx(
         'work-card glass-card',
         confidential && 'work-card--confidential',
-        deviceMockup && 'work-card--device'
+        deviceMockup && 'work-card--device',
+        showcase && 'work-card--showcase'
       )}
     >
       <div className='work-card__grid'>

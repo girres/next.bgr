@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { clsx } from 'clsx';
-import { gsap, useGSAP } from '@/lib/gsapClient';
+import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
 
 const CONFETTI_COLORS = ['#4f7cff', '#5b8cff', '#ffc857', '#33fe00', '#ffffff', '#d0dbe0'];
 
@@ -117,6 +117,27 @@ export default function AwardCelebrationModal({
     if (isOpen) setIsRendered(true);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isRendered) return undefined;
+
+    const html = document.documentElement;
+    html.classList.add('award-modal-open');
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') handleClose();
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      html.classList.remove('award-modal-open');
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh(true);
+      });
+    };
+  }, [isRendered, handleClose]);
+
   useGSAP(
     (context, contextSafe) => {
       if (!isRendered) return undefined;
@@ -126,17 +147,9 @@ export default function AwardCelebrationModal({
       const dialog = dialogRef.current;
       const finishClose = contextSafe(() => setIsRendered(false));
 
-      document.documentElement.classList.add('award-modal-open');
-      document.body.style.overflow = 'hidden';
-
-      const onKeyDown = (event) => {
-        if (event.key === 'Escape') handleClose();
-      };
-
-      window.addEventListener('keydown', onKeyDown);
-      closeButtonRef.current?.focus();
-
       if (isOpen) {
+        closeButtonRef.current?.focus();
+
         gsap.set(backdrop, { autoAlpha: 0 });
         gsap.set(dialog, { autoAlpha: 0, scale: 0.9, y: 36 });
 
@@ -168,6 +181,11 @@ export default function AwardCelebrationModal({
         stopConfettiRef.current();
         stopConfettiRef.current = () => {};
 
+        if (!backdrop || !dialog) {
+          finishClose();
+          return undefined;
+        }
+
         const outro = gsap.timeline({
           defaults: { ease: 'power2.in' },
           onComplete: finishClose,
@@ -180,10 +198,7 @@ export default function AwardCelebrationModal({
       }
 
       return () => {
-        window.removeEventListener('keydown', onKeyDown);
         stopConfettiRef.current();
-        document.documentElement.classList.remove('award-modal-open');
-        document.body.style.overflow = '';
       };
     },
     { dependencies: [isOpen, isRendered, handleClose], scope: rootRef }

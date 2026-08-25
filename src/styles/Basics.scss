@@ -5,6 +5,14 @@
 body {
     @apply bg-main-dark text-main-white;
     @apply fontRegular text-sm;
+    max-width: 100%;
+}
+
+@media (max-width: 1023px) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
 }
 
 :root {
@@ -13,6 +21,8 @@ body {
 
 .site-container {
     @apply container mx-auto px-4 sm:px-5 lg:px-6;
+    min-width: 0;
+    max-width: 100%;
 }
 
 h1,

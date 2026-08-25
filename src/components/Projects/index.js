@@ -51,7 +51,7 @@ export const VideosMp4 = ({ videos = [], name = '-' }) => {
     >
       {videos.map((video, key) => (
         <SwiperSlide key={video}>
-          <video controls id={`video-${key}`}>
+          <video controls id={`video-${key}`} aria-label={`${name} video ${key + 1}`}>
             <source src={video} type='video/mp4' />
           </video>
         </SwiperSlide>

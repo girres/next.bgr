@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsapClient';
 import './cursor.scss';
 
@@ -8,20 +8,31 @@ export default function CustomCursor() {
   const rootRef = useRef(null);
   const ringRef = useRef(null);
   const dotRef = useRef(null);
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  useEffect(() => {
+    setIsEnabled(window.matchMedia('(pointer: fine)').matches);
+  }, []);
 
   useGSAP(
     () => {
-      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-      if (!isFinePointer) return undefined;
+      if (!isEnabled) return undefined;
 
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const ring = ringRef.current;
       const dot = dotRef.current;
       if (!ring || !dot) return undefined;
 
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       document.documentElement.classList.add('has-custom-cursor');
 
-      gsap.set([dot, ring], { xPercent: -50, yPercent: -50, autoAlpha: 0, scale: 1 });
+      gsap.set([dot, ring], {
+        x: -100,
+        y: -100,
+        xPercent: -50,
+        yPercent: -50,
+        autoAlpha: 0,
+        scale: 1,
+      });
 
       const duration = reduceMotion ? 0 : undefined;
       const dotX = gsap.quickTo(dot, 'x', { duration: duration ?? 0.12, ease: 'power3' });
@@ -66,8 +77,10 @@ export default function CustomCursor() {
         document.removeEventListener('mouseover', onOver);
       };
     },
-    { scope: rootRef }
+    { scope: rootRef, dependencies: [isEnabled] }
   );
+
+  if (!isEnabled) return null;
 
   return (
     <div ref={rootRef} className='custom-cursor-root' aria-hidden='true'>

@@ -1,57 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Marquee from 'react-fast-marquee';
 import AnimatedTooltip from '@/components/AnimatedTooltip';
 import ScrollReveal from '@/components/ScrollReveal';
 import WorkStack from '@/components/WorkStack';
 import AboutCopy from '@/components/AboutCopy';
 import AboutFaceReveal from '@/components/AboutFaceReveal';
-
-const skills = [
-  'Product Design',
-  'UX Research',
-  'Design Systems',
-  'Front-End Development',
-  'Prototyping',
-  'SaaS / B2B',
-  'In-Flight Entertainment',
-  'AI-assisted Workflows',
-  'Design × Engineering',
-  'Product Strategy',
-  'A/B Testing',
-  'Stakeholder Alignment',
-];
-
-const clients = [
-  {
-    title: 'carbonbox',
-    image: '/images/myclients/carbonbox.png',
-  },
-  {
-    title: 'esd',
-    image: '/images/myclients/esd.png',
-  },
-  {
-    title: 'espaciocontinuo',
-    image: '/images/myclients/espaciocontinuo.png',
-  },
-  {
-    title: 'fp',
-    image: '/images/myclients/fp.png',
-  },
-  {
-    title: 'panasonic',
-    image: '/images/myclients/panasonic.png',
-  },
-  {
-    title: 'reteki',
-    image: '/images/myclients/reteki.png',
-  },
-  {
-    title: 'saudia',
-    image: '/images/myclients/saudia.png',
-  },
-];
+import ClientsMarquee from '@/components/ClientsMarquee';
+import skills from '@/data/skills';
 
 const efforts = [
   {
@@ -120,61 +75,14 @@ const tools = [
   },
 ];
 
-export const SkillsMarquee = () => {
-  return (
-    <div className='skills-marquee overflow-hidden border-y border-main-gray/20 py-4 lg:py-5'>
-      <Marquee
-        speed={50}
-        autoFill
-        direction='left'
-        gradient
-        gradientColor='#151B21'
-        gradientWidth={60}
-      >
-        {skills.map((skill) => (
-          <span
-            key={skill}
-            className='mx-6 lg:mx-8 text-sm lg:text-base text-main-gray whitespace-nowrap'
-          >
-            {skill}
-          </span>
-        ))}
-      </Marquee>
-    </div>
-  );
-};
-
 export const Clients = () => {
   return (
-    <div id='clients' className='lg:flex lg:items-center lg:gap-8 overflow-hidden'>
+    <div id='clients' className='lg:flex lg:items-center lg:gap-8'>
       <h2 className='lg:w-[20%] flex-shrink-0'>
         Worked <span className='text-main-gray'>with:</span>
       </h2>
-      <div className='flex-1 mt-4 lg:mt-0 overflow-hidden'>
-        <Marquee
-          speed='70'
-          autoFill
-          direction='left'
-          gradient
-          gradientColor='#151B21'
-          gradientWidth={50}
-        >
-          {clients.map((client) => (
-            <div
-              key={client.title}
-              className='client relative w-[120px] h-[120px] lg:w-[140px] lg:h-[140px] mx-8 lg:mx-10'
-            >
-              <Image
-                src={client.image}
-                alt={client.title}
-                fill
-                sizes='(min-width: 1024px) 140px, 120px'
-                quality={75}
-                style={{ objectFit: 'contain', objectPosition: 'center' }}
-              />
-            </div>
-          ))}
-        </Marquee>
+      <div className='w-full lg:flex-1 mt-5 lg:mt-0'>
+        <ClientsMarquee />
       </div>
     </div>
   );

@@ -25,15 +25,12 @@ function Snowflakes() {
 
   useGSAP(
     () => {
+      if (!isActive) return undefined;
+
       const nodes = rootRef.current?.querySelectorAll('.snow-flake');
       if (!nodes?.length) return undefined;
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!isActive) {
-        gsap.to(nodes, { autoAlpha: 0, duration: 0.4, overwrite: true });
-        return undefined;
-      }
 
       if (reduceMotion) {
         gsap.set(nodes, { autoAlpha: 0.35 });
@@ -78,6 +75,8 @@ function Snowflakes() {
     },
     { scope: rootRef, dependencies: [isActive] }
   );
+
+  if (!isActive) return null;
 
   return (
     <div

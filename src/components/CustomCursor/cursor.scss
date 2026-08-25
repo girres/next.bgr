@@ -3,6 +3,11 @@
   inset: 0;
   pointer-events: none;
   z-index: 10000;
+  display: none;
+}
+
+html.has-custom-cursor .custom-cursor-root {
+  display: block;
 }
 
 .custom-cursor-ring,
@@ -13,6 +18,7 @@
   pointer-events: none;
   will-change: transform;
   opacity: 0;
+  visibility: hidden;
   transition: opacity 0.25s ease, border-color 0.25s ease;
 }
 
