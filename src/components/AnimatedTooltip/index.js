@@ -62,7 +62,7 @@ export default function AnimatedTooltip({ items }) {
           </AnimatePresence>
           <div
             onMouseMove={handleMouseMove}
-            className='flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-2xl border border-main-gray/20 bg-[#2B3138]/50 backdrop-blur-sm transition-all duration-300 hover:border-main-gray/40 lg:h-[100px] lg:w-[100px]'
+            className='flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-2xl border border-main-gray/20 bg-[#2B3138]/70 transition-colors duration-300 hover:border-main-gray/40 lg:h-[100px] lg:w-[100px]'
             aria-label={item.title}
           >
             <img
@@ -70,7 +70,7 @@ export default function AnimatedTooltip({ items }) {
               alt=''
               width={50}
               height={50}
-              loading='lazy'
+              loading='eager'
               decoding='async'
               className='mx-auto h-auto max-h-[50px] w-auto object-contain opacity-80 brightness-0 invert'
             />

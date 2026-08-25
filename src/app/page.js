@@ -7,7 +7,6 @@ import {
 } from '@/components/Blocks';
 import SkillsMarquee from '@/components/SkillsMarquee';
 import TextGenerateEffect from '@/components/TextGenerateEffect';
-import ScrollReveal from '@/components/ScrollReveal';
 import HeroScroll from '@/components/HeroScroll';
 import HeroBadges from '@/components/HeroBadges';
 
@@ -63,25 +62,19 @@ export default function Home() {
       </div>
 
       {/* Experience / About Section */}
-      <ScrollReveal delay={0.1}>
-        <div className='py-12 lg:py-20 site-container'>
-          <Experience />
-        </div>
-      </ScrollReveal>
+      <div className='py-12 lg:py-20 site-container'>
+        <Experience />
+      </div>
 
       {/* Efforts Section */}
-      <ScrollReveal delay={0.1}>
-        <div className='py-12 lg:py-20 site-container'>
-          <Efforts />
-        </div>
-      </ScrollReveal>
+      <div className='py-12 lg:py-20 site-container'>
+        <Efforts />
+      </div>
 
       {/* Tools Section */}
-      <ScrollReveal delay={0.1}>
-        <div className='py-12 lg:py-20 site-container'>
-          <Tools />
-        </div>
-      </ScrollReveal>
+      <div className='py-12 lg:py-20 site-container'>
+        <Tools />
+      </div>
     </main>
   );
 }

@@ -11,7 +11,6 @@
         border-color 0.3s ease,
         box-shadow 0.3s ease,
         transform 0.3s ease;
-    will-change: transform;
 
     &:hover {
         background: rgba(43, 49, 56, 0.75);
@@ -78,40 +77,29 @@
         top: 50%;
         transform: translateY(-50%);
         z-index: 10;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 1rem;
+        gap: 0.15rem;
         color: #4f7cff;
     }
 
-    &__scroll-line {
-        display: block;
-        width: 2px;
-        height: 4.5rem;
-        border-radius: 9999px;
-        background: linear-gradient(
-            to bottom,
-            rgba(79, 124, 255, 0.15) 0%,
-            #4f7cff 45%,
-            #2f6bff 55%,
-            rgba(79, 124, 255, 0.15) 100%
-        );
-        background-size: 100% 200%;
-        box-shadow:
-            0 0 10px rgba(79, 124, 255, 0.55),
-            0 0 22px rgba(47, 107, 255, 0.35);
-        animation: none;
-    }
-
     &__scroll-text {
+        min-width: 10.4em;
         font-size: 0.625rem;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        transform: rotate(180deg);
         color: #5b8cff;
         text-shadow: 0 0 12px rgba(79, 124, 255, 0.45);
+        white-space: nowrap;
+    }
+
+    &__scroll-caret {
+        display: block;
+        width: 0.08em;
+        height: 0.7em;
+        background: #5b8cff;
+        box-shadow: 0 0 10px rgba(79, 124, 255, 0.55);
+        animation: hero-scroll-caret 0.85s steps(1, end) infinite;
     }
 
     &__badges {
@@ -348,22 +336,15 @@
     }
 }
 
-@keyframes hero-scroll-line {
+@keyframes hero-scroll-caret {
     0%,
-    100% {
-        background-position: 0% 0%;
-        opacity: 0.55;
-        box-shadow:
-            0 0 8px rgba(79, 124, 255, 0.35),
-            0 0 16px rgba(47, 107, 255, 0.2);
+    49% {
+        opacity: 1;
     }
 
-    50% {
-        background-position: 0% 100%;
-        opacity: 1;
-        box-shadow:
-            0 0 14px rgba(79, 124, 255, 0.85),
-            0 0 28px rgba(47, 107, 255, 0.55);
+    50%,
+    100% {
+        opacity: 0;
     }
 }
 
@@ -387,10 +368,9 @@
         text-shadow: 0 0 10px rgba(79, 124, 255, 0.45);
     }
 
-    .home-hero__scroll-line {
+    .home-hero__scroll-caret {
         animation: none;
         opacity: 0.85;
-        box-shadow: 0 0 10px rgba(79, 124, 255, 0.45);
     }
 
     .about-face-reveal .face-reveal__dot {
@@ -765,6 +745,7 @@
             gap: 1.5rem;
             position: relative;
             z-index: 2;
+            pointer-events: none;
 
             @media (max-width: 1023px) {
                 padding: 1.35rem 1.35rem 1rem;
@@ -835,7 +816,8 @@
 
         &__award-badge {
             position: relative;
-            z-index: 3;
+            z-index: 5;
+            pointer-events: auto;
             display: inline-flex;
             align-items: center;
             gap: 0.85rem;
@@ -943,6 +925,7 @@
             position: absolute;
             inset: 0;
             z-index: 1;
+            cursor: pointer;
         }
 
         &__tags {
@@ -1002,6 +985,7 @@
             z-index: 2;
             min-height: 11.5rem;
             overflow: hidden;
+            pointer-events: none;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
 
             @media (max-width: 1023px) {

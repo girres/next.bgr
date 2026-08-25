@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsapClient';
+import { useRef } from 'react';
+import { gsap, useGSAP } from '@/lib/gsapClient';
 
-export default function ScrollReveal({ children, className = '' }) {
+export default function ScrollReveal({ children, className = '', delay = 0 }) {
   const ref = useRef(null);
 
   useGSAP(
@@ -14,23 +14,24 @@ export default function ScrollReveal({ children, className = '' }) {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(element, { opacity: 1, y: 0, clearProps: 'transform' });
+        gsap.set(element, { autoAlpha: 1, y: 0, clearProps: 'transform' });
       });
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         const tween = gsap.fromTo(
           element,
-          { opacity: 0, y: 28 },
+          { autoAlpha: 0, y: 16 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
+            duration: 0.5,
+            delay,
+            ease: 'power2.out',
+            force3D: true,
             scrollTrigger: {
               trigger: element,
               start: 'top 92%',
               once: true,
-              invalidateOnRefresh: true,
             },
             onComplete: () => {
               gsap.set(element, { clearProps: 'transform' });
@@ -38,27 +39,13 @@ export default function ScrollReveal({ children, className = '' }) {
           }
         );
 
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-
         return () => tween.kill();
       });
 
       return () => mm.revert();
     },
-    { scope: ref }
+    { scope: ref, dependencies: [delay] }
   );
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return undefined;
-
-    const fallback = window.setTimeout(() => {
-      element.style.opacity = '1';
-      element.style.transform = 'none';
-    }, 1500);
-
-    return () => window.clearTimeout(fallback);
-  }, []);
 
   return (
     <div ref={ref} className={className}>

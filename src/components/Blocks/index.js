@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimatedTooltip from '@/components/AnimatedTooltip';
-import ScrollReveal from '@/components/ScrollReveal';
 import WorkStack from '@/components/WorkStack';
 import AboutCopy from '@/components/AboutCopy';
 import AboutFaceReveal from '@/components/AboutFaceReveal';
 import ClientsMarquee from '@/components/ClientsMarquee';
+import EffortCards from '@/components/EffortCards';
 import skills from '@/data/skills';
 
 const efforts = [
@@ -101,27 +101,7 @@ export const Efforts = () => {
         <span className='text-main-white'>better meet</span> your{' '}
         <span className='text-main-white'>business needs?</span>
       </h2>
-      <div className='content'>
-        {efforts.map((effort, index) => (
-          <ScrollReveal key={effort.title} delay={index * 0.15}>
-            <div className='effort glass-card'>
-              <div className='heading'>
-                <Image
-                  src={effort.image}
-                  alt={effort.title}
-                  width={50}
-                  height={50}
-                  sizes='50px'
-                  quality={75}
-                  loading='lazy'
-                />
-                <h3>{effort.title}</h3>
-              </div>
-              <p className='text-sm lg:text-lg'>{effort.text}</p>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
+      <EffortCards items={efforts} />
     </div>
   );
 };

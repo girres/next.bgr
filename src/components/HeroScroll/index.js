@@ -4,25 +4,52 @@ import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsapClient';
 import { scrollToTarget } from '@/lib/smoothScroll';
 
+const SCROLL_LABEL = 'Scroll Down';
+const TYPE_STEP = 0.09;
+const HOLD_FULL = 0.85;
+const LOOP_DELAY = 0.7;
+
 export default function HeroScroll() {
   const rootRef = useRef(null);
+  const textRef = useRef(null);
 
   useGSAP(
     () => {
-      const line = rootRef.current?.querySelector('.home-hero__scroll-line');
-      if (!line) return undefined;
+      const text = textRef.current;
+      if (!text) return undefined;
 
       const mm = gsap.matchMedia();
 
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        text.textContent = SCROLL_LABEL;
+      });
+
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.set(line, { transformOrigin: 'top center' });
-        gsap.to(line, {
-          scaleY: 0.42,
-          duration: 1.35,
-          ease: 'power1.inOut',
-          yoyo: true,
-          repeat: -1,
+        text.textContent = '';
+
+        const timeline = gsap.timeline({ repeat: -1 });
+
+        SCROLL_LABEL.split('').forEach((_, index) => {
+          timeline.call(
+            () => {
+              text.textContent = SCROLL_LABEL.slice(0, index + 1);
+            },
+            null,
+            index * TYPE_STEP
+          );
         });
+
+        timeline.call(
+          () => {
+            text.textContent = '';
+          },
+          null,
+          SCROLL_LABEL.length * TYPE_STEP + HOLD_FULL
+        );
+
+        timeline.to({}, { duration: LOOP_DELAY });
+
+        return () => timeline.kill();
       });
 
       return () => mm.revert();
@@ -38,8 +65,8 @@ export default function HeroScroll() {
       aria-label='Scroll to selected work'
       onClick={() => scrollToTarget('projects')}
     >
-      <span className='home-hero__scroll-line' />
-      <span className='home-hero__scroll-text'>Scroll</span>
+      <span className='home-hero__scroll-text' ref={textRef} />
+      <span className='home-hero__scroll-caret' aria-hidden='true' />
     </button>
   );
 }
