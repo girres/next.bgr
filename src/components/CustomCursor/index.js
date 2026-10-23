@@ -2,12 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsapClient';
+import { isTextCursorPoint } from './textHighlight';
+import { isViewProjectPoint } from './viewProject';
 import './cursor.scss';
+
+const CURSOR_SQUARE = 13;
+
+function resolveCursorMode(x, y) {
+  if (isTextCursorPoint(x, y)) return 'text';
+  if (isViewProjectPoint(x, y)) return 'view-project';
+  return 'default';
+}
 
 export default function CustomCursor() {
   const rootRef = useRef(null);
-  const ringRef = useRef(null);
-  const dotRef = useRef(null);
+  const trackRef = useRef(null);
+  const cursorRef = useRef(null);
+  const labelRef = useRef(null);
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
@@ -18,63 +29,93 @@ export default function CustomCursor() {
     () => {
       if (!isEnabled) return undefined;
 
-      const ring = ringRef.current;
-      const dot = dotRef.current;
-      if (!ring || !dot) return undefined;
+      const track = trackRef.current;
+      const cursor = cursorRef.current;
+      const label = labelRef.current;
+      if (!track || !cursor || !label) return undefined;
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       document.documentElement.classList.add('has-custom-cursor');
 
-      gsap.set([dot, ring], {
+      let mode = 'default';
+      let frame = 0;
+
+      gsap.set(track, {
         x: -100,
         y: -100,
-        xPercent: -50,
+        xPercent: 0,
         yPercent: -50,
         autoAlpha: 0,
-        scale: 1,
       });
 
-      const duration = reduceMotion ? 0 : undefined;
-      const dotX = gsap.quickTo(dot, 'x', { duration: duration ?? 0.12, ease: 'power3' });
-      const dotY = gsap.quickTo(dot, 'y', { duration: duration ?? 0.12, ease: 'power3' });
-      const ringX = gsap.quickTo(ring, 'x', { duration: duration ?? 0.45, ease: 'power3' });
-      const ringY = gsap.quickTo(ring, 'y', { duration: duration ?? 0.45, ease: 'power3' });
+      gsap.set(cursor, {
+        width: CURSOR_SQUARE,
+        height: CURSOR_SQUARE,
+        autoAlpha: 1,
+      });
+
+      gsap.set(label, { autoAlpha: 0 });
+
+      const moveDuration = reduceMotion ? 0 : 0.14;
+      const morphDuration = reduceMotion ? 0 : 0.22;
+
+      const posX = gsap.quickTo(track, 'x', { duration: moveDuration, ease: 'power3' });
+      const posY = gsap.quickTo(track, 'y', { duration: moveDuration, ease: 'power3' });
+
+      const setMode = (next) => {
+        if (mode === next) return;
+        mode = next;
+
+        const isText = next === 'text';
+        const isViewProject = next === 'view-project';
+
+        gsap.to(cursor, {
+          width: isText ? 2 : CURSOR_SQUARE,
+          height: isText ? 24 : CURSOR_SQUARE,
+          duration: morphDuration,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+
+        gsap.to(label, {
+          autoAlpha: isViewProject ? 1 : 0,
+          duration: isViewProject ? 0.2 : 0.14,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+
+        cursor.classList.toggle('custom-cursor--text', isText);
+        track.classList.toggle('custom-cursor-track--view-project', isViewProject);
+      };
+
+      const update = (clientX, clientY) => {
+        posX(clientX + 6);
+        posY(clientY);
+        gsap.to(track, { autoAlpha: 1, duration: 0.18, overwrite: 'auto' });
+        setMode(resolveCursorMode(clientX, clientY));
+      };
 
       const onMove = (event) => {
-        dotX(event.clientX);
-        dotY(event.clientY);
-        ringX(event.clientX);
-        ringY(event.clientY);
-        gsap.to([dot, ring], { autoAlpha: 1, duration: 0.2, overwrite: 'auto' });
+        const { clientX, clientY } = event;
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          update(clientX, clientY);
+        });
       };
 
       const onLeave = () => {
-        gsap.to([dot, ring], { autoAlpha: 0, duration: 0.2, overwrite: 'auto' });
-      };
-
-      const onOver = (event) => {
-        const target = event.target;
-        if (!(target instanceof Element)) return;
-        const isHovering = Boolean(
-          target.closest('a, button, [role="button"], input, textarea, select, label')
-        );
-        gsap.to(ring, {
-          scale: isHovering ? 1.45 : 1,
-          duration: 0.35,
-          ease: 'power3.out',
-          overwrite: 'auto',
-        });
+        gsap.to(track, { autoAlpha: 0, duration: 0.2, overwrite: 'auto' });
       };
 
       window.addEventListener('mousemove', onMove, { passive: true });
       document.addEventListener('mouseleave', onLeave);
-      document.addEventListener('mouseover', onOver, { passive: true });
 
       return () => {
+        if (frame) cancelAnimationFrame(frame);
         document.documentElement.classList.remove('has-custom-cursor');
         window.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseleave', onLeave);
-        document.removeEventListener('mouseover', onOver);
       };
     },
     { scope: rootRef, dependencies: [isEnabled] }
@@ -84,8 +125,10 @@ export default function CustomCursor() {
 
   return (
     <div ref={rootRef} className='custom-cursor-root' aria-hidden='true'>
-      <div ref={ringRef} className='custom-cursor-ring' />
-      <div ref={dotRef} className='custom-cursor-dot' />
+      <div ref={trackRef} className='custom-cursor-track'>
+        <div ref={cursorRef} className='custom-cursor' />
+        <span ref={labelRef} className='custom-cursor__label'>View project</span>
+      </div>
     </div>
   );
 }

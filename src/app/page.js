@@ -20,20 +20,43 @@ export default function Home() {
 
         <div className='site-container home-hero__inner'>
           <div className='home-hero__content'>
-            <h1 className='home-hero__role max-w-3xl text-ink mb-10 lg:mb-14'>
-              End-to-End Product designer
+            <h1
+              className='home-hero__role max-w-3xl mb-10 lg:mb-14'
+              aria-label='End-to-End Product designer'
+            >
+              <span className='home-hero__role-hidden-line' aria-hidden='true'>
+                <span className='home-hero__role-hidden'>End-to-End</span>
+              </span>
+              <span className='home-hero__role-main-line'>Product designer</span>
             </h1>
             <TextGenerateEffect
-              words="Madrid based. I design and build end-to-end digital products — bridging strategic product discovery with modular front-end development to ensure quality from concept to launch."
+              words={`I've been called a product builder, end-to-end designer, front-end dev, astronaut... but "product designer" is still the one that feels right. I'm at my best taking complex B2B or B2C products from 0 to 1, combining early-stage discovery with modular systems thinking.`}
               className='home-hero__bio'
               duration={0.5}
               filter={true}
               highlightWords={[
+                "i've",
+                'been',
+                'called',
+                'product',
+                'builder',
                 'end-to-end',
-                'strategic',
                 'front-end',
-                'concept',
-                'launch.',
+                'B2B',
+                'B2C',
+                'discovery',
+                'modular',
+                'systems',
+                'thinking',
+              ]}
+              hoverPreviews={[
+                {
+                  match: 'astronaut',
+                  src: '/images/home/peeks/astronaut.jpg',
+                  alt: 'Astronaut — hover peek preview',
+                  width: 300,
+                  height: 188,
+                },
               ]}
             />
             <HeroBadges className='home-hero__badges--mobile' />

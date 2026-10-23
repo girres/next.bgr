@@ -5,7 +5,10 @@ import skills from '@/data/skills';
 
 export default function SkillsMarquee() {
   return (
-    <div className='skills-marquee border-y border-black/10 py-4 lg:py-5'>
+    <div
+      className='skills-marquee border-y border-black/10 py-4 lg:py-5'
+      data-no-cursor-text
+    >
       <MarqueeTrack speed={36}>
         {skills.map((skill) => (
           <span

@@ -50,7 +50,8 @@ export default function ExperienceSection() {
 
   useGSAP(
     () => {
-      const story = rootRef.current?.querySelector('.about-story');
+      const storyTitle = rootRef.current?.querySelector('.about-story__title');
+      const storyAside = rootRef.current?.querySelector('.about-story__meta');
       const experience = rootRef.current?.querySelector(
         '.experience-panels__section--experience'
       );
@@ -60,7 +61,9 @@ export default function ExperienceSection() {
       const awardsBlock = rootRef.current?.querySelector(
         '.experience-panels__section--awards'
       );
-      const blocks = [story, experience, skillsBlock, awardsBlock].filter(Boolean);
+      const blocks = [storyTitle, storyAside, experience, skillsBlock, awardsBlock].filter(
+        Boolean
+      );
 
       const mm = gsap.matchMedia();
 
@@ -69,10 +72,11 @@ export default function ExperienceSection() {
       });
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        revealOnScroll(story, { y: 64 });
-        revealOnScroll(experience, { y: 80 });
-        revealOnScroll(skillsBlock, { y: 80, lag: 36 });
-        revealOnScroll(awardsBlock, { y: 80, lag: 52 });
+        revealOnScroll(storyTitle, { y: 56, start: 'top 90%' });
+        revealOnScroll(storyAside, { y: 56, delay: 0.06, start: 'top 90%' });
+        revealOnScroll(experience, { y: 72, delay: 0.08, start: 'top 88%' });
+        revealOnScroll(skillsBlock, { y: 72, delay: 0.14, start: 'top 88%' });
+        revealOnScroll(awardsBlock, { y: 72, delay: 0.2, start: 'top 88%' });
       });
 
       return () => mm.revert();

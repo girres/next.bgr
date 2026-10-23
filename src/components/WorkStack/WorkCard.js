@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { clsx } from 'clsx';
 import { LiaArrowRightSolid } from 'react-icons/lia';
 import Button from '@/components/Button';
@@ -29,14 +30,31 @@ export default function WorkCard({ project }) {
     });
   };
 
+  const mediaClassName = clsx(
+    'work-card__media',
+    deviceMockup && 'work-card__media--device',
+    showcase && 'work-card__media--showcase'
+  );
+
+  const mediaAriaLabel = external
+    ? `View live: ${project.title}`
+    : `View case study: ${project.title}`;
+
+  const mediaHit = external ? (
+    <a
+      className='work-card__media-hit'
+      href={project.link}
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label={mediaAriaLabel}
+    />
+  ) : (
+    <Link className='work-card__media-hit' href={project.link} aria-label={mediaAriaLabel} />
+  );
+
   const media = (
-    <div
-      className={clsx(
-        'work-card__media',
-        deviceMockup && 'work-card__media--device',
-        showcase && 'work-card__media--showcase'
-      )}
-    >
+    <div className={mediaClassName}>
+      {mediaHit}
       {deviceMockup ? (
         <div className='work-card__laptop'>
           <div className='work-card__laptop-lid'>

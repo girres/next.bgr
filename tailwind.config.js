@@ -9,6 +9,9 @@ module.exports = {
         ink: '#000000',
         'ink-muted': 'rgba(0, 0, 0, 0.6)',
         'on-primary': '#FFFFFF',
+        accent: '#6DBF83',
+        'accent-soft': 'rgba(109, 191, 131, 0.38)',
+        'accent-ink': '#2F7A48',
       },
       fontFamily: {
         sans: [

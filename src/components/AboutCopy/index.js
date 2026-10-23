@@ -1,95 +1,168 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTextGenerateReveal } from '@/lib/textGenerateAnimation';
+import WordHoverPreview from '@/components/TextGenerateEffect/WordHoverPreview';
 
-function ScrollHighlight({ children, index, total, scrollYProgress }) {
-  const reduceMotion = useReducedMotion();
-  const start = 0.06 + (index / total) * 0.88;
-  const end = Math.min(start + 0.08, 0.98);
+const PARAGRAPHS = [
+  "Since 2019 I've designed products where a bad interface has real consequences: in-flight entertainment at 35,000 feet, a school platform that runs daily operations. Also, creating solutions across SaaS/B2B platforms, B2C products, e-commerce, and complex environments.",
+  "What I learned there is that most product problems aren't visual problems. They come from unclear priorities, flows nobody tested with real users, and systems that grew without a plan.",
+];
 
-  const color = useTransform(
-    scrollYProgress,
-    [start, end],
-    ['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 1)']
-  );
+const HIGHLIGHT_WORDS = new Set([
+  'since',
+  '2019',
+  'designed',
+  'products',
+  'in-flight',
+  'entertainment',
+  'school',
+  'platform',
+  'saas/b2b',
+  'b2c',
+  'e-commerce',
+  'problems',
+  "aren't",
+  'visual',
+]);
 
-  if (reduceMotion) {
-    return <span className='font-medium text-ink'>{children}</span>;
-  }
+const HOVER_PREVIEWS = [
+  {
+    match: 'in-flight',
+    src: '/images/projects/saudiaAirlines/3.jpg',
+    alt: 'Saudia Airlines in-flight entertainment',
+    width: 300,
+    height: 169,
+  },
+  {
+    match: 'entertainment',
+    src: '/images/projects/saudiaAirlines/3.jpg',
+    alt: 'Saudia Airlines in-flight entertainment',
+    width: 300,
+    height: 169,
+  },
+  {
+    match: 'school',
+    src: '/images/home/peeks/school-platform.jpg',
+    alt: 'School operations platform',
+    width: 300,
+    height: 188,
+  },
+  {
+    match: 'platform',
+    src: '/images/home/peeks/school-platform.jpg',
+    alt: 'School operations platform',
+    width: 300,
+    height: 188,
+  },
+];
 
+function normalizeToken(word) {
+  return word
+    .replace(/^["'“”]+|["'“”]+$/g, '')
+    .replace(/[.,!?;:…]+$/g, '')
+    .toLowerCase();
+}
+
+function isHighlighted(word) {
+  return HIGHLIGHT_WORDS.has(normalizeToken(word));
+}
+
+function findPreview(word) {
+  const token = normalizeToken(word);
+  return HOVER_PREVIEWS.find(({ match }) => normalizeToken(match) === token);
+}
+
+function CopyParagraph({ text, onOpenPreview, onClosePreview }) {
   return (
-    <motion.span className='about-highlight inline font-medium' style={{ color }}>
-      {children}
-    </motion.span>
+    <p>
+      {text.split(' ').map((word, wordIndex) => {
+        const previewConfig = findPreview(word);
+        const highlighted = isHighlighted(word);
+
+        return (
+          <span
+            key={`${wordIndex}-${word}`}
+            className={[
+              'text-generate__word inline-block',
+              highlighted ? 'about-highlight font-medium text-ink' : '',
+              previewConfig ? 'text-generate__word--peekable' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            onMouseEnter={(event) => {
+              if (!previewConfig) return;
+              onOpenPreview(previewConfig, event);
+            }}
+            onMouseLeave={() => {
+              if (!previewConfig) return;
+              onClosePreview();
+            }}
+            onFocus={(event) => {
+              if (!previewConfig) return;
+              const rect = event.currentTarget.getBoundingClientRect();
+              onOpenPreview(previewConfig, {
+                clientX: rect.left + rect.width / 2,
+                clientY: rect.top + rect.height / 2,
+              });
+            }}
+            onBlur={() => {
+              if (!previewConfig) return;
+              onClosePreview();
+            }}
+            tabIndex={previewConfig ? 0 : undefined}
+          >
+            {word}&nbsp;
+          </span>
+        );
+      })}
+    </p>
   );
 }
 
 export default function AboutCopy() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 0.9', 'end 0.35'],
+  const rootRef = useRef(null);
+  const [peekConfig, setPeekConfig] = useState(null);
+
+  const openPreview = useCallback((config, event) => {
+    setPeekConfig({
+      ...config,
+      initialX: event.clientX,
+      initialY: event.clientY,
+    });
+  }, []);
+
+  const closePreview = useCallback(() => setPeekConfig(null), []);
+
+  useTextGenerateReveal(rootRef, {
+    scrollTrigger: true,
+    duration: 0.5,
+    filter: true,
   });
 
-  const highlights = [
-    'user experiences (UX)',
-    'interfaces (UI)',
-    'digital products',
-    'business strategy',
-    'End-to-End Product Design',
-    'SaaS/B2B',
-    'In-Flight Entertainment (IFE)',
-    'UX research',
-    'UI design',
-    'Front-End Development',
-    'engineering teams',
-    'product quality',
-    'functional, scalable systems',
-  ];
+  useEffect(() => {
+    if (!peekConfig) return undefined;
 
-  let highlightIndex = 0;
+    const onScroll = () => closePreview();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-  const nextHighlight = (text) => {
-    const current = highlightIndex;
-    highlightIndex += 1;
-    return (
-      <ScrollHighlight
-        key={`${text}-${current}`}
-        index={current}
-        total={highlights.length}
-        scrollYProgress={scrollYProgress}
-      >
-        {text}
-      </ScrollHighlight>
-    );
-  };
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [peekConfig, closePreview]);
 
   return (
-    <div
-      ref={containerRef}
-      className='about-copy'
-    >
-      <p>
-        Since 2019, I&apos;ve been designing intuitive {nextHighlight('user experiences (UX)')},
-        crafting polished {nextHighlight('interfaces (UI)')}, and building{' '}
-        {nextHighlight('digital products')} that bridge user needs,{' '}
-        {nextHighlight('business strategy')}, and technical execution. With over 5+ years in the
-        industry, my path has evolved into {nextHighlight('End-to-End Product Design')}, creating
-        solutions across {nextHighlight('SaaS/B2B')} platforms, B2C products, e-commerce, and
-        complex environments like {nextHighlight('In-Flight Entertainment (IFE)')}.
-      </p>
-      <p>
-        My approach goes beyond delivering static design files. By combining deep{' '}
-        {nextHighlight('UX research')} and {nextHighlight('UI design')} with hands-on{' '}
-        {nextHighlight('Front-End Development')}, I write modular code and work alongside{' '}
-        {nextHighlight('engineering teams')} to eliminate handoff friction and ensure top-tier{' '}
-        {nextHighlight('product quality')} in production.
-      </p>
-      <p>
-        I don&apos;t just design interfaces — I build{' '}
-        {nextHighlight('functional, scalable systems')}.
-      </p>
-    </div>
+    <>
+      <div className='about-copy' ref={rootRef}>
+        {PARAGRAPHS.map((text, index) => (
+          <CopyParagraph
+            key={index}
+            text={text}
+            onOpenPreview={openPreview}
+            onClosePreview={closePreview}
+          />
+        ))}
+      </div>
+
+      <WordHoverPreview config={peekConfig} />
+    </>
   );
 }

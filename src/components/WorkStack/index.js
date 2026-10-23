@@ -3,8 +3,28 @@
 import { useRef } from 'react';
 import workProjects from '@/data/workProjects';
 import WorkCard from '@/components/WorkStack/WorkCard';
-import { gsap, useGSAP } from '@/lib/gsapClient';
-import { revealOnScroll } from '@/lib/scrollParallax';
+import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
+import { revealEachInView, revealOnScroll } from '@/lib/scrollParallax';
+
+function bindWorkStackRefresh(root) {
+  if (!root) return undefined;
+
+  const refresh = () => ScrollTrigger.refresh();
+
+  root.querySelectorAll('.work-stack img').forEach((img) => {
+    if (!img.complete) {
+      img.addEventListener('load', refresh, { once: true });
+    }
+  });
+
+  if (document.readyState === 'complete') {
+    requestAnimationFrame(refresh);
+  } else {
+    window.addEventListener('load', refresh, { once: true });
+  }
+
+  return refresh;
+}
 
 export default function WorkStack() {
   const rootRef = useRef(null);
@@ -23,12 +43,16 @@ export default function WorkStack() {
       });
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        revealOnScroll(title, { y: 48 });
+        revealOnScroll(title, { y: 56, start: 'top 90%' });
 
-        items.forEach((item, index) => {
-          const columnLag = index % 2 === 0 ? 0 : 36;
-          revealOnScroll(item, { lag: columnLag });
+        revealEachInView(items, {
+          start: 'top 92%',
+          yEven: 92,
+          yOdd: 112,
+          delayOdd: 0.07,
         });
+
+        bindWorkStackRefresh(rootRef.current);
       });
 
       return () => mm.revert();

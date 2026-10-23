@@ -6,6 +6,7 @@
     z-index: 60;
     padding: 0.85rem 1rem;
     background: transparent;
+    transform: translateZ(0);
     border: 1px solid transparent;
     border-radius: 0;
     transition:
@@ -34,11 +35,11 @@
 
     &--solid,
     &--menu-open {
-        background: rgba(255, 255, 255, 0.42);
-        border-color: var(--color-ink-border);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-        backdrop-filter: saturate(160%) blur(18px);
-        -webkit-backdrop-filter: saturate(160%) blur(18px);
+        background: rgba(235, 235, 235, 0.08);
+        border-color: rgba(0, 0, 0, 0.06);
+        box-shadow: none;
+        backdrop-filter: blur(22px) saturate(160%);
+        -webkit-backdrop-filter: blur(22px) saturate(160%);
     }
 
     &--solid {
