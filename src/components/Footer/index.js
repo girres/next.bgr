@@ -31,7 +31,7 @@ export default function Footer() {
 
       <div className='site-footer__bar site-container'>
         <div className='site-footer__meta'>
-          <span>Designed and built by Bryan Giraldo</span>
+          <span>Designed and built by me, Bryan Giraldo</span>
           <span>Madrid, Spain</span>
         </div>
 

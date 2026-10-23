@@ -147,35 +147,46 @@ export default function AwardCelebrationModal({
       const finishClose = contextSafe(() => setIsRendered(false));
 
       if (isOpen) {
-        closeButtonRef.current?.focus();
+        const playIntro = () => {
+          const backdropEl = backdropRef.current;
+          const dialogEl = dialogRef.current;
+          if (!backdropEl || !dialogEl) {
+            requestAnimationFrame(playIntro);
+            return;
+          }
 
-        gsap.set(backdrop, { autoAlpha: 0 });
-        gsap.set(dialog, { autoAlpha: 0, scale: 0.9, y: 36 });
+          closeButtonRef.current?.focus();
 
-        const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        intro.to(backdrop, { autoAlpha: 1, duration: reduceMotion ? 0.01 : 0.4 }, 0);
-        intro.to(
-          dialog,
-          {
-            autoAlpha: 1,
-            scale: 1,
-            y: 0,
-            duration: reduceMotion ? 0.01 : 0.7,
-            ease: 'back.out(1.5)',
-          },
-          0.06
-        );
+          gsap.set(backdropEl, { autoAlpha: 0 });
+          gsap.set(dialogEl, { autoAlpha: 0, scale: 0.9, y: 36 });
 
-        if (!reduceMotion && confettiRef.current && logoRef.current) {
-          gsap.delayedCall(0.18, () => {
-            const rect = logoRef.current?.getBoundingClientRect();
-            if (!rect || !confettiRef.current) return;
-            stopConfettiRef.current = burstConfetti(confettiRef.current, {
-              x: rect.left + rect.width / 2,
-              y: rect.top + rect.height / 2,
+          const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+          intro.to(backdropEl, { autoAlpha: 1, duration: reduceMotion ? 0.01 : 0.4 }, 0);
+          intro.to(
+            dialogEl,
+            {
+              autoAlpha: 1,
+              scale: 1,
+              y: 0,
+              duration: reduceMotion ? 0.01 : 0.7,
+              ease: 'back.out(1.5)',
+            },
+            0.06
+          );
+
+          if (!reduceMotion && confettiRef.current && logoRef.current) {
+            gsap.delayedCall(0.18, () => {
+              const rect = logoRef.current?.getBoundingClientRect();
+              if (!rect || !confettiRef.current) return;
+              stopConfettiRef.current = burstConfetti(confettiRef.current, {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              });
             });
-          });
-        }
+          }
+        };
+
+        playIntro();
       } else {
         stopConfettiRef.current();
         stopConfettiRef.current = () => {};

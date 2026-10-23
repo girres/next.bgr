@@ -21,14 +21,36 @@ const MOBILE_NAV_QUERY = '(max-width: 1023px)';
 
 export default function Header() {
   const headerRef = useRef(null);
+  const idleTimerRef = useRef(null);
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSolid, setIsSolid] = useState(false);
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
   useEffect(() => {
     closeMenu();
   }, [pathname, closeMenu]);
+
+  useEffect(() => {
+    const IDLE_MS = 1300;
+    const SCROLLED_Y = 72;
+
+    const onScroll = () => {
+      setIsSolid(false);
+      if (idleTimerRef.current) window.clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = window.setTimeout(() => {
+        setIsSolid(window.scrollY > SCROLLED_Y);
+      }, IDLE_MS);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (idleTimerRef.current) window.clearTimeout(idleTimerRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isMenuOpen) return undefined;
@@ -114,7 +136,11 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={clsx('site-header', isMenuOpen && 'site-header--menu-open')}
+      className={clsx(
+        'site-header',
+        isMenuOpen && 'site-header--menu-open',
+        isSolid && 'site-header--solid'
+      )}
     >
       <div className='site-header__inner'>
         <Link href='/' className='site-header__logo' aria-label='Bryan Girado - Home' onClick={closeMenu}>

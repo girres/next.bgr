@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 
 const HOLD_MS = 1300;
 const DRAIN_MS = 280;
 
-const PRESS_LABEL_QUERY = '(hover: none), (max-width: 1023px)';
+const HOVER_REVEAL_QUERY = '(hover: hover) and (pointer: fine)';
+const PRESS_LABEL_QUERY = '(hover: none), (pointer: coarse), (max-width: 1023px)';
 
 export default function FaceReveal({
   label,
@@ -20,8 +21,8 @@ export default function FaceReveal({
 }) {
   const [isRevealing, setIsRevealing] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [usePressLabel, setUsePressLabel] = useState(false);
+  const [hoverRevealEnabled, setHoverRevealEnabled] = useState(true);
   const containerRef = useRef(null);
   const triggerRef = useRef(null);
   const imageContainerRef = useRef(null);
@@ -29,6 +30,7 @@ export default function FaceReveal({
   const progressRef = useRef(0);
   const hoveringRef = useRef(false);
   const revealingRef = useRef(false);
+  const hoverRevealEnabledRef = useRef(true);
   const rafRef = useRef(null);
   const lastTsRef = useRef(0);
 
@@ -46,30 +48,34 @@ export default function FaceReveal({
     }
   };
 
+  const syncInteractionMode = useCallback(() => {
+    const canHoverReveal = window.matchMedia(HOVER_REVEAL_QUERY).matches;
+    hoverRevealEnabledRef.current = canHoverReveal;
+    setHoverRevealEnabled(canHoverReveal);
+    setUsePressLabel(window.matchMedia(PRESS_LABEL_QUERY).matches);
+  }, []);
+
   useEffect(() => {
-    const hoverQuery = window.matchMedia('(hover: none)');
-    const pressQuery = window.matchMedia(PRESS_LABEL_QUERY);
+    syncInteractionMode();
 
-    const syncPointer = () => setIsTouchDevice(hoverQuery.matches);
-    const syncLabel = () => setUsePressLabel(pressQuery.matches);
+    const hoverRevealQuery = window.matchMedia(HOVER_REVEAL_QUERY);
+    const pressLabelQuery = window.matchMedia(PRESS_LABEL_QUERY);
 
-    syncPointer();
-    syncLabel();
-    hoverQuery.addEventListener('change', syncPointer);
-    pressQuery.addEventListener('change', syncLabel);
+    hoverRevealQuery.addEventListener('change', syncInteractionMode);
+    pressLabelQuery.addEventListener('change', syncInteractionMode);
 
     return () => {
-      hoverQuery.removeEventListener('change', syncPointer);
-      pressQuery.removeEventListener('change', syncLabel);
+      hoverRevealQuery.removeEventListener('change', syncInteractionMode);
+      pressLabelQuery.removeEventListener('change', syncInteractionMode);
     };
-  }, []);
+  }, [syncInteractionMode]);
 
   useEffect(() => {
     revealingRef.current = isRevealing;
   }, [isRevealing]);
 
   useEffect(() => {
-    if ((!isRevealing && !isHovering) || isTouchDevice) return;
+    if ((!isRevealing && !isHovering) || !hoverRevealEnabledRef.current) return;
 
     const handleMouseMove = (event) => {
       if (!containerRef.current || !imageContainerRef.current) return;
@@ -83,7 +89,7 @@ export default function FaceReveal({
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isRevealing, isHovering, isTouchDevice]);
+  }, [isRevealing, isHovering]);
 
   useEffect(() => () => stopLoop(), []);
 
@@ -131,14 +137,14 @@ export default function FaceReveal({
   };
 
   const showFace = () => {
-    if (isTouchDevice || usePressLabel) return;
+    if (!hoverRevealEnabledRef.current) return;
     hoveringRef.current = true;
     setIsHovering(true);
     startLoop();
   };
 
   const hideFace = () => {
-    if (isTouchDevice || usePressLabel) return;
+    if (!hoverRevealEnabledRef.current) return;
     hoveringRef.current = false;
     setIsHovering(false);
     startLoop();
@@ -151,7 +157,7 @@ export default function FaceReveal({
   };
 
   const toggleFace = () => {
-    if (!isTouchDevice && !usePressLabel) return;
+    if (hoverRevealEnabledRef.current) return;
     setIsRevealing((current) => {
       const next = !current;
       revealingRef.current = next;
@@ -161,7 +167,7 @@ export default function FaceReveal({
   };
 
   useEffect(() => {
-    if (!isRevealing || (!isTouchDevice && !usePressLabel)) return;
+    if (!isRevealing || hoverRevealEnabledRef.current) return;
 
     const closeOnOutsidePress = (event) => {
       if (triggerRef.current?.contains(event.target)) return;
@@ -170,10 +176,10 @@ export default function FaceReveal({
 
     document.addEventListener('pointerdown', closeOnOutsidePress);
     return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
-  }, [isRevealing, isTouchDevice, usePressLabel]);
+  }, [isRevealing]);
 
   return (
-    <div ref={containerRef} className={className} onMouseLeave={hideFace}>
+    <div ref={containerRef} className={className}>
       <button
         ref={triggerRef}
         type='button'
@@ -182,10 +188,19 @@ export default function FaceReveal({
           isHovering && 'face-reveal__trigger--charging',
           isRevealing && activeClassName
         )}
+        onPointerEnter={(event) => {
+          if (event.pointerType === 'mouse') showFace();
+        }}
+        onPointerLeave={(event) => {
+          if (event.pointerType === 'mouse') hideFace();
+        }}
         onMouseEnter={showFace}
+        onMouseLeave={hideFace}
         onFocus={(event) => {
+          if (!hoverRevealEnabledRef.current) return;
           if (event.currentTarget.matches(':focus-visible')) {
             setProgressVisual(1);
+            revealingRef.current = true;
             setIsRevealing(true);
           }
         }}
@@ -204,7 +219,7 @@ export default function FaceReveal({
         className={clsx(
           'face-reveal__photo pointer-events-none',
           isRevealing && 'face-reveal__photo--visible',
-          isTouchDevice && 'face-reveal__photo--static'
+          !hoverRevealEnabled && 'face-reveal__photo--static'
         )}
         aria-hidden={!isRevealing}
       >

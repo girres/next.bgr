@@ -7,6 +7,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 // Components
 import { Gallery, VideosMp4 } from '@/components/Projects';
 import Button from '@/components/Button';
+import ScrollReveal from '@/components/ScrollReveal';
 
 // SEO
 export async function generateMetadata({ params }, parent) {
@@ -46,11 +47,12 @@ export default function Page({ params = {} }) {
 
   return (
     <main className='project-page site-container min-h-screen py-24'>
-      <Link href='/#projects' className='project-page__back'>
+      <ScrollReveal>
+      <Link href='/#projects' className='project-page__back' data-reveal>
         <MdChevronLeft className='h-5 w-5' aria-hidden='true' />
         Back to work
       </Link>
-      <div className='project-header'>
+      <div className='project-header' data-reveal data-reveal-lag='20'>
         <div className='project-title flex flex-col lg:flex-row items-start lg:items-center lg:justify-between mt-10 mb-10 lg:mt-14 lg:mb-14 gap-4'>
           <h1>{project.title}</h1>
           {project.website && (
@@ -101,7 +103,7 @@ export default function Page({ params = {} }) {
           </div>
         </div>
       </div>
-      <div className='project-about section-y mt-16 lg:mt-20 grid grid-cols-12 gap-y-10 border-t border-black/10'>
+      <div className='project-about section-y mt-16 lg:mt-20 grid grid-cols-12 gap-y-10 border-t border-black/10' data-reveal>
         <div className='col-span-12 lg:col-span-7 lg:pr-10'>
           <h2 className='mb-10 lg:mb-14'>About the Project</h2>
           <div className='space-y-5 text-body'>
@@ -120,13 +122,14 @@ export default function Page({ params = {} }) {
         </div>
       </div>
       {project.next && (
-        <div className='next-project'>
+        <div className='next-project' data-reveal>
           <Button as='link' href={project.next} variant='secondary' size='sm'>
             Next Project
             <MdChevronRight className='h-4 w-4' />
           </Button>
         </div>
       )}
+      </ScrollReveal>
     </main>
   );
 }

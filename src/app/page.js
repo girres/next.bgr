@@ -9,6 +9,7 @@ import SkillsMarquee from '@/components/SkillsMarquee';
 import TextGenerateEffect from '@/components/TextGenerateEffect';
 import HeroScroll from '@/components/HeroScroll';
 import HeroBadges from '@/components/HeroBadges';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home() {
   return (
@@ -43,9 +44,9 @@ export default function Home() {
       </section>
 
       {/* Skills Marquee */}
-      <div className='mt-14 lg:mt-20'>
+      <ScrollReveal className='mt-14 lg:mt-20'>
         <SkillsMarquee />
-      </div>
+      </ScrollReveal>
 
       {/* Projects Section */}
       <div className='section-y site-container'>
@@ -53,23 +54,29 @@ export default function Home() {
       </div>
 
       {/* Clients Section */}
-      <div className='section-y site-container border-t border-black/10'>
-        <Clients />
+      <div className='section-y site-container'>
+        <ScrollReveal>
+          <Clients />
+        </ScrollReveal>
       </div>
 
       {/* Experience / About Section */}
-      <div className='section-y site-container border-t border-black/10'>
+      <div className='section-y site-container'>
         <Experience />
       </div>
 
       {/* Efforts Section */}
-      <div className='section-y site-container border-t border-black/10'>
-        <Efforts />
+      <div className='section-y site-container'>
+        <ScrollReveal>
+          <Efforts />
+        </ScrollReveal>
       </div>
 
       {/* Tools Section */}
-      <div className='section-y site-container border-t border-black/10'>
-        <Tools />
+      <div className='section-y site-container'>
+        <ScrollReveal>
+          <Tools />
+        </ScrollReveal>
       </div>
     </main>
   );

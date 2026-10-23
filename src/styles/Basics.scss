@@ -122,6 +122,37 @@ h6 {
     color: var(--color-ink);
 }
 
+.panel-heading {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--text-h2-size);
+    line-height: var(--text-h2-lh);
+    letter-spacing: var(--text-h2-tracking);
+    font-weight: 500;
+    color: var(--color-ink);
+}
+
+.display-title {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--text-body-lg-size);
+    font-weight: 500;
+    line-height: var(--text-body-lg-lh);
+    letter-spacing: var(--text-body-tracking);
+    color: var(--color-ink);
+    text-wrap: balance;
+
+    @screen lg {
+        font-size: var(--text-display-size);
+        line-height: var(--text-display-lh);
+        letter-spacing: var(--text-display-tracking);
+    }
+
+    &.text-muted {
+        color: var(--color-ink-muted);
+    }
+}
+
 .pill {
     display: inline-flex;
     align-items: center;

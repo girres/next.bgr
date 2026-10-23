@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import SmoothScroll from '@/components/SmoothScroll';
+import { AwardModalProvider } from '@/components/AwardModalProvider';
 
 const siteUrl = 'https://www.bryangr.com';
 const siteTitle = 'Bryan Girado — End-to-End Product Designer & Front-End Builder';
@@ -68,11 +69,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
-        <SmoothScroll />
-        <CustomCursor />
-        <Header />
-        {children}
-        <Footer />
+        <AwardModalProvider>
+          <SmoothScroll />
+          <CustomCursor />
+          <Header />
+          {children}
+          <Footer />
+        </AwardModalProvider>
         <Script src='//madremia.s3.us-west-2.amazonaws.com/signature.js' strategy='lazyOnload' />
       </body>
     </html>

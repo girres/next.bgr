@@ -1,12 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import AnimatedTooltip from '@/components/AnimatedTooltip';
 import WorkStack from '@/components/WorkStack';
-import AboutCopy from '@/components/AboutCopy';
-import AboutFaceReveal from '@/components/AboutFaceReveal';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import EffortCards from '@/components/EffortCards';
-import skills from '@/data/skills';
+import ExperienceSection from '@/components/ExperienceSection';
 
 const efforts = [
   {
@@ -78,10 +74,10 @@ const tools = [
 export const Clients = () => {
   return (
     <div id='clients' className='lg:flex lg:items-center lg:gap-8'>
-      <h2 className='lg:w-[20%] flex-shrink-0 mb-10 lg:mb-0'>
+      <h2 className='lg:w-[20%] flex-shrink-0 mb-10 lg:mb-0' data-reveal>
         Worked <span className='text-muted'>with:</span>
       </h2>
-      <div className='w-full lg:flex-1 mt-5 lg:mt-0'>
+      <div className='w-full lg:flex-1 mt-5 lg:mt-0' data-reveal data-reveal-lag='28'>
         <ClientsMarquee />
       </div>
     </div>
@@ -96,7 +92,7 @@ export const Projects = () => {
 export const Efforts = () => {
   return (
     <div id='efforts' className='text-muted'>
-      <h2 className='mb-10 lg:mb-14 max-w-3xl text-ink'>
+      <h2 className='mb-10 lg:mb-14 max-w-3xl text-ink' data-reveal>
         How can I align my efforts to{' '}
         <span className='font-medium'>better meet</span> your{' '}
         <span className='font-medium'>business needs?</span>
@@ -109,145 +105,17 @@ export const Efforts = () => {
 export const Tools = () => {
   return (
     <div id='tools' className='text-muted'>
-      <h2 className='max-w-3xl mb-10 lg:mb-14 text-ink'>
+      <h2 className='max-w-3xl mb-10 lg:mb-14 text-ink' data-reveal>
         Tools & technologies I use to{' '}
         <span className='font-medium'>design</span>,{' '}
         <span className='font-medium'>prototype</span>, and{' '}
         <span className='font-medium'>build digital products</span>
       </h2>
-      <div className='tools-row mt-10 lg:mt-12'>
+      <div className='tools-row mt-10 lg:mt-12' data-reveal data-reveal-lag='28'>
         <AnimatedTooltip items={tools} />
       </div>
     </div>
   );
 };
 
-export const Experience = () => {
-  const jobs = [
-    {
-      title: 'Performanze',
-      position: 'End-to-end Product Designer',
-      date: '2026 - Current',
-      href: 'https://www.performanze.com/en',
-    },
-    {
-      title: 'Nuela',
-      position: 'End-to-end Product Designer',
-      date: '2024 - 2026',
-    },
-    {
-      title: 'Future Provenance',
-      position: 'UX/UI & Digital Product Designer',
-      date: '2022 - 2024',
-    },
-    {
-      title: 'GR Development',
-      position: 'UI & Digital Product Designer',
-      date: '2020 - 2023',
-    },
-    {
-      title: 'Freelancer',
-      position: 'Product designer & AI Builder',
-      date: '2020 - Current',
-    },
-  ];
-
-  const awards = [
-    {
-      title: 'Best Onboard Entertainment',
-      href: 'https://awards.onboardhospitality.com/award_cat/best-onboard-entertainment/',
-    },
-  ];
-
-  return (
-    <div id='experience'>
-      <section className='about-story'>
-        <h2 className='about-story__title'>My Story</h2>
-        <div className='about-story__rule' aria-hidden='true' />
-
-        <div className='about-story__body'>
-          <div className='about-story__copy'>
-            <AboutCopy />
-          </div>
-          <aside className='about-story__meta'>
-            <p className='about-story__name'>Bryan Girado</p>
-            <p>End-to-End Product Designer</p>
-          </aside>
-          <AboutFaceReveal />
-        </div>
-
-        <div className='about-story__rule' aria-hidden='true' />
-      </section>
-
-      <div className='experience-panels'>
-        <section className='experience-panels__section'>
-          <h3 className='experience-panels__heading'>Experience</h3>
-          <ul className='experience-list space-y-0'>
-            {jobs.map((job) => (
-              <li
-                key={job.title}
-                className='experience-list__item flex items-start justify-between gap-4 py-4 lg:py-6 border-b border-black/10 last:border-b-0'
-              >
-                <div className='min-w-0'>
-                  {job.href ? (
-                    <Link
-                      href={job.href}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='group inline-block'
-                    >
-                      <span className='experience-list__company group-hover:underline'>{job.title}</span>
-                    </Link>
-                  ) : (
-                    <span className='experience-list__company'>{job.title}</span>
-                  )}
-                  <p className='experience-list__role'>{job.position}</p>
-                </div>
-                <span className='experience-list__date'>{job.date}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className='experience-panels__section'>
-          <h3 className='experience-panels__heading'>Awards</h3>
-          <ul className='awards-list space-y-0'>
-            {awards.map((award) => (
-              <li
-                key={award.title}
-                className='awards-list__item py-4 lg:py-6 border-b border-black/10 last:border-b-0'
-              >
-                <Link
-                  href={award.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='awards-list__link hover:underline inline-flex items-center gap-2'
-                >
-                  <Image
-                    src='/images/home/cabinConcept.png'
-                    alt='Cabin Concept'
-                    width={40}
-                    height={40}
-                    className='flex-shrink-0 rounded-lg'
-                  />
-                  <span>{award.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className='experience-panels__section'>
-          <h3 className='experience-panels__heading'>Skills</h3>
-          <ul className='about-skills-list'>
-            {skills.map((skill) => (
-              <li key={skill} className='about-skills-list__tag'>
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </div>
-  );
-};
+export const Experience = ExperienceSection;
