@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import '@fontsource-variable/instrument-sans/wght.css';
 
 // CSS
 import '@/styles/globals.scss';
