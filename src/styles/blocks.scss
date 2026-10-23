@@ -437,6 +437,8 @@
                 display: none;
             }
 
+            margin-bottom: 0.25rem;
+
             &::after {
                 content: '';
                 flex: 0 0 1rem;
@@ -450,8 +452,6 @@
                     flex-basis: 1.25rem;
                 }
             }
-
-            margin-bottom: 0.25rem;
         }
 
         @screen lg {
@@ -1514,20 +1514,10 @@ html.award-modal-open body {
             flex-direction: row;
             justify-content: center;
         }
-    }
 
-    &__btn {
-        @extend .btn;
-        @extend .btn--sm;
-        min-width: 9.5rem;
-        text-decoration: none;
-
-        &--primary {
-            @extend .btn--primary;
-        }
-
-        &--secondary {
-            @extend .btn--secondary;
+        .btn {
+            min-width: 9.5rem;
+            text-decoration: none;
         }
     }
 }

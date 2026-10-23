@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
-import { clsx } from 'clsx';
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
 
 const CONFETTI_COLORS = ['#000000', '#333333', '#666666', '#999999', '#cccccc', '#ffffff'];
@@ -250,14 +249,14 @@ export default function AwardCelebrationModal({
         </h2>
 
         <div className='award-modal__actions'>
-          <Link href={projectHref} className='award-modal__btn award-modal__btn--primary' onClick={handleClose}>
+          <Link href={projectHref} className='btn btn--sm btn--primary' onClick={handleClose}>
             View project
           </Link>
           <a
             href={awardHref}
             target='_blank'
             rel='noopener noreferrer'
-            className={clsx('award-modal__btn', 'award-modal__btn--secondary')}
+            className='btn btn--sm btn--secondary'
             onClick={handleClose}
           >
             View award
