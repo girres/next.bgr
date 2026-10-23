@@ -7,7 +7,6 @@ import '@/styles/globals.scss';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
-import SnowProvider from '@/components/SnowEffect';
 import SmoothScroll from '@/components/SmoothScroll';
 
 const siteUrl = 'https://www.bryangr.com';
@@ -68,14 +67,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
-        <SnowProvider>
-          <SmoothScroll />
-          <CustomCursor />
-          <Header />
-          {children}
-          <Footer />
-          <Script src='//madremia.s3.us-west-2.amazonaws.com/signature.js' strategy='lazyOnload' />
-        </SnowProvider>
+        <SmoothScroll />
+        <CustomCursor />
+        <Header />
+        {children}
+        <Footer />
+        <Script src='//madremia.s3.us-west-2.amazonaws.com/signature.js' strategy='lazyOnload' />
       </body>
     </html>
   );

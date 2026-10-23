@@ -55,7 +55,7 @@ export default function EffortCards({ items }) {
             />
             <h3>{effort.title}</h3>
           </div>
-          <p className='text-sm lg:text-lg'>{effort.text}</p>
+          <p className='text-body'>{effort.text}</p>
         </div>
       ))}
     </div>

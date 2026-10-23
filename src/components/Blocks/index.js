@@ -78,8 +78,8 @@ const tools = [
 export const Clients = () => {
   return (
     <div id='clients' className='lg:flex lg:items-center lg:gap-8'>
-      <h2 className='lg:w-[20%] flex-shrink-0'>
-        Worked <span className='text-main-gray'>with:</span>
+      <h2 className='lg:w-[20%] flex-shrink-0 mb-10 lg:mb-0'>
+        Worked <span className='text-muted'>with:</span>
       </h2>
       <div className='w-full lg:flex-1 mt-5 lg:mt-0'>
         <ClientsMarquee />
@@ -95,11 +95,11 @@ export const Projects = () => {
 
 export const Efforts = () => {
   return (
-    <div id='efforts' className='text-main-gray'>
-      <h2>
+    <div id='efforts' className='text-muted'>
+      <h2 className='mb-10 lg:mb-14 max-w-3xl text-ink'>
         How can I align my efforts to{' '}
-        <span className='text-main-white'>better meet</span> your{' '}
-        <span className='text-main-white'>business needs?</span>
+        <span className='font-medium'>better meet</span> your{' '}
+        <span className='font-medium'>business needs?</span>
       </h2>
       <EffortCards items={efforts} />
     </div>
@@ -108,12 +108,12 @@ export const Efforts = () => {
 
 export const Tools = () => {
   return (
-    <div id='tools' className='text-main-gray'>
-      <h2 className='max-w-3xl'>
+    <div id='tools' className='text-muted'>
+      <h2 className='max-w-3xl mb-10 lg:mb-14 text-ink'>
         Tools & technologies I use to{' '}
-        <span className='text-main-white'>design</span>,{' '}
-        <span className='text-main-white'>prototype</span>, and{' '}
-        <span className='text-main-white'>build digital products</span>
+        <span className='font-medium'>design</span>,{' '}
+        <span className='font-medium'>prototype</span>, and{' '}
+        <span className='font-medium'>build digital products</span>
       </h2>
       <div className='tools-row mt-10 lg:mt-12'>
         <AnimatedTooltip items={tools} />
@@ -138,11 +138,6 @@ export const Experience = () => {
     {
       title: 'Future Provenance',
       position: 'UX/UI & Digital Product Designer',
-      date: '2022 - 2024',
-    },
-    {
-      title: 'MadreMía',
-      position: 'Lead Product Designer',
       date: '2022 - 2024',
     },
     {
@@ -191,7 +186,7 @@ export const Experience = () => {
             {jobs.map((job) => (
               <li
                 key={job.title}
-                className='experience-list__item flex items-start justify-between gap-4 py-4 lg:py-5 border-b border-main-gray/25 last:border-b-0'
+                className='experience-list__item flex items-start justify-between gap-4 py-4 lg:py-6 border-b border-black/10 last:border-b-0'
               >
                 <div className='min-w-0'>
                   {job.href ? (
@@ -220,7 +215,7 @@ export const Experience = () => {
             {awards.map((award) => (
               <li
                 key={award.title}
-                className='awards-list__item py-4 lg:py-5 border-b border-main-gray/25 last:border-b-0'
+                className='awards-list__item py-4 lg:py-6 border-b border-black/10 last:border-b-0'
               >
                 <Link
                   href={award.href}

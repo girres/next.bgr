@@ -58,13 +58,9 @@ export default function WorkCard({ project }) {
 
       {confidential && (
         <div className='work-card__confidential'>
-          <div className='space-y-3 text-center'>
-            <div className='px-4 py-1.5 rounded-full bg-white/10 border border-white/20 inline-block'>
-              <span className='text-xs font-medium text-white uppercase tracking-wider'>
-                {project.tags?.[0] || 'SaaS B2B'}
-              </span>
-            </div>
-            <p className='text-gray-300 text-sm'>Visítenos la web para más información</p>
+          <div className='text-center'>
+            <span className='work-card__confidential-tag'>{project.tags?.[0] || 'SaaS B2B'}</span>
+            <p className='work-card__confidential-copy'>Visítenos la web para más información</p>
           </div>
         </div>
       )}

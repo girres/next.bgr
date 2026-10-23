@@ -1,16 +1,35 @@
 .gallery-bullet {
-    @apply h-2 w-16 bg-[#78828C] rounded-full !important;
+    @apply h-2 w-16 bg-black/20 rounded-full !important;
 
     &.swiper-pagination-bullet-active {
-        @apply bg-[#D0DBE0] !important;
+        @apply bg-black !important;
     }
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-    @apply bg-black/80 text-main-white p-2 rounded-full h-[50px] w-[50px] !important;
+    @apply bg-black text-on-primary p-2 rounded-full h-[50px] w-[50px] !important;
 
     &:after {
         @apply text-xl !important;
+    }
+}
+
+.project-page {
+    color: var(--color-ink-muted);
+
+    &__back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: var(--color-ink-muted);
+        font-size: var(--text-body-size);
+        line-height: var(--text-body-lh);
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--color-ink);
+        }
     }
 }

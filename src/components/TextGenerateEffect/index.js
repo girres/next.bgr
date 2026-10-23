@@ -66,7 +66,7 @@ export default function TextGenerateEffect({
       {wordsArray.map((word, index) => (
         <span
           key={`${word}-${index}`}
-          className={`text-generate__word inline-block${isHighlighted(word) ? ' text-main-white' : ''}`}
+          className={`text-generate__word inline-block${isHighlighted(word) ? ' font-medium text-ink' : ''}`}
         >
           {word}&nbsp;
         </span>

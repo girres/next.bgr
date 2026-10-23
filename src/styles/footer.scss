@@ -1,21 +1,15 @@
 .site-footer {
     &__cta {
-        padding-top: 4rem;
-        padding-bottom: 3rem;
-
-        @screen lg {
-            padding-top: 8rem;
-            padding-bottom: 4rem;
-        }
+        padding-top: var(--section-y);
+        padding-bottom: calc(var(--section-y) * 0.65);
     }
 
     &__cta-label {
         margin-bottom: 1.5rem;
-        font-size: 0.6875rem;
+        font-size: var(--text-body-size);
         font-weight: 500;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: #78828c;
+        letter-spacing: var(--text-body-tracking);
+        color: var(--color-ink-muted);
 
         @screen lg {
             margin-bottom: 2rem;
@@ -32,12 +26,12 @@
         display: block;
         width: 100%;
         max-width: 100%;
-        font-family: 'fontTitles', serif;
-        font-weight: 300;
-        line-height: 0.92;
-        letter-spacing: -0.045em;
-        font-size: clamp(3.5rem, 19vw, 6rem);
-        color: #d0dbe0;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: var(--text-h1-lh);
+        letter-spacing: var(--text-h1-tracking);
+        font-size: var(--text-h1-size);
+        color: var(--color-ink);
         overflow-wrap: anywhere;
         word-break: break-word;
         transition: color 0.3s ease;
@@ -45,13 +39,11 @@
         @screen lg {
             display: inline-block;
             width: auto;
-            font-size: clamp(3rem, 7.5vw, 6.5rem);
-            line-height: 1.05;
             overflow-wrap: normal;
         }
 
         .group:hover & {
-            color: #ffffff;
+            color: var(--color-ink-muted);
         }
     }
 
@@ -60,7 +52,7 @@
         height: 2px;
         margin-top: 0.2em;
         border-radius: 9999px;
-        background: #4f7cff;
+        background: var(--color-ink);
         transform: scaleX(0);
         transform-origin: left center;
         transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -75,8 +67,9 @@
         flex-direction: column-reverse;
         gap: 1.5rem;
         padding-bottom: 2.5rem;
-        font-size: 0.9375rem;
-        color: #78828c;
+        font-size: var(--text-body-size);
+        line-height: var(--text-body-lh);
+        color: var(--color-ink-muted);
 
         @screen md {
             flex-direction: row;
@@ -110,11 +103,11 @@
         gap: 0.5rem;
         padding: 0.5rem 1rem;
         border-radius: 9999px;
-        border: 1px solid rgba(208, 219, 224, 0.16);
-        font-size: 0.8125rem;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        color: rgba(208, 219, 224, 0.82);
+        border: 1px solid var(--color-ink-border-strong);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--color-ink);
         text-decoration: none;
         transition:
             border-color 0.2s ease,
@@ -123,14 +116,12 @@
             transform 0.15s ease;
 
         &:hover {
-            border-color: rgba(208, 219, 224, 0.32);
-            color: #d0dbe0;
+            border-color: var(--color-ink);
         }
 
         &:active {
             transform: scale(0.96);
-            background: rgba(208, 219, 224, 0.06);
-            color: #d0dbe0;
+            background: rgba(0, 0, 0, 0.04);
         }
     }
 

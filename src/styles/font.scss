@@ -1,49 +1,18 @@
-@font-face {
-    font-family: 'fontRegular';
-    src: url('./fonts/Epilogue/Epilogue-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'fontMedium';
-    src: url('./fonts/Epilogue/Epilogue-Medium.ttf');
-}
-
-@font-face {
-    font-family: 'fontLight';
-    src: url('./fonts/Epilogue/Epilogue-Light.ttf');
-}
-
-@font-face {
-    font-family: 'fontBold';
-    src: url('./fonts/Epilogue/Epilogue-Bold.ttf');
-}
-
-@font-face {
-    font-family: 'fontTitles';
-    src: url('./fonts/AnekLatin/AnekLatin-Regular.ttf');
-}
+@import '@fontsource-variable/instrument-sans';
 
 .fontRegular,
-.font-regular {
-    font-family: "fontRegular";
-}
-
+.font-regular,
 .fontMedium,
-.font-medium {
-    font-family: "fontMedium";
-}
-
+.font-medium,
 .fontLight,
-.font-light {
-    font-family: "fontLight";
-}
-
+.font-light,
 .fontBold,
-.font-bold {
-    font-family: "fontBold";
+.font-bold,
+.fontTitles {
+    font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+        sans-serif;
 }
 
 .fontTitles {
-    font-family: "fontTitles";
-    @apply tracking-wide;
+    letter-spacing: inherit;
 }

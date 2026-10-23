@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-// Basics
 @import "./font.scss";
-
-// Basics
 @import "./Basics.scss";
+@import "./components/button.scss";
 
 // Header
 @import "./header.scss";

@@ -11,15 +11,15 @@ function ScrollHighlight({ children, index, total, scrollYProgress }) {
   const color = useTransform(
     scrollYProgress,
     [start, end],
-    ['rgb(120, 130, 140)', 'rgb(208, 219, 224)']
+    ['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 1)']
   );
 
   if (reduceMotion) {
-    return <span className='text-main-white'>{children}</span>;
+    return <span className='font-medium text-ink'>{children}</span>;
   }
 
   return (
-    <motion.span className='about-highlight inline' style={{ color }}>
+    <motion.span className='about-highlight inline font-medium' style={{ color }}>
       {children}
     </motion.span>
   );

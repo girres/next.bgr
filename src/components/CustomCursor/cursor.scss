@@ -25,17 +25,16 @@ html.has-custom-cursor .custom-cursor-root {
 .custom-cursor-ring {
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid rgba(208, 219, 224, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 9999px;
   z-index: 10000;
-  mix-blend-mode: difference;
 
   &.is-visible {
     opacity: 1;
   }
 
   &.is-hovering {
-    border-color: rgba(208, 219, 224, 0.85);
+    border-color: rgba(0, 0, 0, 0.65);
   }
 }
 
@@ -43,9 +42,9 @@ html.has-custom-cursor .custom-cursor-root {
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 9999px;
-  background: #d0dbe0;
+  background: #000000;
   z-index: 10001;
-  box-shadow: 0 0 10px rgba(208, 219, 224, 0.35);
+  box-shadow: none;
 
   &.is-visible {
     opacity: 1;

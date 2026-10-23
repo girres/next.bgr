@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { clsx } from 'clsx';
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
 
-const CONFETTI_COLORS = ['#4f7cff', '#5b8cff', '#ffc857', '#33fe00', '#ffffff', '#d0dbe0'];
+const CONFETTI_COLORS = ['#000000', '#333333', '#666666', '#999999', '#cccccc', '#ffffff'];
 
 function burstConfetti(container, origin) {
   const isMobile = window.innerWidth < 768;

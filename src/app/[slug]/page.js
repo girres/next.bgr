@@ -2,10 +2,11 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import data from '@/projectsData';
-import { MdChevronRight } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 // Components
 import { Gallery, VideosMp4 } from '@/components/Projects';
+import Button from '@/components/Button';
 
 // SEO
 export async function generateMetadata({ params }, parent) {
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }, parent) {
 
 // STATIC GENERATION
 export async function generateStaticParams() {
-  return data.map((page) => page.slug);
+  return data.map((page) => ({ slug: page.slug }));
 }
 
 // STATIC RENDERING
@@ -44,61 +45,55 @@ export default function Page({ params = {} }) {
   if (!slug || !project || !project?.slug) return notFound();
 
   return (
-    <main className='project-page site-container min-h-screen py-24 text-main-gray'>
-      <div className='breadcrumbs text-xl fontLight'>
-        <ul>
-          <li>
-            <Link href='/'>Home</Link>
-          </li>
-          <li className='text-main-white'>Projects</li>
-        </ul>
-      </div>
-      <div></div>
+    <main className='project-page site-container min-h-screen py-24'>
+      <Link href='/#projects' className='project-page__back'>
+        <MdChevronLeft className='h-5 w-5' aria-hidden='true' />
+        Back to work
+      </Link>
       <div className='project-header'>
-        <div className='project-title flex flex-col lg:flex-row items-start lg:items-center lg:justify-between my-5 mb-2 lg:my-10'>
-          <h1 className='text-main-white'>{project.title}</h1>
+        <div className='project-title flex flex-col lg:flex-row items-start lg:items-center lg:justify-between mt-10 mb-10 lg:mt-14 lg:mb-14 gap-4'>
+          <h1>{project.title}</h1>
           {project.website && (
-            <Link
+            <Button
+              as='link'
               href={project.website}
+              variant='secondary'
+              size='sm'
+              className='mt-2'
               target='_blank'
               rel='noopener noreferrer'
-              className='btn btn-sm rounded-full bg-transparent text-main-white border-main-white text-xs hover:bg-main-dark hover:scale-110 mt-2'
             >
               Visit Website
               <MdChevronRight className='h-4 w-4' />
-            </Link>
+            </Button>
           )}
         </div>
         <div className='grid grid-cols-12'>
           <div className='project-info col-span-12 lg:col-span-4'>
-            <h2 className='text-xl lg:text-3xl'>{project.caption}</h2>
-            <div className='flex flex-wrap lg:flex-col gap-2 items-start mt-10'>
+            <p className='text-subtitle'>{project.caption}</p>
+            <ul className='flex flex-wrap lg:flex-col gap-2 items-start mt-10'>
               {project.tags.map((tag) => (
-                <p
-                  key={tag}
-                  className='border-[1px] border-main-gray rounded-full text-xs lg:text-sm p-2 px-5'
-                >
+                <li key={tag} className='pill'>
                   {tag}
-                </p>
+                </li>
               ))}
-            </div>
+            </ul>
             {project.cabinConcept && (
-              <div className='flex'>
-                <Link
-                  href='https://awards.onboardhospitality.com/award_cat/best-onboard-entertainment/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='lg:text-lg flex items-center lg:items-end gap-2 mt-10 text-main-white hover:underline font-light'
-                >
-                  <Image
-                    src='/images/home/cabinConcept.png'
-                    alt='Cabin Concept'
-                    width={80}
-                    height={80}
-                  />
-                  <span>Best Onboard Entertainment</span>
-                </Link>
-              </div>
+              <a
+                href='https://awards.onboardhospitality.com/award_cat/best-onboard-entertainment/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-subtitle inline-flex items-center gap-3 mt-10 hover:underline underline-offset-2'
+              >
+                <Image
+                  src='/images/home/cabinConcept.png'
+                  alt='Cabin Concept'
+                  width={64}
+                  height={64}
+                  className='rounded-lg'
+                />
+                <span>Best Onboard Entertainment</span>
+              </a>
             )}
           </div>
           <div className='project-images mt-10 lg:mt-0 col-span-12 lg:col-span-8'>
@@ -106,17 +101,14 @@ export default function Page({ params = {} }) {
           </div>
         </div>
       </div>
-      <div className='project-about mt-0 lg:mt-10 text-sm grid grid-cols-12 pt-20'>
+      <div className='project-about section-y mt-16 lg:mt-20 grid grid-cols-12 gap-y-10 border-t border-black/10'>
         <div className='col-span-12 lg:col-span-7 lg:pr-10'>
-          <h2>
-            <span className='text-main-white'>About</span>
-            {` `}the Project
-          </h2>
-          {project.about.map((paragraph, index) => (
-            <p key={index} className='my-5 text-sm lg:text-lg'>
-              {paragraph}
-            </p>
-          ))}
+          <h2 className='mb-10 lg:mb-14'>About the Project</h2>
+          <div className='space-y-5 text-body'>
+            {project.about.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
         </div>
         <div className='col-span-12 lg:col-span-5'>
           {project.aboutVideos && project.aboutVideos.length > 0 && (
@@ -128,14 +120,11 @@ export default function Page({ params = {} }) {
         </div>
       </div>
       {project.next && (
-        <div className='next-project mt-20'>
-          <Link
-            href={project.next}
-            className='btn btn-sm rounded-full bg-transparent text-main-white border-main-white text-xs hover:bg-main-dark hover:scale-110'
-          >
+        <div className='next-project'>
+          <Button as='link' href={project.next} variant='secondary' size='sm'>
             Next Project
             <MdChevronRight className='h-4 w-4' />
-          </Link>
+          </Button>
         </div>
       )}
     </main>

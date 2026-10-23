@@ -4,8 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { clsx } from 'clsx';
-import { TbSnowflake } from 'react-icons/tb';
-import { useSnow } from '@/components/SnowEffect';
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
 
 const navLinks = [
@@ -24,7 +22,6 @@ const MOBILE_NAV_QUERY = '(max-width: 1023px)';
 export default function Header() {
   const headerRef = useRef(null);
   const pathname = usePathname();
-  const { isActive: isSnowActive, toggle: toggleSnow } = useSnow();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
@@ -121,7 +118,7 @@ export default function Header() {
     >
       <div className='site-header__inner'>
         <Link href='/' className='site-header__logo' aria-label='Bryan Girado - Home' onClick={closeMenu}>
-          <span className='site-header__logo-text fontTitles'>Bryan Girado</span>
+          <span className='site-header__logo-text'>Bryan Girado</span>
         </Link>
 
         {isMenuOpen ? (
@@ -165,17 +162,6 @@ export default function Header() {
                 </Link>
               )
             )}
-
-            <button
-              type='button'
-              className={clsx('site-header__pill', isSnowActive && 'site-header__pill--active')}
-              onClick={toggleSnow}
-              aria-pressed={isSnowActive}
-              aria-label='Toggle snow effect'
-            >
-              <TbSnowflake className={clsx('site-header__pill-icon', isSnowActive && 'is-spinning')} />
-              <span className='site-header__pill-label'>Let it snow</span>
-            </button>
           </div>
         </nav>
 

@@ -54,7 +54,7 @@ export default function AnimatedTooltip({ items }) {
                   rotate,
                   whiteSpace: 'nowrap',
                 }}
-                className='tools-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-3 -translate-x-1/2 rounded-full border border-main-gray/25 bg-main-dark/95 px-4 py-2 text-xs font-medium text-main-white shadow-xl backdrop-blur-md'
+                className='tools-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-3 -translate-x-1/2 rounded-full border border-black/20 bg-surface px-4 py-2 text-bs-18 font-medium text-ink shadow-sm'
               >
                 {item.title}
               </motion.div>
@@ -62,9 +62,10 @@ export default function AnimatedTooltip({ items }) {
           </AnimatePresence>
           <div
             onMouseMove={handleMouseMove}
-            className='flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-2xl border border-main-gray/20 bg-[#2B3138]/70 transition-colors duration-300 hover:border-main-gray/40 lg:h-[100px] lg:w-[100px]'
+            className='flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-2xl border border-black/10 bg-transparent transition-colors duration-300 hover:border-black/25 lg:h-[100px] lg:w-[100px]'
             aria-label={item.title}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image}
               alt=''
@@ -72,7 +73,7 @@ export default function AnimatedTooltip({ items }) {
               height={50}
               loading='eager'
               decoding='async'
-              className='mx-auto h-auto max-h-[50px] w-auto object-contain opacity-80 brightness-0 invert'
+              className='mx-auto h-auto max-h-[50px] w-auto object-contain opacity-90 brightness-0'
             />
           </div>
         </div>
