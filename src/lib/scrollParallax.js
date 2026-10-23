@@ -49,11 +49,13 @@ export function revealOnScroll(
 ) {
   if (!element) return;
 
+  gsap.set(element, { opacity: 0, visibility: 'visible' });
+
   gsap.fromTo(
     element,
-    { autoAlpha: 0, y },
+    { opacity: 0, y },
     {
-      autoAlpha: 1,
+      opacity: 1,
       y: 0,
       duration,
       delay,
@@ -62,7 +64,6 @@ export function revealOnScroll(
         trigger: element,
         start,
         once: true,
-        invalidateOnRefresh: true,
       },
       onComplete: () => clearRevealTransform(element),
     }
@@ -85,12 +86,11 @@ export function revealEachInView(
   const targets = gsap.utils.toArray(elements).filter(Boolean);
   if (!targets.length) return;
 
-  gsap.set(targets, { autoAlpha: 0 });
+  gsap.set(targets, { opacity: 0, visibility: 'visible' });
 
   ScrollTrigger.batch(targets, {
     start,
     once: true,
-    invalidateOnRefresh: true,
     onEnter: (batch) => {
       batch.forEach((el) => {
         const index = targets.indexOf(el);
@@ -98,9 +98,9 @@ export function revealEachInView(
 
         gsap.fromTo(
           el,
-          { autoAlpha: 0, y: isOddColumn ? yOdd : yEven },
+          { opacity: 0, y: isOddColumn ? yOdd : yEven },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             duration,
             delay: isOddColumn ? delayOdd : 0,
@@ -130,11 +130,13 @@ export function revealBatch(
 
   const triggerEl = trigger || targets[0];
 
+  gsap.set(targets, { opacity: 0, visibility: 'visible' });
+
   gsap.fromTo(
     targets,
-    { autoAlpha: 0, y },
+    { opacity: 0, y },
     {
-      autoAlpha: 1,
+      opacity: 1,
       y: 0,
       duration,
       stagger,
@@ -143,7 +145,6 @@ export function revealBatch(
         trigger: triggerEl,
         start,
         once: true,
-        invalidateOnRefresh: true,
       },
       onComplete: () => clearRevealTransform(targets),
     }
@@ -162,7 +163,7 @@ export function useScrollReveal(rootRef) {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(nodes, { autoAlpha: 1, y: 0 });
+        gsap.set(nodes, { opacity: 1, y: 0 });
       });
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -172,13 +173,6 @@ export function useScrollReveal(rootRef) {
           revealOnScroll(node, { delay, y });
         });
       });
-
-      const refresh = () => ScrollTrigger.refresh();
-      if (document.readyState === 'complete') {
-        requestAnimationFrame(refresh);
-      } else {
-        window.addEventListener('load', refresh, { once: true });
-      }
 
       return () => mm.revert();
     },

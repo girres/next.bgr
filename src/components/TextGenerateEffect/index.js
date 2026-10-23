@@ -18,6 +18,7 @@ export default function TextGenerateEffect({
   filter = true,
   highlightWords = [],
   hoverPreviews = [],
+  instantReveal = false,
 }) {
   const rootRef = useRef(null);
   const wordsArray = words.split(' ');
@@ -61,7 +62,12 @@ export default function TextGenerateEffect({
     return () => window.removeEventListener('scroll', onScroll);
   }, [peekConfig, closePreview]);
 
-  useTextGenerateReveal(rootRef, { duration, filter, scrollTrigger: false });
+  useTextGenerateReveal(rootRef, {
+    duration,
+    filter,
+    scrollTrigger: false,
+    instant: instantReveal,
+  });
 
   useEffect(() => {
     const root = rootRef.current;

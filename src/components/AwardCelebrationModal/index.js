@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
-import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
+import { gsap, useGSAP } from '@/lib/gsapClient';
+import { refreshScrollTriggers } from '@/lib/scrollTriggerRefresh';
 
 const CONFETTI_COLORS = ['#000000', '#333333', '#666666', '#999999', '#cccccc', '#ffffff'];
 
@@ -132,7 +133,7 @@ export default function AwardCelebrationModal({
       window.removeEventListener('keydown', onKeyDown);
       html.classList.remove('award-modal-open');
       requestAnimationFrame(() => {
-        ScrollTrigger.refresh(true);
+        refreshScrollTriggers();
       });
     };
   }, [isRendered, handleClose]);

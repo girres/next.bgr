@@ -54,8 +54,10 @@ export default function Home() {
                   match: 'astronaut',
                   src: '/images/home/peeks/astronaut.jpg',
                   alt: 'Astronaut — hover peek preview',
-                  width: 300,
-                  height: 188,
+                  width: 200,
+                  height: 248,
+                  imageWidth: 526,
+                  imageHeight: 652,
                 },
               ]}
             />
@@ -66,10 +68,10 @@ export default function Home() {
         <HeroBadges className='home-hero__badges--desktop' />
       </section>
 
-      {/* Skills Marquee */}
-      <ScrollReveal className='mt-14 lg:mt-20'>
+      {/* Skills Marquee — no ScrollReveal (avoids layout shift at page load) */}
+      <div className='mt-14 lg:mt-20'>
         <SkillsMarquee />
-      </ScrollReveal>
+      </div>
 
       {/* Projects Section */}
       <div className='section-y site-container'>

@@ -15,6 +15,7 @@ export function useTextGenerateReveal(
     filter = TEXT_GENERATE_DEFAULTS.filter,
     scrollTrigger = false,
     scrollStart = TEXT_GENERATE_DEFAULTS.scrollStart,
+    instant = false,
   } = {}
 ) {
   useGSAP(
@@ -28,28 +29,42 @@ export function useTextGenerateReveal(
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(wordNodes, { autoAlpha: 1, y: 0, filter: 'none' });
+        gsap.set(wordNodes, { opacity: 1, filter: 'none' });
       });
 
+      if (instant) {
+        mm.add('(prefers-reduced-motion: no-preference)', () => {
+          gsap.set(wordNodes, { opacity: 1, filter: 'none' });
+        });
+        return () => mm.revert();
+      }
+
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        const vars = {
-          autoAlpha: 0,
-          y: 10,
+        // Opacity only — visibility stays visible so the block keeps its height (no scroll jump).
+        gsap.set(wordNodes, {
+          opacity: 0,
+          visibility: 'visible',
           filter: filter ? 'blur(8px)' : 'none',
+        });
+
+        const tweenVars = {
+          opacity: 1,
+          filter: 'none',
           duration,
           stagger,
           ease: 'power2.out',
+          clearProps: filter ? 'filter' : '',
         };
 
         if (scrollTrigger) {
-          vars.scrollTrigger = {
+          tweenVars.scrollTrigger = {
             trigger: root,
             start: scrollStart,
             once: true,
           };
         }
 
-        gsap.from(wordNodes, vars);
+        gsap.to(wordNodes, tweenVars);
       });
 
       return () => mm.revert();

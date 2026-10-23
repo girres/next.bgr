@@ -1,5 +1,9 @@
 @import './tokens.scss';
 
+html {
+    scrollbar-gutter: stable;
+}
+
 * {
     scroll-behavior: auto;
 }

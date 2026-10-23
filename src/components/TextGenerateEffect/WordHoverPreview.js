@@ -31,7 +31,7 @@ export default function WordHoverPreview({ config }) {
     const card = cardRef.current;
     if (!card) return;
 
-    const width = config?.width ?? 300;
+    const width = config?.displayWidth ?? config?.width ?? 300;
     const targetX = clampX(x, width);
     const targetY = y - CURSOR_GAP;
 
@@ -107,8 +107,10 @@ export default function WordHoverPreview({ config }) {
 
   if (!isMounted) return null;
 
-  const width = config?.width ?? 300;
-  const height = config?.height ?? 188;
+  const width = config?.displayWidth ?? config?.width ?? 300;
+  const height = config?.displayHeight ?? config?.height ?? 188;
+  const imageWidth = config?.imageWidth ?? width;
+  const imageHeight = config?.imageHeight ?? height;
   const src = config?.src;
 
   return createPortal(
@@ -122,10 +124,11 @@ export default function WordHoverPreview({ config }) {
       {src ? (
         <div className='text-generate-peek__frame' style={{ aspectRatio: `${width} / ${height}` }}>
           <Image
+            key={src}
             src={src}
             alt={config.alt ?? ''}
-            width={width}
-            height={height}
+            width={imageWidth}
+            height={imageHeight}
             className='text-generate-peek__image'
             sizes={`${width}px`}
           />

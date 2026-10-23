@@ -10,11 +10,10 @@
     border: 1px solid transparent;
     border-radius: 0;
     transition:
-        padding 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-        background 0.4s ease,
-        border-color 0.4s ease,
-        box-shadow 0.4s ease,
-        backdrop-filter 0.4s ease;
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        backdrop-filter 0.35s ease;
 
     @screen md {
         padding: 1.1rem 1.5rem;
@@ -24,13 +23,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1.375rem 2.75rem;
-    }
-
-    &--scrolled {
-        @screen lg {
-            padding: 1rem 2rem;
-        }
+        padding: 1.25rem 2.5rem;
     }
 
     &--solid,
@@ -40,15 +33,6 @@
         box-shadow: none;
         backdrop-filter: blur(22px) saturate(160%);
         -webkit-backdrop-filter: blur(22px) saturate(160%);
-    }
-
-    &--solid {
-        .site-header__logo-text,
-        .site-header__link {
-            font-size: var(--text-body-lg-size);
-            line-height: var(--text-body-lg-lh);
-            letter-spacing: var(--text-body-tracking);
-        }
     }
 
     &__inner {

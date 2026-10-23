@@ -3,29 +3,8 @@
 import { useRef } from 'react';
 import workProjects from '@/data/workProjects';
 import WorkCard from '@/components/WorkStack/WorkCard';
-import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsapClient';
+import { gsap, useGSAP } from '@/lib/gsapClient';
 import { revealEachInView, revealOnScroll } from '@/lib/scrollParallax';
-
-function bindWorkStackRefresh(root) {
-  if (!root) return undefined;
-
-  const refresh = () => ScrollTrigger.refresh();
-
-  root.querySelectorAll('.work-stack img').forEach((img) => {
-    if (!img.complete) {
-      img.addEventListener('load', refresh, { once: true });
-    }
-  });
-
-  if (document.readyState === 'complete') {
-    requestAnimationFrame(refresh);
-  } else {
-    window.addEventListener('load', refresh, { once: true });
-  }
-
-  return refresh;
-}
-
 export default function WorkStack() {
   const rootRef = useRef(null);
 
@@ -39,7 +18,7 @@ export default function WorkStack() {
       const title = rootRef.current?.querySelector('.work-section__title');
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set([title, ...items].filter(Boolean), { autoAlpha: 1, y: 0 });
+        gsap.set([title, ...items].filter(Boolean), { opacity: 1, y: 0 });
       });
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -52,7 +31,6 @@ export default function WorkStack() {
           delayOdd: 0.07,
         });
 
-        bindWorkStackRefresh(rootRef.current);
       });
 
       return () => mm.revert();

@@ -10,7 +10,10 @@ gsap.registerPlugin(useGSAP);
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Physics2DPlugin);
-  ScrollTrigger.config({ ignoreMobileResize: true });
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    autoRefreshEvents: 'visibilitychange',
+  });
 }
 
 gsap.defaults({ ease: 'power2.out' });
