@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import workProjects from '@/data/workProjects';
+import { getWorkListing } from '@/content/case-studies';
 import WorkCard from '@/components/WorkStack/WorkCard';
 import { gsap, useGSAP } from '@/lib/gsapClient';
 import { revealEachInView, revealOnScroll } from '@/lib/scrollParallax';
@@ -45,7 +45,7 @@ export default function WorkStack() {
       </h3>
 
       <div className='work-stack' role='list'>
-        {workProjects.map((project) => (
+        {getWorkListing().map((project) => (
           <div key={project.title} className='work-stack__item' role='listitem'>
             <WorkCard project={project} />
           </div>

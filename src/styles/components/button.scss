@@ -51,6 +51,17 @@
     }
 }
 
+.btn--accent {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-on-primary);
+
+    &:hover:not(:disabled) {
+        background-color: transparent;
+        color: var(--color-accent-ink);
+    }
+}
+
 .btn--sm {
     font-size: 1.125rem;
     line-height: 1.5rem;

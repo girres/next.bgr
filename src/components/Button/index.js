@@ -12,7 +12,9 @@ export default function Button({
 }) {
   const classes = clsx(
     'btn',
-    variant === 'secondary' ? 'btn--secondary' : 'btn--primary',
+    variant === 'secondary' && 'btn--secondary',
+    variant === 'accent' && 'btn--accent',
+    variant === 'primary' && 'btn--primary',
     size === 'sm' && 'btn--sm',
     className,
   );

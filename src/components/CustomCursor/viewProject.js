@@ -1,4 +1,4 @@
-const VIEW_PROJECT_SELECTOR = '.work-card__media';
+const VIEW_PROJECT_SELECTOR = '.work-card';
 
 export function isViewProjectPoint(x, y) {
   const target = document.elementFromPoint(x, y);

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { clsx } from 'clsx';
 import { useGSAP, ScrollTrigger } from '@/lib/gsapClient';
+import { isCaseStudyPath } from '@/content/case-studies';
 
 const navLinks = [
   { label: 'Work', href: '/#projects', section: 'projects' },
@@ -125,6 +126,8 @@ export default function Header() {
     },
     { scope: headerRef, dependencies: [pathname] }
   );
+
+  if (isCaseStudyPath(pathname)) return null;
 
   return (
     <header

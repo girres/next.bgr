@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { clsx } from 'clsx';
@@ -15,7 +16,6 @@ export default function WorkCard({ project }) {
 
   const {
     confidential = false,
-    external = false,
     deviceMockup = false,
     award = null,
     imageFit = 'cover',
@@ -25,14 +25,16 @@ export default function WorkCard({ project }) {
 
   const year = projectYear(project);
   const summary = (description || project.headline || '').replace(/\s*\n+\s*/g, ' ').trim();
+  const caseStudyHref = project.link;
 
   const handleAwardClick = (event) => {
+    event.preventDefault();
     event.stopPropagation();
     if (!award) return;
     openAward({
       title: award.title,
       awardHref: award.href,
-      projectHref: project.link,
+      projectHref: caseStudyHref,
     });
   };
 
@@ -42,21 +44,34 @@ export default function WorkCard({ project }) {
     showcase && 'work-card__media--showcase'
   );
 
-  const mediaAriaLabel = external
-    ? `View live: ${project.title}`
-    : `View case study: ${project.title}`;
+  const cardAriaLabel = `View case study: ${project.title}`;
+  const [preferStill, setPreferStill] = useState(false);
 
-  const mediaHit = external ? (
-    <a
-      className='work-card__media-hit'
-      href={project.link}
-      target='_blank'
-      rel='noopener noreferrer'
-      aria-label={mediaAriaLabel}
-    />
-  ) : (
-    <Link className='work-card__media-hit' href={project.link} aria-label={mediaAriaLabel} />
-  );
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setPreferStill(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  const showVideo = Boolean(project.video) && !preferStill && !deviceMockup;
+  const videoClipEnd = project.videoClipEnd ?? null;
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoClipEnd || !showVideo) return undefined;
+
+    const onTimeUpdate = () => {
+      if (video.currentTime >= videoClipEnd) {
+        video.currentTime = 0;
+      }
+    };
+
+    video.addEventListener('timeupdate', onTimeUpdate);
+    return () => video.removeEventListener('timeupdate', onTimeUpdate);
+  }, [videoClipEnd, showVideo, project.video]);
 
   return (
     <article
@@ -67,8 +82,9 @@ export default function WorkCard({ project }) {
         showcase && 'work-card--showcase'
       )}
     >
+      <Link className='work-card__hit' href={caseStudyHref} aria-label={cardAriaLabel} />
+
       <div className={mediaClassName}>
-        {mediaHit}
         {deviceMockup ? (
           <div className='work-card__laptop'>
             <div className='work-card__laptop-lid'>
@@ -77,7 +93,7 @@ export default function WorkCard({ project }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt=''
                   className='work-card__laptop-image'
                   loading='lazy'
                   decoding='async'
@@ -89,10 +105,23 @@ export default function WorkCard({ project }) {
               <span className='work-card__laptop-notch' />
             </div>
           </div>
+        ) : showVideo ? (
+          <video
+            ref={videoRef}
+            className='work-card__video'
+            src={project.video}
+            poster={project.image}
+            autoPlay
+            muted
+            loop={!videoClipEnd}
+            playsInline
+            preload='metadata'
+            aria-hidden='true'
+          />
         ) : (
           <Image
             src={project.image}
-            alt={project.title}
+            alt=''
             fill
             style={{
               objectFit: imageFit,
