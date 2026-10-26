@@ -13,15 +13,17 @@ export default function EffortCards({ items }) {
           data-reveal-lag={index * 28}
         >
           <div className='heading'>
-            <Image
-              src={effort.image}
-              alt={effort.title}
-              width={50}
-              height={50}
-              sizes='50px'
-              quality={75}
-              loading='eager'
-            />
+            <div className='effort__icon'>
+              <Image
+                src={effort.image}
+                alt={effort.title}
+                width={50}
+                height={50}
+                sizes='50px'
+                quality={75}
+                loading='eager'
+              />
+            </div>
             <h3>{effort.title}</h3>
           </div>
           <p className='text-body'>{effort.text}</p>

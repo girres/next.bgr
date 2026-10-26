@@ -21,7 +21,7 @@ export default function Home() {
         <div className='site-container home-hero__inner'>
           <div className='home-hero__content'>
             <h1
-              className='home-hero__role max-w-3xl mb-10 lg:mb-14'
+              className='home-hero__role max-w-3xl mb-6 lg:mb-14'
               aria-label='End-to-End Product designer'
             >
               <span className='home-hero__role-hidden-line' aria-hidden='true'>
@@ -61,7 +61,7 @@ export default function Home() {
                 },
               ]}
             />
-            <HeroBadges className='home-hero__badges--mobile' />
+            <HeroBadges className='home-hero__badges--mobile' showReveal={false} />
           </div>
         </div>
 

@@ -95,7 +95,7 @@ export default function ExperienceSection() {
           </div>
           <aside className='about-story__meta'>
             <p className='about-story__name'>Bryan Girado</p>
-            <p>End-to-End Product Designer</p>
+            <p>Product designer</p>
             <AboutFaceReveal />
           </aside>
         </div>

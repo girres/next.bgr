@@ -66,15 +66,25 @@
 
     &__logo-text {
         color: var(--color-ink);
-        font-size: 1rem;
+        font-size: var(--text-nav-size);
         font-weight: 600;
-        line-height: 1.3;
         letter-spacing: -0.02em;
         white-space: nowrap;
-        transition:
-            font-size 0.4s ease,
-            line-height 0.4s ease,
-            letter-spacing 0.4s ease;
+
+        @screen lg {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: stretch;
+
+            &::after {
+                content: '';
+                display: block;
+                height: 2px;
+                margin-top: 0.12em;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
     }
 
     &__nav-backdrop {

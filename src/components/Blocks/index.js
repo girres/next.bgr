@@ -74,9 +74,9 @@ const tools = [
 export const Clients = () => {
   return (
     <div id='clients' className='lg:flex lg:items-center lg:gap-8'>
-      <h2 className='lg:w-[20%] flex-shrink-0 mb-10 lg:mb-0' data-reveal>
+      <h3 className='lg:w-[20%] flex-shrink-0 mb-10 lg:mb-0' data-reveal>
         Worked <span className='text-muted'>with:</span>
-      </h2>
+      </h3>
       <div className='w-full lg:flex-1 mt-5 lg:mt-0' data-reveal data-reveal-lag='28'>
         <ClientsMarquee />
       </div>

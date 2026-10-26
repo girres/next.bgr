@@ -40,7 +40,9 @@ export default function WorkStack() {
 
   return (
     <div id='projects' ref={rootRef}>
-      <h2 className='work-section__title'>Selected Projects</h2>
+      <h3 className='work-section__title'>
+        Selected <span className='text-muted'>Projects</span>
+      </h3>
 
       <div className='work-stack' role='list'>
         {workProjects.map((project) => (

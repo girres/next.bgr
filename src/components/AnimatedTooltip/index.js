@@ -54,7 +54,7 @@ export default function AnimatedTooltip({ items }) {
                   rotate,
                   whiteSpace: 'nowrap',
                 }}
-                className='tools-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-3 -translate-x-1/2 rounded-full border border-black/20 bg-surface px-4 py-2 text-bs-18 font-medium text-ink shadow-sm'
+                className='tools-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-3 -translate-x-1/2 rounded-full border border-accent/20 bg-accent-soft px-4 py-2 text-bs-18 font-medium text-accent-ink shadow-none'
               >
                 {item.title}
               </motion.div>
