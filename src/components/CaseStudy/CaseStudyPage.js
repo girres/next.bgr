@@ -2,7 +2,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import { getAdjacentCaseStudies } from '@/content/case-studies';
 import CaseStudyTopBar from './CaseStudyTopBar';
 import CaseStudyHero from './CaseStudyHero';
-import CaseStudyHiringMeta from './CaseStudyHiringMeta';
+import CaseStudyHiringMeta, { CaseStudyUserTesting } from './CaseStudyHiringMeta';
 import CaseStudySection from './CaseStudySection';
 import CaseStudyOutcomes from './CaseStudyOutcomes';
 
@@ -24,6 +24,7 @@ export default function CaseStudyPage({ study }) {
         {sections.map((section) => (
           <CaseStudySection key={section.id} section={section} title={study.title} />
         ))}
+        <CaseStudyUserTesting study={study} />
         <CaseStudyOutcomes outcomes={study.outcomes} awards={study.awards} />
       </ScrollReveal>
     </main>

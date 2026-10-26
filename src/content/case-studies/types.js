@@ -8,6 +8,7 @@
  * @property {string} [alt]
  * @property {string} [caption]
  * @property {MediaLayout} [layout]
+ * @property {string} [aspect]
  *
  * @typedef {Object} CaseStudySection
  * @property {string} id
@@ -15,6 +16,7 @@
  * @property {string} title
  * @property {string} [body]
  * @property {MediaBlock | MediaBlock[]} media
+ * @property {number} [mediaRotate]
  *
  * @typedef {Object} CaseStudyListing
  * @property {string} number
@@ -41,6 +43,9 @@
  * @property {Object} hiring
  * @property {string[]} tags
  * @property {string} overview
+ * @property {string[]} [challenge]
+ * @property {string} [userTesting]
+ * @property {MediaBlock} [userTestingMedia]
  * @property {string} [website]
  * @property {MediaBlock} [heroMedia]
  * @property {CaseStudySection[]} sections

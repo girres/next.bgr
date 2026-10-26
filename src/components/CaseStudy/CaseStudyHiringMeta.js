@@ -1,5 +1,6 @@
 import { MdChevronRight } from 'react-icons/md';
 import Button from '@/components/Button';
+import CaseStudyMedia from './CaseStudyMedia';
 
 export function CaseStudyFacts({ study }) {
   const { hiring, year, website } = study;
@@ -62,22 +63,69 @@ export function CaseStudyFacts({ study }) {
   );
 }
 
-export default function CaseStudyHiringMeta({ study }) {
-  const { hiring, tags, overview } = study;
-  const responsibilities = hiring?.responsibilities;
-  if (!overview && !responsibilities?.length) return null;
+function Prose({ paragraphs }) {
+  if (!paragraphs?.length) return null;
 
   return (
-    <section className='case-study__block case-study__split' aria-labelledby='case-study-overview' data-reveal>
+    <div className='case-study__prose'>
+      {paragraphs.map((paragraph) => (
+        <p key={paragraph} className='case-study__block-body case-study__prose-p'>
+          {paragraph}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function SplitBlock({ id, title, children }) {
+  return (
+    <section className='case-study__block case-study__split' aria-labelledby={id} data-reveal>
       <div className='case-study__split-copy'>
-        <h2 id='case-study-overview' className='case-study__block-title'>
-          Overview
+        <h2 id={id} className='case-study__block-title'>
+          {title}
         </h2>
       </div>
+      <div className='case-study__split-panel'>{children}</div>
+    </section>
+  );
+}
 
-      <div className='case-study__split-panel'>
+function ResponsibilitiesContent({ responsibilities, tags }) {
+  return (
+    <>
+      {responsibilities?.length ? (
+        <ul className='case-study__list case-study__list--columns'>
+          {responsibilities.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : null}
+      {tags?.length ? (
+        <ul className='case-study__tags'>
+          {tags.map((tag) => (
+            <li key={tag} className='pill'>
+              {tag}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
+  );
+}
+
+export default function CaseStudyHiringMeta({ study }) {
+  const { hiring, tags, overview, challenge, userTesting } = study;
+  const responsibilities = hiring?.responsibilities;
+  const challengeParagraphs = Array.isArray(challenge) ? challenge : [];
+  const hasResponsibilities = Boolean(responsibilities?.length || tags?.length);
+  if (!overview && !hasResponsibilities && !challengeParagraphs.length) return null;
+
+  const narrativeIsSplit = challengeParagraphs.length > 0 || Boolean(userTesting);
+
+  if (!narrativeIsSplit) {
+    return (
+      <SplitBlock id='case-study-overview' title='Overview'>
         {overview ? <p className='case-study__block-body case-study__overview'>{overview}</p> : null}
-
         {responsibilities?.length ? (
           <div className='case-study__split-sub'>
             <h3 className='case-study__label'>Responsibilities</h3>
@@ -88,7 +136,6 @@ export default function CaseStudyHiringMeta({ study }) {
             </ul>
           </div>
         ) : null}
-
         {tags?.length ? (
           <ul className='case-study__tags'>
             {tags.map((tag) => (
@@ -98,7 +145,47 @@ export default function CaseStudyHiringMeta({ study }) {
             ))}
           </ul>
         ) : null}
+      </SplitBlock>
+    );
+  }
+
+  return (
+    <>
+      {overview ? (
+        <SplitBlock id='case-study-overview' title='Overview'>
+          <p className='case-study__block-body case-study__overview'>{overview}</p>
+        </SplitBlock>
+      ) : null}
+
+      {challengeParagraphs.length ? (
+        <SplitBlock id='case-study-challenge' title='The Challenge'>
+          <Prose paragraphs={challengeParagraphs} />
+        </SplitBlock>
+      ) : null}
+
+      {hasResponsibilities ? (
+        <SplitBlock id='case-study-responsibilities' title='Responsibilities'>
+          <ResponsibilitiesContent responsibilities={responsibilities} tags={tags} />
+        </SplitBlock>
+      ) : null}
+    </>
+  );
+}
+
+export function CaseStudyUserTesting({ study }) {
+  if (!study?.userTesting && !study?.userTestingMedia) return null;
+
+  return (
+    <section className='case-study__block case-study__split' aria-labelledby='case-study-user-testing' data-reveal>
+      <div className='case-study__split-copy'>
+        <h2 id='case-study-user-testing' className='case-study__block-title'>
+          User Testing
+        </h2>
+        {study.userTesting ? <p className='case-study__block-body'>{study.userTesting}</p> : null}
       </div>
+      {study.userTestingMedia ? (
+        <CaseStudyMedia media={study.userTestingMedia} title={study.title} frame='half' />
+      ) : null}
     </section>
   );
 }

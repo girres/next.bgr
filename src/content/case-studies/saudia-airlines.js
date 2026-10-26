@@ -20,19 +20,21 @@ const saudiaAirlines = {
     },
   },
   hiring: {
-    role: 'Lead Product & Experience Designer',
+    role: 'UX/UI Product Designer',
     projectType: 'UX/UI, IFE-C systems, passenger experience',
     team: [
       { name: 'Panasonic Avionics', role: 'OEM implementation partner' },
       { name: 'Thales', role: 'OEM implementation partner' },
     ],
     responsibilities: [
-      'End-to-end UX/UI for next-generation seat-back IFE on Panasonic and Thales hardware',
-      'Content discovery, AVOD browsing, and personalized recommendations',
-      'Onboard shopping, food ordering, and ancillary service flows',
-      'Application of the SaudiaBEYOND design system across touchpoints',
-      'Weekly OEM design reviews, walkthroughs, and usability testing',
-      'Accessibility, contrast, and legibility standards for cabin viewing conditions',
+      'Led UX/UI design for next-generation seat-back IFE on Panasonic and Thales hardware, from discovery to delivery.',
+      'Improved and extended the SaudiaBEYOND design system to cover new entertainment and service patterns.',
+      'Redesigned entertainment sections for movies, series, videos, and games, improving hierarchy, discovery, and navigation.',
+      'Designed seat-to-seat communication features.',
+      'Improved the touch device experience so it mirrors and complements what passengers see on the main screen.',
+      'Ran the full design process: research, data analysis, ideation, prototyping, and iteration.',
+      "Maintained constant alignment with Panasonic's development team to translate designs into buildable flows and components.",
+      'Applied accessibility, contrast, and legibility standards for cabin viewing conditions.',
     ],
   },
   tags: [
@@ -40,22 +42,35 @@ const saudiaAirlines = {
     'Interaction Design',
     'User Experience Design',
     'Inflight Entertainment (IFE-C)',
+    'Design Systems',
     'Creative & Experience Design',
   ],
   overview:
-    'After defining SaudiaBEYOND as the passenger experience brand, we extended that system onto next-generation IFE-C platforms from Panasonic and Thales. The goal was a best-in-class discovery and ordering experience that feels unmistakably Saudia — at scale across long-haul fleets.',
+    'I extended the SaudiaBEYOND brand system onto next-generation IFE-C platforms from Panasonic and Thales. The challenge was to replace an outdated navigation with an experience that keeps passengers engaged for long flights, and that feels unmistakably Saudia at scale across the long-haul fleet.',
+  challenge: [
+    "Saudia's previous in-flight navigation was outdated and did little to encourage passengers to explore content during long flights. Many travelers arrived already prepared, with downloaded music and videos, which meant the onboard system was not competing for their attention. The goal was to transform the seat-back experience into a reason to stay engaged, and to shift the relationship with onboard content so passengers see it as part of the journey.",
+    'The strategy went beyond the screen. Passengers were encouraged to download additional audiovisual content before boarding, extending the experience from the airport to the cabin.',
+  ],
+  userTesting:
+    'I conducted in-person usability testing with approximately 40 participants. Each participant received a device and was given tasks to complete, ranging from individual goals to group scenarios. Alongside direct observation and feedback, we used an internal analytics tool to track heatmaps and dead clicks, which helped us identify friction points that participants did not always verbalize.',
+  userTestingMedia: {
+    type: 'video',
+    src: '/images/projects/saudiaAirlines/user-testing.mp4',
+    alt: 'Usability testing of the in-flight entertainment prototype',
+    aspect: '1068 / 1540',
+  },
   heroMedia: {
     type: 'image',
-    src: '/images/projects/saudiaAirlines/2.jpg',
+    src: '/images/projects/saudiaAirlines/1.jpg',
     alt: 'Saudia Airlines in-flight entertainment interface on seat-back display',
   },
   sections: [
     {
       id: 'discovery',
-      kicker: 'Scope & primary journey',
-      title: 'Content discovery & AVOD',
+      kicker: 'Scope & Primary Journey',
+      title: 'Content Discovery & AVOD',
       body:
-        'Movie and series discovery needed to work at arm’s length, in variable lighting, and without friction. We structured hierarchy, artwork, and metadata so passengers find what they want in fewer steps.',
+        "Movie and series discovery needed to work at arm's length, in variable lighting, and without friction. I restructured hierarchy, artwork, and metadata so passengers find what they want in fewer steps.",
       media: {
         type: 'image',
         src: '/images/projects/saudiaAirlines/3.jpg',
@@ -65,14 +80,14 @@ const saudiaAirlines = {
     },
     {
       id: 'ordering',
-      title: 'Onboard ordering & services',
+      title: 'Onboard Ordering & Services',
       body:
-        'Seat-back shopping and food ordering share patterns with entertainment so the cabin feels like one product — not a stack of separate apps.',
+        'Seat-back shopping and food ordering share patterns with entertainment so the cabin feels like one product, not a stack of separate apps.',
       media: [
         {
-          type: 'image',
-          src: '/images/projects/saudiaAirlines/4.jpg',
-          alt: 'Onboard ordering interface',
+          type: 'video',
+          src: '/images/projects/saudiaAirlines/2.mp4',
+          alt: 'IFE system walkthrough video',
           layout: 'contained',
         },
         {
@@ -85,15 +100,36 @@ const saudiaAirlines = {
     },
     {
       id: 'oem',
-      title: 'OEM collaboration',
+      title: 'OEM Collaboration',
       body:
-        'Design only ships when engineering can build it. We paired weekly with Panasonic and Thales teams to align flows, business rules, and component constraints.',
-      media: {
-        type: 'video',
-        src: '/images/projects/saudiaAirlines/2.mp4',
-        alt: 'IFE system walkthrough video',
-        layout: 'full',
-      },
+        'Design only ships when engineering can build it. I worked weekly with the Panasonic team to align flows, business rules, and component constraints.',
+      mediaRotate: 3000,
+      media: [
+        {
+          type: 'image',
+          src: '/images/projects/saudiaAirlines/5.jpg',
+          alt: 'Annotated Seat Chat specification reviewed with the Panasonic team',
+          layout: 'pair',
+        },
+        {
+          type: 'image',
+          src: '/images/projects/saudiaAirlines/6.jpg',
+          alt: 'Design workshop with the implementation team',
+          layout: 'pair',
+        },
+        {
+          type: 'image',
+          src: '/images/projects/saudiaAirlines/2.jpg',
+          alt: 'Video call with the implementation team',
+          layout: 'pair',
+        },
+        {
+          type: 'image',
+          src: '/images/projects/saudiaAirlines/4.jpg',
+          alt: 'Workshop sorting content categories on the wall',
+          layout: 'pair',
+        },
+      ],
     },
   ],
   gallery: [
@@ -101,8 +137,14 @@ const saudiaAirlines = {
     '/images/projects/saudiaAirlines/2.jpg',
     '/images/projects/saudiaAirlines/3.jpg',
     '/images/projects/saudiaAirlines/4.jpg',
+    '/images/projects/saudiaAirlines/5.jpg',
+    '/images/projects/saudiaAirlines/6.jpg',
   ],
-  videos: ['/images/projects/saudiaAirlines/1.mp4', '/images/projects/saudiaAirlines/2.mp4'],
+  videos: [
+    '/images/projects/saudiaAirlines/1.mp4',
+    '/images/projects/saudiaAirlines/2.mp4',
+    '/images/projects/saudiaAirlines/user-testing.mp4',
+  ],
   awards: [
     {
       title: 'Best Onboard Entertainment',
@@ -112,17 +154,17 @@ const saudiaAirlines = {
   ],
   outcomes: {
     metrics: [
-      { value: 'Award', label: 'Best Onboard Entertainment', detail: 'Onboard Hospitality Awards' },
+      { value: '63%', label: 'Usage increase', detail: 'Onboard device usage' },
+      { value: '22%', label: 'Conversion', detail: 'In-flight purchase conversion' },
       { value: '2', label: 'OEM platforms', detail: 'Panasonic & Thales IFE-C' },
-      { value: 'Fleet', label: 'Long-haul rollout', detail: 'Passenger-facing seat-back experience' },
     ],
     lessons: [
-      'Cabin contrast and type size matter as much as visual polish — design for the seat, not the Figma frame.',
+      'Cabin contrast and type size matter as much as visual polish. Design for the seat, not the Figma frame.',
       'Shared patterns between entertainment and commerce reduce cognitive load when passengers are tired.',
-      'OEM partnership rhythm (weekly reviews, recorded walkthroughs) prevented late-stage rework.',
+      'A consistent rhythm with OEM partners (weekly reviews, recorded walkthroughs) prevented late-stage rework.',
     ],
     conclusion:
-      'SaudiaBEYOND gave us a coherent voice; this program proved it could scale through complex hardware constraints without diluting hospitality or clarity. The result is an experience passengers can navigate intuitively — and an award-winning benchmark for onboard entertainment.',
+      'SaudiaBEYOND gave Saudia a coherent voice. This program showed it could scale through complex hardware constraints without diluting hospitality or clarity. The result is an experience passengers can navigate intuitively, and an award-winning benchmark for onboard entertainment.',
   },
   navigation: { nextSlug: 'reteki' },
 };
