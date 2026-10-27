@@ -13,13 +13,27 @@ export async function generateMetadata({ params }, parent) {
   if (!slug || !study) return notFound();
 
   const previousImages = (await parent).openGraph?.images || [];
-  const ogImage = getCaseStudyOgImage(study);
+  const title = `${study.title} — Case study`;
+  const description = study.seo?.description || study.overview;
+  const ogImage = study.seo?.image || getCaseStudyOgImage(study);
+  const images = ogImage ? [ogImage, ...previousImages] : previousImages;
 
   return {
-    title: `${study.title} — Case study`,
-    description: study.overview,
+    title,
+    description,
+    keywords: study.seo?.keywords,
+    alternates: study.seo?.canonical ? { canonical: study.seo.canonical } : undefined,
+    robots: { index: true, follow: true },
     openGraph: {
-      images: ogImage ? [ogImage, ...previousImages] : previousImages,
+      title,
+      description,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: study.seo?.image?.url ? [study.seo.image.url] : images,
     },
   };
 }

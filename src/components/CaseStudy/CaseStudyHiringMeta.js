@@ -1,9 +1,7 @@
-import { MdChevronRight } from 'react-icons/md';
-import Button from '@/components/Button';
 import CaseStudyMedia from './CaseStudyMedia';
 
 export function CaseStudyFacts({ study }) {
-  const { hiring, year, website } = study;
+  const { hiring, year } = study;
   const { role, projectType, team } = hiring ?? {};
 
   return (
@@ -37,24 +35,6 @@ export function CaseStudyFacts({ study }) {
                   <span className='case-study__team-role'> · {member.role}</span>
                 </span>
               ))}
-            </dd>
-          </div>
-        ) : null}
-        {website ? (
-          <div className='case-study__fact'>
-            <dt>Website</dt>
-            <dd>
-              <Button
-                as='link'
-                href={website}
-                variant='accent'
-                size='sm'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                Visit site
-                <MdChevronRight className='h-4 w-4' aria-hidden='true' />
-              </Button>
             </dd>
           </div>
         ) : null}
@@ -114,7 +94,7 @@ function ResponsibilitiesContent({ responsibilities, tags }) {
 }
 
 export default function CaseStudyHiringMeta({ study }) {
-  const { hiring, tags, overview, challenge, userTesting } = study;
+  const { hiring, tags, overview, challenge, userTesting, research } = study;
   const responsibilities = hiring?.responsibilities;
   const challengeParagraphs = Array.isArray(challenge) ? challenge : [];
   const hasResponsibilities = Boolean(responsibilities?.length || tags?.length);
@@ -168,12 +148,26 @@ export default function CaseStudyHiringMeta({ study }) {
           <ResponsibilitiesContent responsibilities={responsibilities} tags={tags} />
         </SplitBlock>
       ) : null}
+
+      {research?.length ? (
+        <SplitBlock id='case-study-research' title='Research & Process'>
+          <Prose paragraphs={research} />
+        </SplitBlock>
+      ) : null}
     </>
   );
 }
 
 export function CaseStudyUserTesting({ study }) {
   if (!study?.userTesting && !study?.userTestingMedia) return null;
+
+  if (!study.userTestingMedia) {
+    return (
+      <SplitBlock id='case-study-user-testing' title='User Testing'>
+        <Prose paragraphs={[study.userTesting]} />
+      </SplitBlock>
+    );
+  }
 
   return (
     <section className='case-study__block case-study__split' aria-labelledby='case-study-user-testing' data-reveal>
@@ -183,9 +177,7 @@ export function CaseStudyUserTesting({ study }) {
         </h2>
         {study.userTesting ? <p className='case-study__block-body'>{study.userTesting}</p> : null}
       </div>
-      {study.userTestingMedia ? (
-        <CaseStudyMedia media={study.userTestingMedia} title={study.title} frame='half' />
-      ) : null}
+      <CaseStudyMedia media={study.userTestingMedia} title={study.title} frame='half' />
     </section>
   );
 }

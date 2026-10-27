@@ -56,6 +56,7 @@ export function getWorkListing() {
       description: listing.description,
       caption: listingCaption(study),
       image: listing.image,
+      gif: listing.gif ?? null,
       video: listing.video ?? null,
       videoClipEnd: listing.videoClipEnd ?? null,
       link: `/${study.slug}`,

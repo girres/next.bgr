@@ -23,11 +23,15 @@ const saudiaAirlines = {
     role: 'UX/UI Product Designer',
     projectType: 'UX/UI, IFE-C systems, passenger experience',
     team: [
-      { name: 'Panasonic Avionics', role: 'OEM implementation partner' },
-      { name: 'Thales', role: 'OEM implementation partner' },
+      { name: 'Panasonic & Thales', role: 'OEM implementation partner' },
+      { name: 'Julian Harris', role: 'UX Director' },
+      { name: 'Catherine Grey', role: 'Creative Director' },
+      { name: 'Eduarda Zacaro', role: 'Product designer' },
+      { name: 'Bryan Giraldo (Me)', role: 'Product designer' },
+      { name: 'Arif Saeed', role: 'PM' },
     ],
     responsibilities: [
-      'Led UX/UI design for next-generation seat-back IFE on Panasonic and Thales hardware, from discovery to delivery.',
+      'Designed UX/UI for next-generation seat-back IFE on Panasonic and Thales hardware, from discovery to delivery.',
       'Improved and extended the SaudiaBEYOND design system to cover new entertainment and service patterns.',
       'Redesigned entertainment sections for movies, series, videos, and games, improving hierarchy, discovery, and navigation.',
       'Designed seat-to-seat communication features.',

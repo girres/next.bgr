@@ -8,6 +8,8 @@ import { LiaArrowRightSolid } from 'react-icons/lia';
 import { useAwardModal } from '@/components/AwardModalProvider';
 
 function projectYear(project) {
+  const range = project.caption?.match(/\b20\d{2}\s*[–-]\s*20\d{2}\b/);
+  if (range) return range[0].replace(/\s+/g, '');
   return project.caption?.match(/\b20\d{2}\b/)?.[0] ?? null;
 }
 
@@ -56,6 +58,7 @@ export default function WorkCard({ project }) {
   }, []);
 
   const showVideo = Boolean(project.video) && !preferStill && !deviceMockup;
+  const showGif = Boolean(project.gif) && !preferStill && !deviceMockup && !showVideo;
   const videoClipEnd = project.videoClipEnd ?? null;
   const videoRef = useRef(null);
 
@@ -117,6 +120,16 @@ export default function WorkCard({ project }) {
             playsInline
             preload='metadata'
             aria-hidden='true'
+          />
+        ) : showGif ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.gif}
+            alt=''
+            className='work-card__gif'
+            loading='lazy'
+            decoding='async'
+            draggable={false}
           />
         ) : (
           <Image

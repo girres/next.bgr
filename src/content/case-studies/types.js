@@ -22,7 +22,9 @@
  * @property {string} number
  * @property {string} headline
  * @property {string} description
- * @property {string} image
+ * @property {string} description Work card summary; keep to ~2 lines at body size (UI clamps at 2 lines).
+ * @property {string} image Still frame for the work card; independent of heroMedia and not reused in case study sections.
+ * @property {string} [gif] Optional animated card asset (e.g. .gif) when motion is allowed.
  * @property {string} [video]
  * @property {number} [videoClipEnd]
  * @property {string[]} tags
@@ -38,7 +40,9 @@
  * @property {string} slug
  * @property {string} title
  * @property {string} client
- * @property {number} year
+ * @property {number | string} year
+ * @property {Object} [seo]
+ * @property {string[]} [research]
  * @property {CaseStudyListing} listing
  * @property {Object} hiring
  * @property {string[]} tags

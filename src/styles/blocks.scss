@@ -556,7 +556,8 @@
         }
 
         &:hover .work-card__media:not(.work-card__media--showcase) img,
-        &:hover .work-card__media:not(.work-card__media--showcase) .work-card__video {
+        &:hover .work-card__media:not(.work-card__media--showcase) .work-card__video,
+        &:hover .work-card__media:not(.work-card__media--showcase) .work-card__gif {
             transform: scale(1.02);
         }
 
@@ -593,6 +594,10 @@
         &__description {
             margin: 0;
             text-wrap: pretty;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
 
             @media (max-width: 1023px) {
                 font-size: var(--text-body-size);
@@ -725,12 +730,14 @@
             }
 
             img,
-            .work-card__video {
+            .work-card__video,
+            .work-card__gif {
                 transition: transform 0.7s ease;
                 pointer-events: none;
             }
 
-            .work-card__video {
+            .work-card__video,
+            .work-card__gif {
                 position: absolute;
                 inset: 0;
                 width: 100%;
