@@ -10,8 +10,7 @@ const saudiaAirlines = {
     description:
       'Panasonic and Thales in-flight systems redesigned for clearer discovery, onboard ordering, and entertainment across long-haul fleets.',
     image: '/images/projects/saudiaAirlines/1.jpg',
-    video: '/images/projects/saudiaAirlines/1.mp4',
-    videoClipEnd: 12,
+    gif: '/images/projects/saudiaAirlines/card.gif',
     tags: ['In-Flight Entertainment', 'Panasonic × Thales', 'UX/UI Systems'],
     award: {
       title: 'Best Onboard Entertainment',
@@ -76,9 +75,9 @@ const saudiaAirlines = {
       body:
         "Movie and series discovery needed to work at arm's length, in variable lighting, and without friction. I restructured hierarchy, artwork, and metadata so passengers find what they want in fewer steps.",
       media: {
-        type: 'image',
-        src: '/images/projects/saudiaAirlines/3.jpg',
-        alt: 'AVOD browsing and content discovery screens',
+        type: 'video',
+        src: '/images/projects/saudiaAirlines/1.mp4',
+        alt: 'IFE interaction prototype',
         layout: 'full',
       },
     },
@@ -95,9 +94,9 @@ const saudiaAirlines = {
           layout: 'contained',
         },
         {
-          type: 'video',
-          src: '/images/projects/saudiaAirlines/1.mp4',
-          alt: 'IFE interaction prototype',
+          type: 'image',
+          src: '/images/projects/saudiaAirlines/3.jpg',
+          alt: 'AVOD browsing and content discovery screens',
           layout: 'contained',
         },
       ],
