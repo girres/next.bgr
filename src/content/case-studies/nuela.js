@@ -164,27 +164,27 @@ const nuela = {
     metrics: [
       {
         value: '100%',
-        label: 'Cumplimiento normativo',
+        label: 'Regulatory compliance',
       },
       {
         value: '30s',
-        label: 'Tiempo de fichaje',
+        label: 'Clock-in time',
       },
       {
         value: '0',
-        label: 'Papel necesario',
+        label: 'Paper required',
       },
       {
         value: '95%',
-        label: 'Reducción del tiempo en crear horarios',
+        label: 'Reduction in time to build schedules',
       },
       {
         value: '0',
-        label: 'Conflictos de solapamiento',
+        label: 'Overlap conflicts',
       },
       {
         value: '+30%',
-        label: 'Mejor aprovechamiento de espacios',
+        label: 'Better space utilization',
       },
     ],
     lessons: [

@@ -55,6 +55,8 @@
 
     @media (max-width: 1023px) {
         min-height: 100svh;
+        --hero-mobile-stack-offset: 32px;
+        --hero-mobile-stack-gap: 6rem;
     }
 
     &__inner {
@@ -109,9 +111,9 @@
         @media (max-width: 1023px) {
             width: min(14.5rem, 78vw);
             max-width: 100%;
-            margin: 0 0 0.75rem;
+            margin: 1.25rem 0 0.75rem;
             align-self: flex-start;
-            transform: translateY(-60px);
+            transform: translateY(var(--hero-mobile-stack-offset, 0));
         }
 
         @media (min-width: 640px) and (max-width: 1023px) {
@@ -134,6 +136,7 @@
 
     @media (max-width: 1023px) {
         .home-hero__role {
+            margin-top: 0.25rem;
             margin-bottom: 1rem;
         }
     }
@@ -388,13 +391,22 @@
         &--mobile {
             display: flex;
             align-items: flex-start;
-            margin-top: 0;
-            margin-bottom: calc(1.25rem + 80px);
-            transform: translateY(-60px);
+            align-self: flex-start;
+            width: min(14.5rem, 78vw);
+            max-width: 100%;
+            margin-top: -0.125rem;
+            margin-bottom: var(--hero-mobile-stack-gap, 6rem);
+            transform: translateY(var(--hero-mobile-stack-offset, 0));
+
+            @media (min-width: 640px) and (max-width: 1023px) {
+                width: min(17.5rem, 55vw);
+            }
 
             @screen lg {
                 display: none;
                 transform: none;
+                width: auto;
+                max-width: none;
             }
         }
     }
@@ -986,9 +998,22 @@
         &__media--showcase {
             padding: 0;
 
-            img {
+            @media (max-width: 1023px) {
+                aspect-ratio: 16 / 10;
+            }
+
+            img,
+            .work-card__gif {
                 object-fit: cover !important;
                 object-position: center center;
+            }
+
+            @media (max-width: 1023px) {
+                img,
+                .work-card__gif {
+                    object-fit: contain !important;
+                    object-position: center center !important;
+                }
             }
         }
 
