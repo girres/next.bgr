@@ -58,7 +58,9 @@
         --hero-mobile-header-height: 4.25rem;
         --hero-mobile-header-gap: 88px;
         --hero-mobile-prompt-size: min(14.5rem, 78vw);
-        --hero-mobile-stack-gap: 6rem;
+        --hero-mobile-stack-gap: 3rem;
+        --hero-mobile-gif-nudge-down: 3rem;
+        --hero-mobile-gif-inset-x: 64px;
     }
 
     @media (min-width: 640px) and (max-width: 1023px) {
@@ -68,15 +70,18 @@
     &__prompt-stack {
         @media (max-width: 1023px) {
             position: absolute;
-            top: calc(var(--hero-mobile-header-height) + var(--hero-mobile-header-gap));
-            left: calc(1rem + 28px);
+            top: calc(
+                var(--hero-mobile-header-height) + var(--hero-mobile-header-gap) +
+                    var(--hero-mobile-gif-nudge-down, 0)
+            );
+            left: calc(1rem + var(--hero-mobile-gif-inset-x, 0));
             z-index: 8;
             width: var(--hero-mobile-prompt-size);
-            max-width: calc(100% - 2rem - 28px);
+            max-width: calc(100% - 2rem - var(--hero-mobile-gif-inset-x, 0));
         }
 
         @media (min-width: 640px) and (max-width: 1023px) {
-            left: calc(1.25rem + 28px);
+            left: calc(1.25rem + var(--hero-mobile-gif-inset-x, 0));
         }
 
         @screen lg {
