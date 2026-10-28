@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "motion-architect": {
+      "source": "Hainrixz/motion-architect",
+      "sourceType": "github",
+      "skillPath": "skills/motion-architect/SKILL.md",
+      "computedHash": "85e734fc26b2145203de40daa6b7ddcc47caeee2f7014ce5fc62e45fe6eb58b9"
+    }
+  }
+}
