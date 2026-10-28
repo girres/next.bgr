@@ -7,8 +7,9 @@ import {
 } from '@/components/Blocks';
 import SkillsMarquee from '@/components/SkillsMarquee';
 import TextGenerateEffect from '@/components/TextGenerateEffect';
-import HeroScroll from '@/components/HeroScroll';
 import HeroBadges from '@/components/HeroBadges';
+import HeroSkillsPrompt from '@/components/HeroSkillsPrompt';
+import { HeroFaceRevealProvider } from '@/components/HeroFaceRevealContext';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home() {
@@ -16,10 +17,11 @@ export default function Home() {
     <main className='min-h-screen pb-20 max-w-full'>
       {/* Hero */}
       <section className='home-hero'>
-        <HeroScroll />
-
-        <div className='site-container home-hero__inner'>
+        <HeroFaceRevealProvider>
+          <div className='site-container home-hero__inner'>
           <div className='home-hero__content'>
+            <HeroSkillsPrompt />
+            <HeroBadges className='home-hero__badges--mobile' showReveal={false} />
             <h1
               className='home-hero__role max-w-3xl mb-6 lg:mb-14'
               aria-label='End-to-End Product designer'
@@ -61,11 +63,11 @@ export default function Home() {
                 },
               ]}
             />
-            <HeroBadges className='home-hero__badges--mobile' showReveal={false} />
           </div>
         </div>
 
-        <HeroBadges className='home-hero__badges--desktop' />
+          <HeroBadges className='home-hero__badges--desktop' />
+        </HeroFaceRevealProvider>
       </section>
 
       {/* Skills Marquee — no ScrollReveal (avoids layout shift at page load) */}

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
+import { useHeroFaceReveal } from '@/components/HeroFaceRevealContext';
 
 const HOLD_MS = 1300;
 const DRAIN_MS = 280;
@@ -18,7 +19,18 @@ export default function FaceReveal({
   activeClassName = 'face-reveal__trigger--active',
   showDot = true,
   ariaLabel,
+  onRevealChange,
+  swapInPrompt = false,
 }) {
+  const {
+    faceRevealed,
+    overlayDismissProgress,
+    overlayDismissActive,
+    overlay,
+    scheduleOverlayDismiss,
+    cancelOverlayDismiss,
+  } = useHeroFaceReveal();
+
   const [isRevealing, setIsRevealing] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [usePressLabel, setUsePressLabel] = useState(false);
@@ -34,6 +46,16 @@ export default function FaceReveal({
   const rafRef = useRef(null);
   const lastTsRef = useRef(0);
 
+  const dismissRunning =
+    overlayDismissActive || (overlayDismissProgress < 1 && overlayDismissProgress > 0);
+
+  const faceDismissCountdown =
+    swapInPrompt &&
+    faceRevealed &&
+    overlay === 'face' &&
+    isRevealing &&
+    dismissRunning;
+
   const setProgressVisual = (value) => {
     progressRef.current = value;
     if (progressElRef.current) {
@@ -47,6 +69,12 @@ export default function FaceReveal({
       rafRef.current = null;
     }
   };
+
+  const resetFaceUi = useCallback(() => {
+    revealingRef.current = false;
+    setIsRevealing(false);
+    setProgressVisual(0);
+  }, []);
 
   const syncInteractionMode = useCallback(() => {
     const canHoverReveal = window.matchMedia(HOVER_REVEAL_QUERY).matches;
@@ -75,6 +103,22 @@ export default function FaceReveal({
   }, [isRevealing]);
 
   useEffect(() => {
+    onRevealChange?.(isRevealing);
+  }, [isRevealing, onRevealChange]);
+
+  useEffect(() => {
+    if (swapInPrompt && !faceRevealed) {
+      resetFaceUi();
+    }
+  }, [swapInPrompt, faceRevealed, resetFaceUi]);
+
+  useEffect(() => {
+    if (!faceDismissCountdown) return;
+    setProgressVisual(overlayDismissProgress);
+  }, [faceDismissCountdown, overlayDismissProgress]);
+
+  useEffect(() => {
+    if (swapInPrompt) return;
     if ((!isRevealing && !isHovering) || !hoverRevealEnabledRef.current) return;
 
     const handleMouseMove = (event) => {
@@ -89,7 +133,7 @@ export default function FaceReveal({
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isRevealing, isHovering]);
+  }, [isRevealing, isHovering, swapInPrompt]);
 
   useEffect(() => () => stopLoop(), []);
 
@@ -106,9 +150,7 @@ export default function FaceReveal({
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (hoveringRef.current) {
-      const next = reduceMotion
-        ? 1
-        : Math.min(1, progressRef.current + dt / HOLD_MS);
+      const next = reduceMotion ? 1 : Math.min(1, progressRef.current + dt / HOLD_MS);
       setProgressVisual(next);
       if (next >= 1) {
         if (!revealingRef.current) {
@@ -118,10 +160,8 @@ export default function FaceReveal({
         stopLoop();
         return;
       }
-    } else {
-      const next = reduceMotion
-        ? 0
-        : Math.max(0, progressRef.current - dt / DRAIN_MS);
+    } else if (!revealingRef.current || !swapInPrompt) {
+      const next = reduceMotion ? 0 : Math.max(0, progressRef.current - dt / DRAIN_MS);
       setProgressVisual(next);
       if (revealingRef.current) {
         revealingRef.current = false;
@@ -131,6 +171,9 @@ export default function FaceReveal({
         stopLoop();
         return;
       }
+    } else {
+      stopLoop();
+      return;
     }
 
     rafRef.current = requestAnimationFrame(tick);
@@ -140,6 +183,17 @@ export default function FaceReveal({
     if (!hoverRevealEnabledRef.current) return;
     hoveringRef.current = true;
     setIsHovering(true);
+
+    if (swapInPrompt) {
+      if (overlay === 'email' && dismissRunning) return;
+      if (revealingRef.current && overlay === 'face' && dismissRunning) return;
+      if (revealingRef.current && overlay === 'face') {
+        setProgressVisual(overlayDismissProgress < 1 ? overlayDismissProgress : 1);
+        return;
+      }
+      cancelOverlayDismiss();
+    }
+
     startLoop();
   };
 
@@ -147,6 +201,14 @@ export default function FaceReveal({
     if (!hoverRevealEnabledRef.current) return;
     hoveringRef.current = false;
     setIsHovering(false);
+
+    if (swapInPrompt && revealingRef.current && overlay === 'face') {
+      if (!dismissRunning) {
+        scheduleOverlayDismiss(resetFaceUi);
+      }
+      return;
+    }
+
     startLoop();
   };
 
@@ -178,6 +240,8 @@ export default function FaceReveal({
     return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
   }, [isRevealing]);
 
+  const showFloatingPhoto = isRevealing && !swapInPrompt;
+
   return (
     <div ref={containerRef} className={className}>
       <button
@@ -185,8 +249,8 @@ export default function FaceReveal({
         type='button'
         className={clsx(
           triggerClassName,
-          isHovering && 'face-reveal__trigger--charging',
-          isRevealing && activeClassName
+          (isHovering || faceDismissCountdown) && 'face-reveal__trigger--charging',
+          (isRevealing || faceDismissCountdown) && activeClassName
         )}
         onPointerEnter={(event) => {
           if (event.pointerType === 'mouse') showFace();
@@ -214,27 +278,29 @@ export default function FaceReveal({
         <span className='face-reveal__label'>{usePressLabel ? pressLabel : label}</span>
       </button>
 
-      <div
-        ref={imageContainerRef}
-        className={clsx(
-          'face-reveal__photo pointer-events-none',
-          isRevealing && 'face-reveal__photo--visible',
-          !hoverRevealEnabled && 'face-reveal__photo--static'
-        )}
-        aria-hidden={!isRevealing}
-      >
-        <div className='face-reveal__photo-inner'>
-          <Image
-            src='/images/home/profile-hero.jpg'
-            alt='Bryan Girado'
-            width={280}
-            height={280}
-            quality={90}
-            className='h-full w-full rounded-full object-cover'
-            style={{ filter: 'brightness(0.92)' }}
-          />
+      {!swapInPrompt ? (
+        <div
+          ref={imageContainerRef}
+          className={clsx(
+            'face-reveal__photo pointer-events-none',
+            showFloatingPhoto && 'face-reveal__photo--visible',
+            !hoverRevealEnabled && 'face-reveal__photo--static'
+          )}
+          aria-hidden={!showFloatingPhoto}
+        >
+          <div className='face-reveal__photo-inner'>
+            <Image
+              src='/images/home/profile-hero.jpg'
+              alt='Bryan Girado'
+              width={280}
+              height={280}
+              quality={90}
+              className='h-full w-full rounded-full object-cover'
+              style={{ filter: 'brightness(0.92)' }}
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
