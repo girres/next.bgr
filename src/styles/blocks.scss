@@ -55,11 +55,37 @@
 
     @media (max-width: 1023px) {
         min-height: 100svh;
-        --hero-mobile-stack-offset: 32px;
+        --hero-mobile-header-height: 4.25rem;
+        --hero-mobile-header-gap: 60px;
+        --hero-mobile-prompt-size: min(14.5rem, 78vw);
         --hero-mobile-stack-gap: 6rem;
     }
 
+    @media (min-width: 640px) and (max-width: 1023px) {
+        --hero-mobile-prompt-size: min(17.5rem, 55vw);
+    }
+
+    &__prompt-stack {
+        @media (max-width: 1023px) {
+            position: absolute;
+            top: calc(var(--hero-mobile-header-height) + var(--hero-mobile-header-gap));
+            left: 1rem;
+            z-index: 8;
+            width: var(--hero-mobile-prompt-size);
+            max-width: calc(100% - 2rem);
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+            left: 1.25rem;
+        }
+
+        @screen lg {
+            display: contents;
+        }
+    }
+
     &__inner {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -88,6 +114,10 @@
             flex-direction: column;
             align-items: stretch;
             width: 100%;
+            padding-top: calc(
+                var(--hero-mobile-header-height) + var(--hero-mobile-header-gap) +
+                    var(--hero-mobile-prompt-size) + var(--hero-mobile-stack-gap)
+            );
         }
     }
 
@@ -109,16 +139,11 @@
         }
 
         @media (max-width: 1023px) {
-            width: min(14.5rem, 78vw);
+            width: 100%;
             max-width: 100%;
-            margin: 1.25rem 0 0.75rem;
-            align-self: flex-start;
-            transform: translateY(var(--hero-mobile-stack-offset, 0));
-        }
-
-        @media (min-width: 640px) and (max-width: 1023px) {
-            width: min(17.5rem, 55vw);
-            margin-bottom: 0.75rem;
+            margin: 0;
+            align-self: auto;
+            transform: none;
         }
 
         @screen lg {
@@ -147,9 +172,15 @@
         height: auto;
         aspect-ratio: 1;
         border-radius: 1.15rem;
-        object-fit: cover;
+        object-fit: contain;
         border: 1px solid var(--color-ink-border);
         box-shadow: var(--shadow-card);
+        background: var(--color-surface);
+
+        @screen lg {
+            object-fit: cover;
+            background: transparent;
+        }
 
         &--under-face {
             opacity: 0;
@@ -389,25 +420,7 @@
         gap: 0.625rem;
 
         &--mobile {
-            display: flex;
-            align-items: flex-start;
-            align-self: flex-start;
-            width: min(14.5rem, 78vw);
-            max-width: 100%;
-            margin-top: -0.125rem;
-            margin-bottom: var(--hero-mobile-stack-gap, 6rem);
-            transform: translateY(var(--hero-mobile-stack-offset, 0));
-
-            @media (min-width: 640px) and (max-width: 1023px) {
-                width: min(17.5rem, 55vw);
-            }
-
-            @screen lg {
-                display: none;
-                transform: none;
-                width: auto;
-                max-width: none;
-            }
+            display: none;
         }
     }
 

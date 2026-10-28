@@ -19,9 +19,10 @@ export default function Home() {
       <section className='home-hero'>
         <HeroFaceRevealProvider>
           <div className='site-container home-hero__inner'>
-          <div className='home-hero__content'>
+          <div className='home-hero__prompt-stack'>
             <HeroSkillsPrompt />
-            <HeroBadges className='home-hero__badges--mobile' showReveal={false} />
+          </div>
+          <div className='home-hero__content'>
             <h1
               className='home-hero__role max-w-3xl mb-6 lg:mb-14'
               aria-label='End-to-End Product designer'
