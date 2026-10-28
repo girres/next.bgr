@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { clsx } from 'clsx';
 import { useGSAP, ScrollTrigger } from '@/lib/gsapClient';
 import { isCaseStudyPath } from '@/content/case-studies';
+import SiteLogoMark from '@/components/SiteLogoMark';
 
 const navLinks = [
   { label: 'Work', href: '/#projects', section: 'projects' },
@@ -140,7 +141,7 @@ export default function Header() {
     >
       <div className='site-header__inner'>
         <Link href='/' className='site-header__logo' aria-label='Bryan Girado - Home' onClick={closeMenu}>
-          <span className='site-header__logo-text'>Bryan Girado</span>
+          <SiteLogoMark className='site-header__logo-mark' />
         </Link>
 
         {isMenuOpen ? (
