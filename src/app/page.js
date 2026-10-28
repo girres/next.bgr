@@ -72,7 +72,7 @@ export default function Home() {
       </section>
 
       {/* Skills Marquee — no ScrollReveal (avoids layout shift at page load) */}
-      <div className='mt-14 lg:mt-20'>
+      <div className='hidden lg:block lg:mt-20'>
         <SkillsMarquee />
       </div>
 

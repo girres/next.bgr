@@ -56,7 +56,7 @@
     @media (max-width: 1023px) {
         min-height: 100svh;
         --hero-mobile-header-height: 4.25rem;
-        --hero-mobile-header-gap: 60px;
+        --hero-mobile-header-gap: 88px;
         --hero-mobile-prompt-size: min(14.5rem, 78vw);
         --hero-mobile-stack-gap: 6rem;
     }
@@ -69,14 +69,14 @@
         @media (max-width: 1023px) {
             position: absolute;
             top: calc(var(--hero-mobile-header-height) + var(--hero-mobile-header-gap));
-            left: 1rem;
+            left: calc(1rem + 28px);
             z-index: 8;
             width: var(--hero-mobile-prompt-size);
-            max-width: calc(100% - 2rem);
+            max-width: calc(100% - 2rem - 28px);
         }
 
         @media (min-width: 640px) and (max-width: 1023px) {
-            left: 1.25rem;
+            left: calc(1.25rem + 28px);
         }
 
         @screen lg {
@@ -114,6 +114,7 @@
             flex-direction: column;
             align-items: stretch;
             width: 100%;
+            margin-bottom: 24px;
             padding-top: calc(
                 var(--hero-mobile-header-height) + var(--hero-mobile-header-gap) +
                     var(--hero-mobile-prompt-size) + var(--hero-mobile-stack-gap)
