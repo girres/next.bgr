@@ -9,7 +9,7 @@ const reteki = {
     headline: 'Consumer rentals and corporate sales — two products, one brand',
     description:
       'Dual-audience product strategy unifying consumer rentals and corporate sales under one cohesive digital brand.',
-    image: '/images/projects/reteki/2.jpg',
+    image: '/images/projects/reteki/4.jpg',
     tags: ['Dual-Audience UX', 'Web & App', 'Motion Design'],
   },
   hiring: {

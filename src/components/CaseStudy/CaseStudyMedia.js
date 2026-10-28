@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { clsx } from 'clsx';
 import CaseStudyPairRotator from './CaseStudyPairRotator';
 import CaseStudyVideo from './CaseStudyVideo';
+import CaseStudyFrameImage from './CaseStudyFrameImage';
 
 function normalizeMedia(media) {
   if (!media) return [];
@@ -15,8 +15,9 @@ function videoMimeType(src = '') {
   return 'video/mp4';
 }
 
-export function MediaFrame({ block, alt, sizes, priority = false, ratio = 'wide' }) {
+export function MediaFrame({ block, alt, sizes, priority = false, ratio = 'wide', placeholderLabel }) {
   const isGif = block.type === 'gif' || block.src?.endsWith('.gif');
+  const label = placeholderLabel || block.placeholderLabel || alt;
 
   return (
     <figure className='case-study__figure'>
@@ -35,14 +36,13 @@ export function MediaFrame({ block, alt, sizes, priority = false, ratio = 'wide'
           // eslint-disable-next-line @next/next/no-img-element
           <img src={block.src} alt={alt} className='case-study__frame-media' loading='lazy' decoding='async' />
         ) : (
-          <Image
+          <CaseStudyFrameImage
             src={block.src}
             alt={alt}
-            fill
             className='case-study__frame-media'
             sizes={sizes}
-            quality={85}
             priority={priority}
+            placeholderLabel={label}
           />
         )}
       </div>
@@ -51,7 +51,7 @@ export function MediaFrame({ block, alt, sizes, priority = false, ratio = 'wide'
   );
 }
 
-export default function CaseStudyMedia({ media, title = 'Project', rotateMs = 0, frame = 'auto' }) {
+export default function CaseStudyMedia({ media, title = 'Project', rotateMs = 0, frame = 'auto', placeholderLabel }) {
   const blocks = normalizeMedia(media);
   if (!blocks.length) return null;
 
@@ -71,6 +71,7 @@ export default function CaseStudyMedia({ media, title = 'Project', rotateMs = 0,
           alt={block.alt || `${title} visual ${index + 1}`}
           ratio={isGrid || isHalf ? 'standard' : 'wide'}
           sizes={isGrid || isHalf ? '(min-width: 768px) 45vw, 100vw' : '(min-width: 1280px) 1200px, 100vw'}
+          placeholderLabel={placeholderLabel}
         />
       ))}
     </div>

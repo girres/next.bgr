@@ -23,7 +23,7 @@
  * @property {string} headline
  * @property {string} description
  * @property {string} description Work card summary; keep to ~2 lines at body size (UI clamps at 2 lines).
- * @property {string} image Still frame for the work card; independent of heroMedia and not reused in case study sections.
+ * @property {string} image Still frame for the work card only — must not appear in heroMedia, sections, or userTestingMedia on the case study page.
  * @property {string} [gif] Optional animated card asset (e.g. .gif) when motion is allowed.
  * @property {string} [video]
  * @property {number} [videoClipEnd]

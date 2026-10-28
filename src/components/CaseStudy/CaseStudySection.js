@@ -12,7 +12,12 @@ export default function CaseStudySection({ section, title }) {
         </h2>
         {section.body ? <p className='case-study__block-body'>{section.body}</p> : null}
       </div>
-      <CaseStudyMedia media={section.media} title={title} rotateMs={section.mediaRotate} />
+      <CaseStudyMedia
+        media={section.media}
+        title={title}
+        rotateMs={section.mediaRotate}
+        placeholderLabel={section.title}
+      />
     </section>
   );
 }

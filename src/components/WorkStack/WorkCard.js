@@ -127,6 +127,10 @@ export default function WorkCard({ project }) {
             src={project.gif}
             alt=''
             className='work-card__gif'
+            style={{
+              objectFit: imageFit,
+              objectPosition: project.imagePosition || 'center',
+            }}
             loading='lazy'
             decoding='async'
             draggable={false}

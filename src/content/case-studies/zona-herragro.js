@@ -10,7 +10,7 @@ const zonaHerragro = {
     headline: 'A private B2B marketplace built to streamline agricultural supply',
     description:
       'End-to-end marketplace experience connecting agricultural suppliers with streamlined ordering, catalog management, and logistics.',
-    image: '/images/projects/zonaHerragro/1.jpg',
+    image: '/images/projects/zonaHerragro/4.jpg',
     tags: ['B2B E-Commerce', 'Logistics UX', 'Web & App'],
   },
   hiring: {

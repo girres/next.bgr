@@ -9,7 +9,7 @@ const saudiaAirlines = {
     headline: 'Award-winning IFE — discovery, ordering and entertainment at 35,000 ft',
     description:
       'Panasonic and Thales in-flight systems redesigned for clearer discovery, onboard ordering, and entertainment across long-haul fleets.',
-    image: '/images/projects/saudiaAirlines/1.jpg',
+    image: '/images/projects/saudiaAirlines/card-poster.jpg',
     gif: '/images/projects/saudiaAirlines/card.gif',
     tags: ['In-Flight Entertainment', 'Panasonic × Thales', 'UX/UI Systems'],
     award: {

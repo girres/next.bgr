@@ -7,6 +7,55 @@ import nuela from './nuela';
 /** Display order on home work stack */
 const CASE_STUDIES = [saudiaAirlines, reteki, saudiaBeyond, zonaHerragro, nuela];
 
+function normalizeMediaBlocks(media) {
+  if (!media) return [];
+  return Array.isArray(media) ? media : [media];
+}
+
+function listingMediaSrcs(study) {
+  const { listing } = study;
+  if (!listing) return [];
+  return [listing.image, listing.gif, listing.video].filter(Boolean);
+}
+
+function pageMediaSrcs(study) {
+  const srcs = [];
+  if (study.heroMedia?.src) srcs.push(study.heroMedia.src);
+  if (study.userTestingMedia?.src) srcs.push(study.userTestingMedia.src);
+  for (const section of study.sections ?? []) {
+    for (const block of normalizeMediaBlocks(section.media)) {
+      if (block.src) srcs.push(block.src);
+    }
+  }
+  return srcs;
+}
+
+/** Work card assets and in-page media must use different files; in-page srcs must be unique. */
+export function validateCaseStudyMedia(study) {
+  const listing = listingMediaSrcs(study);
+  const page = pageMediaSrcs(study);
+
+  for (const src of listing) {
+    if (page.includes(src)) {
+      throw new Error(
+        `[case-studies] "${study.slug}": work card asset "${src}" is also used on the case study page. Use separate files for the card and the page.`
+      );
+    }
+  }
+
+  const seen = new Set();
+  for (const src of page) {
+    if (seen.has(src)) {
+      throw new Error(
+        `[case-studies] "${study.slug}": "${src}" is used more than once on the case study page.`
+      );
+    }
+    seen.add(src);
+  }
+}
+
+CASE_STUDIES.forEach(validateCaseStudyMedia);
+
 export function getAllCaseStudies() {
   return CASE_STUDIES;
 }
