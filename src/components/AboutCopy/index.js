@@ -85,7 +85,7 @@ function CopyParagraph({ text, onOpenPreview, onClosePreview }) {
             key={`${wordIndex}-${word}`}
             className={[
               'text-generate__word inline-block',
-              highlighted ? 'about-highlight font-medium text-ink' : '',
+              highlighted ? 'about-highlight font-medium' : '',
               previewConfig ? 'text-generate__word--peekable' : '',
             ]
               .filter(Boolean)

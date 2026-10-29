@@ -108,6 +108,7 @@ const nuela = {
       title: 'Real-Time Substitutions & AI Assistant',
       body:
         'The visuals show substitutions as they happen in real time through the app — and the AI assistant at the center of the tool, where teachers and coordinators request cover, ask questions, and move requests forward in one place instead of phone chains and paper.',
+      mediaRotate: 3000,
       media: [
         {
           type: 'image',
@@ -119,6 +120,12 @@ const nuela = {
           type: 'image',
           src: '/images/projects/nuela/substitutions-2.jpg',
           alt: 'Nuela AI assistant for substitution requests and staff queries',
+          layout: 'contained',
+        },
+        {
+          type: 'image',
+          src: '/images/projects/nuela/substitutions-mobile.png',
+          alt: 'Substitution request detail on the Nuela teacher app',
           layout: 'contained',
         },
       ],

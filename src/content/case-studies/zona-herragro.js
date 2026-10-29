@@ -3,7 +3,7 @@ const zonaHerragro = {
   slug: 'zona-herragro',
   title: 'Zona Herragro',
   client: 'Zona Herragro',
-  year: 2023,
+  year: 2021,
   website: 'https://www.zonaherragro.com',
   listing: {
     number: '04',

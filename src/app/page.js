@@ -11,10 +11,12 @@ import HeroBadges from '@/components/HeroBadges';
 import HeroSkillsPrompt from '@/components/HeroSkillsPrompt';
 import { HeroFaceRevealProvider } from '@/components/HeroFaceRevealContext';
 import ScrollReveal from '@/components/ScrollReveal';
+import HomeStoryTheme from '@/components/HomeStoryTheme';
 
 export default function Home() {
   return (
     <main className='min-h-screen pb-20 max-w-full'>
+      <HomeStoryTheme />
       {/* Hero */}
       <section className='home-hero'>
         <HeroFaceRevealProvider>
@@ -88,8 +90,8 @@ export default function Home() {
         </ScrollReveal>
       </div>
 
-      {/* Experience / About Section */}
-      <div className='section-y site-container'>
+      {/* Experience / About Section — dark theme starts here through footer */}
+      <div id='home-about-section' className='section-y site-container'>
         <Experience />
       </div>
 

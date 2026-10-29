@@ -5,7 +5,7 @@ import zonaHerragro from './zona-herragro';
 import nuela from './nuela';
 
 /** Display order on home work stack */
-const CASE_STUDIES = [saudiaAirlines, reteki, saudiaBeyond, zonaHerragro, nuela];
+const CASE_STUDIES = [nuela, saudiaAirlines, saudiaBeyond, reteki, zonaHerragro];
 
 function normalizeMediaBlocks(media) {
   if (!media) return [];

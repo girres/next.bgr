@@ -55,8 +55,8 @@ export default function CaseStudyMedia({ media, title = 'Project', rotateMs = 0,
   const blocks = normalizeMedia(media);
   if (!blocks.length) return null;
 
-  if (rotateMs > 0 && blocks.length > 2) {
-    return <CaseStudyPairRotator blocks={blocks} title={title} interval={rotateMs} />;
+  if (blocks.length > 2) {
+    return <CaseStudyPairRotator blocks={blocks} title={title} interval={rotateMs || 3000} />;
   }
 
   const isGrid = frame === 'auto' && blocks.length > 1;

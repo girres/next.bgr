@@ -3,7 +3,7 @@ const saudiaAirlines = {
   slug: 'saudia-airlines',
   title: 'Saudia Airlines',
   client: 'Saudia Airlines',
-  year: 2024,
+  year: '2022–2024',
   listing: {
     number: '01',
     headline: 'Award-winning IFE — discovery, ordering and entertainment at 35,000 ft',

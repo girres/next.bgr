@@ -47,10 +47,12 @@
     max-width: 100%;
 
     @screen lg {
-        --hero-gif-top: calc(7.25rem + 240px);
+        --hero-gif-top: calc(7.25rem + 240px - 106px);
         --hero-gif-width: min(23.4rem, 28.8vw);
         --hero-aside-gap: 1.125rem;
         --hero-badge-rail: 10.75rem;
+        /* Extra inset so scale(1.2) from top-left does not overlap badge rail */
+        --hero-gif-nudge-left: calc(3.25rem + 24px);
     }
 
     @media (max-width: 1023px) {
@@ -155,13 +157,14 @@
         @screen lg {
             position: absolute;
             top: var(--hero-gif-top);
-            right: calc(2rem + var(--hero-badge-rail) + var(--hero-aside-gap));
+            right: calc(2rem + var(--hero-badge-rail) + var(--hero-aside-gap) + var(--hero-gif-nudge-left, 0));
             width: var(--hero-gif-width);
             max-width: none;
             margin: 0;
             align-self: auto;
             left: auto;
-            transform: none;
+            transform: scale(1.2);
+            transform-origin: top left;
         }
     }
 
@@ -1206,10 +1209,12 @@
 
 #efforts {
     @apply lg:flex items-start;
+    color: var(--story-ink-muted);
 
     h2 {
         @apply min-w-[300px];
         @apply mb-10 lg:mb-0;
+        color: var(--story-ink);
     }
 
     .content {
@@ -1221,6 +1226,8 @@
     .effort {
         @apply rounded-2xl p-6 lg:p-8;
         @apply flex flex-col h-full;
+        background: var(--story-card-bg);
+        border-color: var(--story-border);
 
         .heading {
             @apply flex items-center lg:block;
@@ -1237,12 +1244,14 @@
         }
 
         h3 {
-            @apply text-ink lg:my-5;
+            color: var(--story-ink);
+            @apply lg:my-5;
         }
 
         p {
             @apply mt-5 lg:mt-0;
             @apply flex-1;
+            color: var(--story-ink-muted);
         }
     }
 }
@@ -1252,6 +1261,11 @@
     max-width: 100%;
     overflow-x: clip;
     overflow-y: visible;
+    color: var(--story-ink-muted);
+
+    h2 {
+        color: var(--story-ink);
+    }
 
     .tools-row {
         width: 100%;
@@ -1280,10 +1294,15 @@
 }
 
 #experience {
+    .border-black\/10 {
+        border-color: var(--story-border);
+    }
+
     .about-story {
         &__title {
             @extend .display-title;
             margin-bottom: 2.5rem;
+            color: var(--story-ink);
 
             @media (max-width: 1023px) {
                 font-size: var(--text-h2-size);
@@ -1325,7 +1344,7 @@
             align-items: flex-start;
             gap: 0;
             overflow: visible;
-            color: var(--color-ink-muted);
+            color: var(--story-ink-muted);
             font-size: var(--text-body-size);
             line-height: var(--text-body-lh);
             letter-spacing: var(--text-body-tracking);
@@ -1338,13 +1357,13 @@
         }
 
         &__name {
-            color: var(--color-ink);
+            color: var(--story-ink);
             font-weight: 500;
         }
     }
 
     .about-copy {
-        color: var(--color-ink-muted);
+        color: var(--story-ink-muted);
         font-family: inherit;
         font-size: var(--text-body-size);
         font-weight: 400;
@@ -1357,8 +1376,13 @@
 
             &:hover,
             &:focus-visible {
-                color: var(--color-accent-ink);
+                color: var(--color-accent);
             }
+        }
+
+        .about-highlight {
+            color: var(--color-accent-ink);
+            font-weight: 500;
         }
 
         p + p {
@@ -1415,7 +1439,7 @@
 
         &__section + &__section {
             padding-top: 2rem;
-            border-top: 1px solid var(--color-ink-border);
+            border-top: 1px solid var(--story-border);
 
             @screen lg {
                 padding-top: 0;
@@ -1426,6 +1450,7 @@
         &__heading {
             @extend .display-title;
             margin-bottom: 1rem;
+            color: var(--story-ink);
 
             @media (max-width: 1023px) {
                 font-size: var(--text-h2-size);
@@ -1438,7 +1463,7 @@
 
     .experience-list {
         &__company {
-            color: var(--color-ink);
+            color: var(--story-ink);
             font-size: var(--text-body-size);
             line-height: var(--text-body-lh);
             font-weight: 500;
@@ -1446,7 +1471,7 @@
 
         &__role,
         &__date {
-            color: var(--color-ink-muted);
+            color: var(--story-ink-muted);
             font-size: var(--text-label-size);
             line-height: var(--text-label-lh);
         }
@@ -1464,7 +1489,7 @@
 
     .awards-list {
         &__link {
-            color: var(--color-ink);
+            color: var(--story-ink);
             font-size: var(--text-body-size);
             line-height: var(--text-body-lh);
             font-weight: 500;
@@ -1490,7 +1515,152 @@
 
         &__tag {
             @extend .pill;
+            border-color: var(--story-border-strong);
+            color: var(--story-ink-muted);
         }
+    }
+}
+
+html {
+    --story-t: 0;
+    --story-ink: color-mix(in srgb, var(--color-ink) calc((1 - var(--story-t)) * 100%), var(--color-surface));
+    --story-ink-muted: color-mix(
+        in srgb,
+        var(--color-ink-muted) calc((1 - var(--story-t)) * 100%),
+        rgba(235, 235, 235, 0.62) calc(var(--story-t) * 100%)
+    );
+    --story-border: color-mix(
+        in srgb,
+        var(--color-ink-border) calc((1 - var(--story-t)) * 100%),
+        rgba(235, 235, 235, 0.12) calc(var(--story-t) * 100%)
+    );
+    --story-border-strong: color-mix(
+        in srgb,
+        var(--color-ink-border-strong) calc((1 - var(--story-t)) * 100%),
+        rgba(235, 235, 235, 0.22) calc(var(--story-t) * 100%)
+    );
+    --story-card-bg: color-mix(
+        in srgb,
+        var(--color-surface) calc((1 - var(--story-t)) * 100%),
+        rgba(235, 235, 235, 0.06) calc(var(--story-t) * 100%)
+    );
+}
+
+body {
+    background-color: color-mix(
+        in srgb,
+        var(--color-surface) calc((1 - var(--story-t)) * 100%),
+        var(--color-ink) calc(var(--story-t) * 100%)
+    );
+}
+
+html.home-story-dark {
+    #experience .about-copy .about-highlight {
+        color: var(--color-accent);
+    }
+
+    #experience .about-face-reveal {
+        .hero-badge.hero-badge--reveal {
+            color: rgba(245, 245, 245, 0.92);
+            border-color: rgba(235, 235, 235, 0.35);
+            background: rgba(235, 235, 235, 0.08);
+
+            &:hover,
+            &.face-reveal__trigger--charging,
+            &.hero-badge--reveal-active {
+                border-color: var(--color-accent);
+                color: var(--color-surface);
+            }
+        }
+
+        .face-reveal__progress {
+            background: rgba(235, 235, 235, 0.14);
+        }
+
+        .face-reveal__trigger--charging .face-reveal__progress,
+        .face-reveal__trigger--active .face-reveal__progress {
+            background: rgba(235, 235, 235, 0.22);
+        }
+    }
+
+    #clients {
+        h3 {
+            color: var(--story-ink);
+
+            .text-muted {
+                color: var(--story-ink-muted);
+            }
+        }
+    }
+
+    .clients-marquee__logo img {
+        filter: brightness(0) invert(1);
+        opacity: 0.85;
+    }
+
+    #efforts .effort__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.2);
+
+        img {
+            filter: grayscale(1) brightness(1.12) contrast(0.92);
+            border-radius: 0.55rem;
+        }
+    }
+
+    #tools .tools-row__item {
+        .rounded-2xl.border {
+            border-color: var(--story-border);
+
+            &:hover {
+                border-color: var(--story-border-strong);
+            }
+        }
+
+        img {
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    .site-footer__cta-email-text {
+        color: var(--story-ink);
+    }
+
+    .site-footer__cta-email-line {
+        background: var(--story-ink);
+    }
+
+    .site-footer__bar,
+    .site-footer__meta {
+        color: var(--story-ink-muted);
+    }
+
+    .site-footer__cta-label {
+        color: var(--color-accent);
+    }
+
+    .site-footer__pill {
+        border-color: color-mix(in srgb, var(--color-accent) 38%, transparent);
+        background: var(--color-accent-soft);
+        color: rgba(245, 245, 245, 0.92);
+
+        &:hover {
+            border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+            background: color-mix(in srgb, var(--color-accent) 42%, rgba(0, 0, 0, 0.35));
+        }
+
+        &:active {
+            transform: scale(0.96);
+        }
+    }
+
+    .site-footer__pill-icon {
+        color: rgba(245, 245, 245, 0.88);
     }
 }
 
