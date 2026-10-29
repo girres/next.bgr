@@ -39,7 +39,7 @@ const TYPE_REWRITE_TYPE_CHAR_MS = 42;
 const TYPE_REWRITE_END_HOLD_MS = 700;
 
 const TYPE_REWRITE_PRIMARY = 'Design × Code';
-const TYPE_REWRITE_SECONDARY = "Coding with AI's help";
+const TYPE_REWRITE_SECONDARY = '...not a developer btw';
 const TYPE_REWRITE_SLOT_MS =
   TYPE_REWRITE_PRIMARY.length * TYPE_REWRITE_TYPE_CHAR_MS +
   TYPE_REWRITE_HOLD_MS +
@@ -52,7 +52,7 @@ const PRODUCT_MAKER_PHRASE = 'Product Maker';
 const PRODUCT_MAKER_SUFFIX = 'Maker';
 const PRODUCT_BUILDER_WORD = 'Builder';
 const PRODUCT_BUILDER_PHRASE = 'Product Builder';
-const PRODUCT_WHATEVER = '...or whatever!';
+const PRODUCT_WHATEVER = '...Or whatever\nyou wanna call it';
 
 const PRODUCT_MAKER_ENTRANCE_MS = 600;
 const PRODUCT_MAKER_HOLD_MS = TYPE_REWRITE_HOLD_MS;
@@ -640,21 +640,29 @@ function StableTypewriterShell({
   children,
   anchorContent,
   leadingClass = 'leading-[1.1]',
+  shellClassName,
 }: {
   anchorText: string;
   children: ReactNode;
   anchorContent?: ReactNode;
   leadingClass?: string;
+  shellClassName?: string;
 }) {
   return (
-    <span className={clsx('inline-grid max-w-full justify-items-center', leadingClass)}>
+    <span
+      className={clsx(
+        'inline-grid max-w-full justify-items-center',
+        leadingClass,
+        shellClassName
+      )}
+    >
       <span
-        className='invisible col-start-1 row-start-1 whitespace-pre [grid-area:1/1]'
+        className='invisible col-start-1 row-start-1 w-full text-center whitespace-pre [grid-area:1/1]'
         aria-hidden='true'
       >
         {anchorContent ?? anchorText}
       </span>
-      <span className='col-start-1 row-start-1 flex justify-center [grid-area:1/1]'>
+      <span className='col-start-1 row-start-1 flex w-full justify-center [grid-area:1/1]'>
         {children}
       </span>
     </span>
@@ -664,13 +672,15 @@ function StableTypewriterShell({
 function TypewriterRow({
   display,
   renderText,
+  className,
 }: {
   display: string;
   // eslint-disable-next-line no-unused-vars -- documents the callback argument
   renderText?: (text: string) => ReactNode;
+  className?: string;
 }) {
   return (
-    <span className='inline-flex items-baseline whitespace-pre'>
+    <span className={clsx('whitespace-pre', className ?? 'inline-flex items-baseline')}>
       {renderText ? renderText(display) : <span>{display}</span>}
     </span>
   );
@@ -697,14 +707,21 @@ function KeywordTypeRewrite({
 
 function ProductMakerVisual({ withinSlotMs }: { withinSlotMs: number }) {
   const state = productMakerTextAt(withinSlotMs);
-  const anchor =
-    PRODUCT_BUILDER_PHRASE.length >= PRODUCT_WHATEVER.length
-      ? PRODUCT_BUILDER_PHRASE
-      : PRODUCT_WHATEVER;
+  const whateverAnchor = (
+    <span className='block text-center whitespace-pre leading-[1.06]'>
+      {PRODUCT_WHATEVER}
+    </span>
+  );
   const enter = { duration: 0.6, ease: EASE_MORPH };
+  const typeRowClass = 'block text-center leading-[1.06]';
 
   return (
-    <StableTypewriterShell anchorText={anchor}>
+    <StableTypewriterShell
+      anchorText={PRODUCT_WHATEVER}
+      anchorContent={whateverAnchor}
+      leadingClass='leading-[1.06]'
+      shellClassName='w-full max-w-[min(100%,13.25em)]'
+    >
       {state.entrance ? (
         <LiveSpan
           className='inline-block'
@@ -720,7 +737,7 @@ function ProductMakerVisual({ withinSlotMs }: { withinSlotMs: number }) {
           {state.display}
         </LiveSpan>
       ) : (
-        <TypewriterRow display={state.display} />
+        <TypewriterRow display={state.display} className={typeRowClass} />
       )}
     </StableTypewriterShell>
   );
