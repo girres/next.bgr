@@ -36,6 +36,15 @@
     --text-label-lh: 1.3;
     --text-label-tracking: 0;
 
+    /* Hero agent animation — white, ink, accent greens only */
+    --hero-anim-scene-white: #ffffff;
+    --hero-anim-scene-surface: var(--color-surface);
+    --hero-anim-scene-ink: #000000;
+    --hero-anim-scene-accent: var(--color-accent);
+    --hero-anim-scene-accent-deep: var(--color-accent-ink);
+    --hero-anim-wipe: var(--color-accent);
+    --hero-anim-wipe-ink: #000000;
+
     --radius-card: 1.75rem;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.06);
 }

@@ -34,6 +34,15 @@ module.exports = {
         'bs-48': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.07em' }],
         'bs-72': ['4.5rem', { lineHeight: '1.2', letterSpacing: '-0.07em' }],
       },
+      keyframes: {
+        'caret-blink': {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        'caret-blink': 'caret-blink 1.06s steps(1, end) infinite',
+      },
     },
   },
 };

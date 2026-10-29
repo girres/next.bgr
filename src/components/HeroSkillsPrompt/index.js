@@ -4,9 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { useHeroFaceReveal } from '@/components/HeroFaceRevealContext';
+import HeroAgentAnimation from '@/components/home/HeroAgentAnimation';
 
-const GIF_SRC = '/images/home/hero-skills-prompt.gif';
-const POSTER_SRC = '/images/home/hero-skills-prompt-poster.png';
 const FACE_SRC = '/images/home/profile-hero.jpg';
 export const HERO_CONTACT_EMAIL = 'hello@bryangr.com';
 
@@ -45,7 +44,7 @@ export default function HeroSkillsPrompt() {
 
   const showFaceInPrompt = swapOnPrompt && faceRevealed && !preferStill;
   const showEmailInPrompt = swapOnPrompt && emailRevealed && !preferStill;
-  const hideGifMedia = showFaceInPrompt || showEmailInPrompt;
+  const hideAnimation = showFaceInPrompt || showEmailInPrompt;
   const showDismissRing =
     (showFaceInPrompt || showEmailInPrompt) &&
     (overlayDismissActive || (overlayDismissProgress < 1 && overlayDismissProgress > 0));
@@ -76,32 +75,8 @@ export default function HeroSkillsPrompt() {
         showEmailInPrompt && 'home-hero__prompt--email-active'
       )}
       data-no-cursor-text={!showEmailInPrompt}
-      aria-hidden={showEmailInPrompt || showFaceInPrompt ? undefined : 'true'}
     >
-      {!preferStill ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={GIF_SRC}
-          alt=''
-          width={1080}
-          height={1080}
-          className={clsx(
-            'home-hero__prompt-media',
-            hideGifMedia && 'home-hero__prompt-media--under-face'
-          )}
-          decoding='async'
-        />
-      ) : (
-        <Image
-          src={POSTER_SRC}
-          alt=''
-          width={1080}
-          height={1080}
-          className='home-hero__prompt-media'
-          sizes='(min-width: 1024px) 23rem, 78vw'
-          priority
-        />
-      )}
+      <HeroAgentAnimation obscured={hideAnimation} />
       {showFaceInPrompt ? (
         <div
           className='home-hero__prompt-face'
